@@ -13,6 +13,27 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Map Objects">
+      <UniqueIdentifier>{384134e2-be1c-4080-9233-a4cac49a0685}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scenes">
+      <UniqueIdentifier>{1a20ce98-2a71-42c6-9a2d-837a925870f5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Map Objects\Player">
+      <UniqueIdentifier>{def784cf-4f6b-49b5-8a56-51208b2ca3e3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Map Objects\Bricks">
+      <UniqueIdentifier>{de0525a4-aa62-4626-b799-5a6a8f72ea05}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Map Objects\Enemies">
+      <UniqueIdentifier>{f35221ef-aa89-4dc9-acfd-bcc1e53fe5ad}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Map Objects\Items">
+      <UniqueIdentifier>{3892ebf6-9b91-44bd-b825-f9323fe616b3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Map Objects\Others">
+      <UniqueIdentifier>{151975a3-86e8-4d88-bd39-af8720ac6e28}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -27,12 +48,6 @@
     <ClCompile Include="Animations.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Brick.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Coin.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Collision.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -42,19 +57,7 @@
     <ClCompile Include="Game.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="GameObject.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Goomba.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Mario.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Platform.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="SampleKeyEventHandler.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Sprite.cpp">
@@ -66,14 +69,32 @@
     <ClCompile Include="Textures.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="PlayScene.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Utils.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Brick.cpp">
+      <Filter>Map Objects\Bricks</Filter>
+    </ClCompile>
+    <ClCompile Include="Goomba.cpp">
+      <Filter>Map Objects\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="Coin.cpp">
+      <Filter>Map Objects\Items</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObject.cpp">
+      <Filter>Map Objects\Others</Filter>
+    </ClCompile>
+    <ClCompile Include="SampleKeyEventHandler.cpp">
+      <Filter>Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayScene.cpp">
+      <Filter>Scenes</Filter>
+    </ClCompile>
     <ClCompile Include="Portal.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Map Objects\Others</Filter>
+    </ClCompile>
+    <ClCompile Include="Mario.cpp">
+      <Filter>Map Objects\Player</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -89,12 +110,6 @@
     <ClInclude Include="AssetIDs.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Brick.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Coin.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Collision.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -104,22 +119,10 @@
     <ClInclude Include="Game.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="GameObject.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Goomba.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="KeyEventHandler.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Mario.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Platform.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="SampleKeyEventHandler.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Sprite.h">
@@ -134,17 +137,35 @@
     <ClInclude Include="Textures.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Scene.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="PlayScene.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Utils.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Brick.h">
+      <Filter>Map Objects\Bricks</Filter>
+    </ClInclude>
+    <ClInclude Include="Goomba.h">
+      <Filter>Map Objects\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="Coin.h">
+      <Filter>Map Objects\Items</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObject.h">
+      <Filter>Map Objects\Others</Filter>
+    </ClInclude>
+    <ClInclude Include="SampleKeyEventHandler.h">
+      <Filter>Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayScene.h">
+      <Filter>Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene.h">
+      <Filter>Scenes</Filter>
+    </ClInclude>
     <ClInclude Include="Portal.h">
-      <Filter>Header Files</Filter>
+      <Filter>Map Objects\Others</Filter>
+    </ClInclude>
+    <ClInclude Include="Mario.h">
+      <Filter>Map Objects\Player</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
