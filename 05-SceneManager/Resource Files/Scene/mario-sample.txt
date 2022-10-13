@@ -1,0 +1,22 @@
+[SETTINGS]
+start	1
+width	320
+height	240
+#id		path		type		isCameraMove
+[SCENES]
+1	Resources\Scene\World1-1\scene1.txt
+[TEXTURES]
+# id	file_path	
+0	Resources\Textures\mario.png	
+1	Resources\Textures\mar.png	
+10	Resources\Textures\enemies.png	
+20	Resources\Textures\misc.png	
+21	Resources\Textures\misc2.png	
+30	Resources\Tilemap\world1-1_bank.png
+40	Resources\Textures\enemies1.1.png	
+50	Resources\Textures\enemies-2.png	
+60	Resources\Textures\HUD.png	
+80	Resources\Textures\fonts.png	
+90	Resources\Textures\card.png	
+100	Resources\Textures\mario-left.png	
+110	Resources\Textures\mario-right.png	
