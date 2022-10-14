@@ -23,12 +23,10 @@ CPlayScene::CPlayScene(int id, LPCWSTR filePath):
 
 
 #define SCENE_SECTION_UNKNOWN -1
-#define SCENE_SECTION_ASSETS	1
+#define SCENE_SECTION_ANIMATIONS 1
 #define SCENE_SECTION_OBJECTS	2
+#define SCENE_SECTION_SPRITES 3
 
-#define ASSETS_SECTION_UNKNOWN -1
-#define ASSETS_SECTION_SPRITES 1
-#define ASSETS_SECTION_ANIMATIONS 2
 
 #define MAX_SCENE_LINE 1024
 
@@ -55,16 +53,7 @@ void CPlayScene::_ParseSection_SPRITES(string line)
 	CSprites::GetInstance()->Add(ID, l, t, r, b, tex);
 }
 
-void CPlayScene::_ParseSection_ASSETS(string line)
-{
-	vector<string> tokens = split(line);
 
-	if (tokens.size() < 1) return;
-
-	wstring path = ToWSTR(tokens[0]);
-	
-	LoadAssets(path.c_str());
-}
 
 void CPlayScene::_ParseSection_ANIMATIONS(string line)
 {
@@ -92,109 +81,92 @@ void CPlayScene::_ParseSection_ANIMATIONS(string line)
 */
 void CPlayScene::_ParseSection_OBJECTS(string line)
 {
-	vector<string> tokens = split(line);
-
-	// skip invalid lines - an object set must have at least id, x, y
-	if (tokens.size() < 2) return;
-
-	int object_type = atoi(tokens[0].c_str());
-	float x = (float)atof(tokens[1].c_str());
-	float y = (float)atof(tokens[2].c_str());
-
-	CGameObject *obj = NULL;
-
-	switch (object_type)
-	{
-	case OBJECT_TYPE_MARIO:
-		if (player!=NULL) 
-		{
-			DebugOut(L"[ERROR] MARIO object was created before!\n");
-			return;
-		}
-		obj = new CMario(x,y); 
-		player = (CMario*)obj;  
-
-		DebugOut(L"[INFO] Player object has been created!\n");
-		break;
-	case OBJECT_TYPE_GOOMBA: obj = new CGoomba(x,y); break;
-	case OBJECT_TYPE_BRICK: obj = new CBrick(x,y); break;
-	case OBJECT_TYPE_COIN: obj = new CCoin(x, y); break;
-
-	case OBJECT_TYPE_PLATFORM:
-	{
-
-		float cell_width = (float)atof(tokens[3].c_str());
-		float cell_height = (float)atof(tokens[4].c_str());
-		int length = atoi(tokens[5].c_str());
-		int sprite_begin = atoi(tokens[6].c_str());
-		int sprite_middle = atoi(tokens[7].c_str());
-		int sprite_end = atoi(tokens[8].c_str());
-
-		obj = new CPlatform(
-			x, y,
-			cell_width, cell_height, length,
-			sprite_begin, sprite_middle, sprite_end
-		);
-
-		break;
-	}
-
-	case OBJECT_TYPE_PORTAL:
-	{
-		float r = (float)atof(tokens[3].c_str());
-		float b = (float)atof(tokens[4].c_str());
-		int scene_id = atoi(tokens[5].c_str());
-		obj = new CPortal(x, y, r, b, scene_id);
-	}
-	break;
-
-
-	default:
-		DebugOut(L"[ERROR] Invalid object type: %d\n", object_type);
-		return;
-	}
-
-	// General object setup
-	obj->SetPosition(x, y);
-
-
-	objects.push_back(obj);
+	wstring path = ToWSTR(line);
+	_ParseObjFromFile(path.c_str());
+	
 }
 
-void CPlayScene::LoadAssets(LPCWSTR assetFile)
-{
-	DebugOut(L"[INFO] Start loading assets from : %s \n", assetFile);
-
+void CPlayScene::_ParseObjFromFile(LPCWSTR path) {
 	ifstream f;
-	f.open(assetFile);
-
-	int section = ASSETS_SECTION_UNKNOWN;
+	f.open(path);
+	
 
 	char str[MAX_SCENE_LINE];
 	while (f.getline(str, MAX_SCENE_LINE))
 	{
 		string line(str);
+		vector<string> tokens = split(line);
 
-		if (line[0] == '#') continue;	// skip comment lines	
+		// skip invalid lines - an object set must have at least id, x, y
+		if (tokens.size() < 2) return;
 
-		if (line == "[SPRITES]") { section = ASSETS_SECTION_SPRITES; continue; };
-		if (line == "[ANIMATIONS]") { section = ASSETS_SECTION_ANIMATIONS; continue; };
-		if (line[0] == '[') { section = SCENE_SECTION_UNKNOWN; continue; }
+		int object_type = atoi(tokens[0].c_str());
+		float x = (float)atof(tokens[1].c_str());
+		float y = (float)atof(tokens[2].c_str());
 
-		//
-		// data section
-		//
-		switch (section)
+		CGameObject* obj = NULL;
+
+		switch (object_type)
 		{
-		case ASSETS_SECTION_SPRITES: _ParseSection_SPRITES(line); break;
-		case ASSETS_SECTION_ANIMATIONS: _ParseSection_ANIMATIONS(line); break;
+		case OBJECT_TYPE_MARIO:
+			if (player != NULL)
+			{
+				DebugOut(L"[ERROR] MARIO object was created before!\n");
+				return;
+			}
+			obj = new CMario(x, y);
+			player = (CMario*)obj;
+
+			DebugOut(L"[INFO] Player object has been created!\n");
+			break;
+		case OBJECT_TYPE_GOOMBA: obj = new CGoomba(x, y); break;
+		case OBJECT_TYPE_BRICK: obj = new CBrick(x, y); break;
+		case OBJECT_TYPE_COIN: obj = new CCoin(x, y); break;
+
+		case OBJECT_TYPE_PLATFORM:
+		{
+
+			float cell_width = (float)atof(tokens[3].c_str());
+			float cell_height = (float)atof(tokens[4].c_str());
+			int length = atoi(tokens[5].c_str());
+			int sprite_begin = atoi(tokens[6].c_str());
+			int sprite_middle = atoi(tokens[7].c_str());
+			int sprite_end = atoi(tokens[8].c_str());
+
+			obj = new CPlatform(
+				x, y,
+				cell_width, cell_height, length,
+				sprite_begin, sprite_middle, sprite_end
+			);
+
+			break;
 		}
+
+		case OBJECT_TYPE_PORTAL:
+		{
+			float r = (float)atof(tokens[3].c_str());
+			float b = (float)atof(tokens[4].c_str());
+			int scene_id = atoi(tokens[5].c_str());
+			obj = new CPortal(x, y, r, b, scene_id);
+		}
+		break;
+
+
+		default:
+			DebugOut(L"[ERROR] Invalid object type: %d\n", object_type);
+			return;
+		}
+
+		// General object setup
+		obj->SetPosition(x, y);
+
+
+		objects.push_back(obj);
 	}
-
 	f.close();
-
-	DebugOut(L"[INFO] Done loading assets from %s\n", assetFile);
 }
+
+
 
 void CPlayScene::Load()
 {
@@ -212,7 +184,8 @@ void CPlayScene::Load()
 		string line(str);
 
 		if (line[0] == '#') continue;	// skip comment lines	
-		if (line == "[ASSETS]") { section = SCENE_SECTION_ASSETS; continue; };
+		if (line == "[ANIMATIONS]") { section = SCENE_SECTION_ANIMATIONS; continue; };
+		if (line == "[SPRITES]") { section = SCENE_SECTION_SPRITES; continue; };
 		if (line == "[OBJECTS]") { section = SCENE_SECTION_OBJECTS; continue; };
 		if (line[0] == '[') { section = SCENE_SECTION_UNKNOWN; continue; }	
 
@@ -221,7 +194,8 @@ void CPlayScene::Load()
 		//
 		switch (section)
 		{ 
-			case SCENE_SECTION_ASSETS: _ParseSection_ASSETS(line); break;
+			case SCENE_SECTION_SPRITES: _ParseSection_SPRITES(line); break;
+			case SCENE_SECTION_ANIMATIONS: _ParseSection_ANIMATIONS(line); break;
 			case SCENE_SECTION_OBJECTS: _ParseSection_OBJECTS(line); break;
 		}
 	}
