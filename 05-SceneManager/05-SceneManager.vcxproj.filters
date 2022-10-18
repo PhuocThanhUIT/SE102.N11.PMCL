@@ -34,6 +34,9 @@
     <Filter Include="Map Objects\Others">
       <UniqueIdentifier>{151975a3-86e8-4d88-bd39-af8720ac6e28}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Map">
+      <UniqueIdentifier>{b098c261-f366-487a-b185-dd92b83e3ed1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -95,6 +98,9 @@
     </ClCompile>
     <ClCompile Include="Mario.cpp">
       <Filter>Map Objects\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="Map.cpp">
+      <Filter>Map</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -166,6 +172,9 @@
     </ClInclude>
     <ClInclude Include="Mario.h">
       <Filter>Map Objects\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="Map.h">
+      <Filter>Map</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

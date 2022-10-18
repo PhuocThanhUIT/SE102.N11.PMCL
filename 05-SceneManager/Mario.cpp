@@ -32,7 +32,8 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 void CMario::OnNoCollision(DWORD dt)
 {
 	x += vx * dt;
-	y += vy * dt;
+	//y += vy * dt;
+	y = 360;
 }
 
 void CMario::OnCollisionWith(LPCOLLISIONEVENT e)

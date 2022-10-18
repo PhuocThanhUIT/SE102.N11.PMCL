@@ -9,6 +9,7 @@
 #include "Portal.h"
 #include "Coin.h"
 #include "Platform.h"
+#include "Map.h"
 
 #include "SampleKeyEventHandler.h"
 
@@ -26,6 +27,7 @@ CPlayScene::CPlayScene(int id, LPCWSTR filePath):
 #define SCENE_SECTION_ANIMATIONS 1
 #define SCENE_SECTION_OBJECTS	2
 #define SCENE_SECTION_SPRITES 3
+#define SCENE_SECTION_TILEMAP_DATA	4
 
 
 #define MAX_SCENE_LINE 1024
@@ -167,7 +169,34 @@ void CPlayScene::_ParseObjFromFile(LPCWSTR path) {
 }
 
 
+void CPlayScene::_ParseSection_TILEMAP_DATA(string line)
+{
 
+	int ID, rowMap, columnMap, columnTile, rowTile, totalTiles;
+	LPCWSTR path = ToLPCWSTR(line);
+	ifstream f;
+	f.open(path);
+	f >> ID >> rowMap >> columnMap >> rowTile >> columnTile >> totalTiles;
+	//Init Map Matrix
+	int** TileMapData = new int* [rowMap];
+	for (int i = 0; i < rowMap; i++)
+	{
+		TileMapData[i] = new int[columnMap];
+		int j;
+		for (j = 0; j < columnMap; j++) {
+			f >> TileMapData[i][j];
+			//DebugOut(L"[INFO] _ParseSection_TILEMAP %d \n", TileMapData[i][j]);
+		}
+	}
+	f.close();
+
+	current_map = new CMap(ID, rowMap, columnMap, rowTile, columnTile, totalTiles);
+	current_map->ExtractTileFromTileSet();
+	current_map->SetTileMapData(TileMapData);
+	//mapWidth = current_map->GetMapWidth();
+	DebugOut(L"[INFO] _ParseSection_TILEMAP_DATA done:: \n");
+
+}
 void CPlayScene::Load()
 {
 	DebugOut(L"[INFO] Start loading scene from : %s \n", sceneFilePath);
@@ -185,6 +214,9 @@ void CPlayScene::Load()
 
 		if (line[0] == '#') continue;	// skip comment lines	
 		if (line == "[ANIMATIONS]") { section = SCENE_SECTION_ANIMATIONS; continue; };
+		if (line == "[TILEMAP DATA]") {
+			section = SCENE_SECTION_TILEMAP_DATA; continue;
+		}
 		if (line == "[SPRITES]") { section = SCENE_SECTION_SPRITES; continue; };
 		if (line == "[OBJECTS]") { section = SCENE_SECTION_OBJECTS; continue; };
 		if (line[0] == '[') { section = SCENE_SECTION_UNKNOWN; continue; }	
@@ -197,6 +229,7 @@ void CPlayScene::Load()
 			case SCENE_SECTION_SPRITES: _ParseSection_SPRITES(line); break;
 			case SCENE_SECTION_ANIMATIONS: _ParseSection_ANIMATIONS(line); break;
 			case SCENE_SECTION_OBJECTS: _ParseSection_OBJECTS(line); break;
+			case SCENE_SECTION_TILEMAP_DATA: _ParseSection_TILEMAP_DATA(line); break;
 		}
 	}
 
@@ -227,20 +260,21 @@ void CPlayScene::Update(DWORD dt)
 	// Update camera to follow mario
 	float cx, cy;
 	player->GetPosition(cx, cy);
-
+	current_map->SetCamPos(cx, cy);
 	CGame *game = CGame::GetInstance();
 	cx -= game->GetBackBufferWidth() / 2;
 	cy -= game->GetBackBufferHeight() / 2;
 
 	if (cx < 0) cx = 0;
 
-	CGame::GetInstance()->SetCamPos(cx, 0.0f /*cy*/);
+	CGame::GetInstance()->SetCamPos(cx, cy);
 
 	PurgeDeletedObjects();
 }
 
 void CPlayScene::Render()
 {
+	current_map->DrawMap();
 	for (int i = 0; i < objects.size(); i++)
 		objects[i]->Render();
 }
