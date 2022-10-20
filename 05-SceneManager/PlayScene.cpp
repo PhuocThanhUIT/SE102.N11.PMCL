@@ -27,7 +27,8 @@ CPlayScene::CPlayScene(int id, LPCWSTR filePath):
 #define SCENE_SECTION_ANIMATIONS 1
 #define SCENE_SECTION_OBJECTS	2
 #define SCENE_SECTION_SPRITES 3
-#define SCENE_SECTION_TILEMAP_DATA	4
+#define SCENE_SECTION_ANIMATION_SETS 4
+#define SCENE_SECTION_TILEMAP_DATA	5
 
 
 #define MAX_SCENE_LINE 1024
@@ -77,7 +78,28 @@ void CPlayScene::_ParseSection_ANIMATIONS(string line)
 
 	CAnimations::GetInstance()->Add(ani_id, ani);
 }
+void CPlayScene::_ParseSection_ANIMATION_SETS(string line)
+{
+	vector<string> tokens = split(line);
 
+	if (tokens.size() < 2) return; // skip invalid lines - an animation set must at least id and one animation id
+	int ani_set_id = atoi(tokens[0].c_str());
+	LPANIMATION_SET s;
+	if (CAnimationSets::GetInstance()->animation_sets[ani_set_id] != NULL)
+		s = CAnimationSets::GetInstance()->animation_sets[ani_set_id];
+	else
+		s = new CAnimationSet();
+	CAnimations* animations = CAnimations::GetInstance();
+
+	for (unsigned int i = 1; i < tokens.size(); i++)
+	{
+		int ani_id = atoi(tokens[i].c_str());
+
+		LPANIMATION ani = animations->Get(ani_id);
+		s->push_back(ani);
+	}
+	CAnimationSets::GetInstance()->Add(ani_set_id, s);
+}
 /*
 	Parse a line in section [OBJECTS] 
 */
@@ -98,14 +120,30 @@ void CPlayScene::_ParseObjFromFile(LPCWSTR path) {
 	{
 		string line(str);
 		vector<string> tokens = split(line);
-
+		int ani_set_id, tag = 0, option_tag_1 = 0, option_tag_2 = 0, option_tag_3 = 0;
+		if (line[0] == '#') continue;
 		// skip invalid lines - an object set must have at least id, x, y
-		if (tokens.size() < 2) return;
+		if (tokens.size() < 3) return;
 
 		int object_type = atoi(tokens[0].c_str());
-		float x = (float)atof(tokens[1].c_str());
-		float y = (float)atof(tokens[2].c_str());
+		float  x = 0, y = 0;
+		if (object_type != 999)
+		{
+			x = (float)atof(tokens[1].c_str());
+			y = (float)atof(tokens[2].c_str());
 
+			ani_set_id = (int)atoi(tokens[3].c_str());
+			if (tokens.size() >= 5)
+				tag = (int)atof(tokens[4].c_str());
+			if (tokens.size() >= 6)
+				option_tag_1 = (int)atof(tokens[5].c_str());
+			if (tokens.size() >= 7)
+				option_tag_2 = (int)atof(tokens[6].c_str());
+			if (tokens.size() >= 8)
+				option_tag_3 = (int)atof(tokens[7].c_str());
+		}
+
+		CAnimationSets* animation_sets = CAnimationSets::GetInstance();
 		CGameObject* obj = NULL;
 
 		switch (object_type)
@@ -121,11 +159,11 @@ void CPlayScene::_ParseObjFromFile(LPCWSTR path) {
 
 			DebugOut(L"[INFO] Player object has been created!\n");
 			break;
-		case OBJECT_TYPE_GOOMBA: obj = new CGoomba(x, y); break;
-		case OBJECT_TYPE_BRICK: obj = new CBrick(x, y); break;
-		case OBJECT_TYPE_COIN: obj = new CCoin(x, y); break;
+		//case OBJECT_TYPE_GOOMBA: obj = new CGoomba(x, y); break;
+		case OBJECT_TYPE_BRICK: obj = new CBrick(); break;
+		//case OBJECT_TYPE_COIN: obj = new CCoin(x, y); break;
 
-		case OBJECT_TYPE_PLATFORM:
+		/*case OBJECT_TYPE_PLATFORM:
 		{
 
 			float cell_width = (float)atof(tokens[3].c_str());
@@ -142,16 +180,16 @@ void CPlayScene::_ParseObjFromFile(LPCWSTR path) {
 			);
 
 			break;
-		}
+		}*/
 
-		case OBJECT_TYPE_PORTAL:
+		/*case OBJECT_TYPE_PORTAL:
 		{
 			float r = (float)atof(tokens[3].c_str());
 			float b = (float)atof(tokens[4].c_str());
 			int scene_id = atoi(tokens[5].c_str());
 			obj = new CPortal(x, y, r, b, scene_id);
 		}
-		break;
+		break;*/
 
 
 		default:
@@ -161,8 +199,8 @@ void CPlayScene::_ParseObjFromFile(LPCWSTR path) {
 
 		// General object setup
 		obj->SetPosition(x, y);
-
-
+		LPANIMATION_SET ani_set = animation_sets->Get(ani_set_id);
+		obj->SetAnimationSet(ani_set);
 		objects.push_back(obj);
 	}
 	f.close();
@@ -217,6 +255,9 @@ void CPlayScene::Load()
 		if (line == "[TILEMAP DATA]") {
 			section = SCENE_SECTION_TILEMAP_DATA; continue;
 		}
+		if (line == "[ANIMATION_SETS]") {
+			section = SCENE_SECTION_ANIMATION_SETS; continue;
+		}
 		if (line == "[SPRITES]") { section = SCENE_SECTION_SPRITES; continue; };
 		if (line == "[OBJECTS]") { section = SCENE_SECTION_OBJECTS; continue; };
 		if (line[0] == '[') { section = SCENE_SECTION_UNKNOWN; continue; }	
@@ -229,6 +270,7 @@ void CPlayScene::Load()
 			case SCENE_SECTION_SPRITES: _ParseSection_SPRITES(line); break;
 			case SCENE_SECTION_ANIMATIONS: _ParseSection_ANIMATIONS(line); break;
 			case SCENE_SECTION_OBJECTS: _ParseSection_OBJECTS(line); break;
+			case SCENE_SECTION_ANIMATION_SETS: _ParseSection_ANIMATION_SETS(line); break;
 			case SCENE_SECTION_TILEMAP_DATA: _ParseSection_TILEMAP_DATA(line); break;
 		}
 	}
