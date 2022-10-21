@@ -7,6 +7,7 @@
 #include "Goomba.h"
 #include "Coin.h"
 #include "Portal.h"
+#include "HiddenBrick.h"
 
 #include "Collision.h"
 
@@ -15,6 +16,15 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 	vy += ay * dt;
 	vx += ax * dt;
 
+	for (int i = 0; i < coObjects->size(); i++) {
+		LPGAMEOBJECT obj = coObjects->at(i);
+		if (dynamic_cast<CHiddenBrick*>(obj)) {
+			if (obj->getY() < this->y) {
+				obj->SetIsBlocking(0);
+			}
+			else { obj->SetIsBlocking(1); }
+		}
+	}
 	if (abs(vx) > abs(maxVx)) vx = maxVx;
 
 	// reset untouchable timer if untouchable time has passed
@@ -25,6 +35,8 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 	}
 
 	isOnPlatform = false;
+
+	
 
 	CCollision::GetInstance()->Process(this, dt, coObjects);
 }

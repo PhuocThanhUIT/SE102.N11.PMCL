@@ -63,7 +63,14 @@ public:
 	virtual void OnCollisionWith(LPCOLLISIONEVENT e) {};
 	
 	// Is this object blocking other object? If YES, collision framework will automatically push the other object
-	virtual int IsBlocking() { return 1; }
+	virtual int IsBlocking() { return isBlocking; }
+
+	virtual void SetIsBlocking(int blocking) {
+		 this->isBlocking = blocking;
+	}
+
+	float getX() { return x; }
+	float getY() { return y; }
 
 	~CGameObject();
 
