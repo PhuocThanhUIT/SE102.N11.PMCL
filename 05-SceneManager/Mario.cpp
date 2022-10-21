@@ -237,7 +237,7 @@ void CMario::Render()
 	else if (level == MARIO_LEVEL_SMALL)
 		aniId = GetAniIdSmall();
 
-	animation_set->at(aniId)->Render(x, y-4);
+	animation_set->at(aniId)->Render(x, y-8);
 
 	//RenderBoundingBox();
 	

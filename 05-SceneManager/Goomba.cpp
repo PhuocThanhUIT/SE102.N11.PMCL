@@ -72,7 +72,7 @@ void CGoomba::Render()
 	}
 
 	CAnimations::GetInstance()->Get(aniId)->Render(x, y - 8);
-	RenderBoundingBox();
+	//RenderBoundingBox();
 }
 
 void CGoomba::SetState(int state)
