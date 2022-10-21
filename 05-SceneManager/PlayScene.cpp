@@ -159,7 +159,7 @@ void CPlayScene::_ParseObjFromFile(LPCWSTR path) {
 
 			DebugOut(L"[INFO] Player object has been created!\n");
 			break;
-		//case OBJECT_TYPE_GOOMBA: obj = new CGoomba(x, y); break;
+		case OBJECT_TYPE_GOOMBA: obj = new CGoomba(x,y); break;
 		case OBJECT_TYPE_BRICK: obj = new CBrick(); break;
 		//case OBJECT_TYPE_COIN: obj = new CCoin(x, y); break;
 
@@ -309,7 +309,7 @@ void CPlayScene::Update(DWORD dt)
 
 	if (cx < 0) cx = 0;
 
-	CGame::GetInstance()->SetCamPos(cx, cy);
+	CGame::GetInstance()->SetCamPos(cx, 250.0f/*cy*/);
 	current_map->SetCamPos(cx, cy);
 	PurgeDeletedObjects();
 }
