@@ -16,6 +16,7 @@ class CGameObject
 {
 protected:
 
+	int isBlocking = 1;
 	float x; 
 	float y;
 
