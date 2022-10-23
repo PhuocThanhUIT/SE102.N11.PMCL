@@ -32,6 +32,7 @@ CPlayScene::CPlayScene(int id, LPCWSTR filePath):
 #define SCENE_SECTION_TILEMAP_DATA	5
 
 
+
 #define MAX_SCENE_LINE 1024
 
 void CPlayScene::_ParseSection_SPRITES(string line)
@@ -162,6 +163,7 @@ void CPlayScene::_ParseObjFromFile(LPCWSTR path) {
 			break;
 		case OBJECT_TYPE_GOOMBA: obj = new CGoomba(x,y); break;
 		case OBJECT_TYPE_BRICK: obj = new CBrick(); break;
+		case OBJECT_TYPE_QUESTION_BRICK: obj = new CBrick(); break;
 		case OBJECT_TYPE_HIDDEN_BRICK: obj = new CHiddenBrick(); break;
 		//case OBJECT_TYPE_COIN: obj = new CCoin(x, y); break;
 		
