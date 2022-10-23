@@ -17,6 +17,10 @@
 #define ID_ANI_GOOMBA_WALKING 2013
 #define ID_ANI_GOOMBA_DIE 2014
 
+#define YELLOW_GOOMBA 0
+#define RED_GOOMBA 1
+#define WING_GOOMBA 2
+
 class CGoomba : public CGameObject
 {
 protected:
