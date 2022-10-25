@@ -1,5 +1,6 @@
 #include "Goomba.h"
 #include "debug.h"
+#include "Brick.h"
 
 CGoomba::CGoomba(float x, float y)
 {
@@ -74,7 +75,7 @@ void CGoomba::Render()
 			aniId = GOOMBA_NORMAL_ANI_DIE;
 		break;
 	case WING_GOOMBA:
-		aniId = GOOMBA_RED_ANI_WINGSWALKING;
+		aniId = GOOMBA_WING_ANI_WALKING;
 		break;
 	case RED_GOOMBA:
 		aniId = GOOMBA_RED_ANI_WALKING;
@@ -99,6 +100,16 @@ void CGoomba::SetState(int state)
 			break;
 		case GOOMBA_STATE_WALKING: 
 			vx = -GOOMBA_WALKING_SPEED;
+			break;
+		case GOOMBA_STATE_WING_WALKING:
+			walkingTimer = GetTickCount64();
+			ay = GOOMBA_GRAVITY;
+			break;
+		case GOOMBA_STATE_WING_JUMPING:
+			ay = -GOOMBA_GRAVITY;
+			break;
+		case GOOMBA_STATE_WING_HIGHJUMPING:
+			ay = -GOOMBA_GRAVITY;
 			break;
 	}
 }
