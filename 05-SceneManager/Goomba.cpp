@@ -66,11 +66,19 @@ void CGoomba::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 
 void CGoomba::Render()
 {
-	DebugOut(L"Tag = %i", tag);
-	int aniId = GOOMBA_NORMAL_ANI_WALKING;
-	if (state == GOOMBA_STATE_DIE) 
-	{
-		aniId = GOOMBA_NORMAL_ANI_DIE;
+	int aniId = 0;
+	switch (tag) {
+	case NORMAL_GOOMBA:
+		aniId = GOOMBA_NORMAL_ANI_WALKING;
+		if (state == GOOMBA_STATE_DIE)
+			aniId = GOOMBA_NORMAL_ANI_DIE;
+		break;
+	case WING_GOOMBA:
+		aniId = GOOMBA_RED_ANI_WINGSWALKING;
+		break;
+	case RED_GOOMBA:
+		aniId = GOOMBA_RED_ANI_WALKING;
+		break;
 	}
 
 	animation_set->at(aniId)->Render(x, y);

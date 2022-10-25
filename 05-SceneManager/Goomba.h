@@ -23,9 +23,10 @@
 #define GOOMBA_RED_ANI_DIE				5
 
 //Tag
-#define YELLOW_GOOMBA 0
-#define RED_GOOMBA 1
-#define WING_GOOMBA 2
+#define NORMAL_GOOMBA 0
+#define WING_GOOMBA 1
+#define RED_GOOMBA 2
+
 
 class CGoomba : public CGameObject
 {
