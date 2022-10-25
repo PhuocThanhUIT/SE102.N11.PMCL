@@ -14,6 +14,8 @@
 #define GOOMBA_STATE_WALKING 100
 #define GOOMBA_STATE_DIE 200
 
+#define GOOMBA_RED_JUMPING_STACKS	2
+
 //ANI
 #define GOOMBA_NORMAL_ANI_WALKING		0
 #define GOOMBA_NORMAL_ANI_DIE			1
@@ -21,6 +23,12 @@
 #define GOOMBA_RED_ANI_WINGSWALKING		3
 #define GOOMBA_RED_ANI_WALKING			4
 #define GOOMBA_RED_ANI_DIE				5
+
+// Red goomba
+#define GOOMBA_STATE_DIE_BY_MARIO		250
+#define GOOMBA_STATE_RED_JUMPING		300
+#define GOOMBA_STATE_RED_HIGHJUMPING	350
+#define GOOMBA_STATE_RED_WINGSWALKING	400
 
 //Tag
 #define NORMAL_GOOMBA 0
@@ -34,7 +42,11 @@ protected:
 	float ax;				
 	float ay; 
 
+	int jumpingStacks = 0;
+
 	ULONGLONG die_start;
+	ULONGLONG chasingTimer;
+	ULONGLONG walkingTimer;
 
 	virtual void GetBoundingBox(float &left, float &top, float &right, float &bottom);
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects);
