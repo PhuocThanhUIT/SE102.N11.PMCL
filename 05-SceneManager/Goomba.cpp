@@ -1,6 +1,7 @@
 #include "Goomba.h"
+#include "debug.h"
 
-CGoomba::CGoomba(float x, float y, int tag)
+CGoomba::CGoomba(float x, float y)
 {
 	this->ax = 0;
 	this->ay = GOOMBA_GRAVITY;
@@ -65,6 +66,7 @@ void CGoomba::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 
 void CGoomba::Render()
 {
+	DebugOut(L"Tag = %i", tag);
 	int aniId = GOOMBA_NORMAL_ANI_WALKING;
 	if (state == GOOMBA_STATE_DIE) 
 	{
