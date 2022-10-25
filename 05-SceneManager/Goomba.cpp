@@ -1,6 +1,6 @@
 #include "Goomba.h"
 
-CGoomba::CGoomba(float x, float y)
+CGoomba::CGoomba(float x, float y, int tag)
 {
 	this->ax = 0;
 	this->ay = GOOMBA_GRAVITY;
@@ -65,13 +65,13 @@ void CGoomba::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 
 void CGoomba::Render()
 {
-	int aniId = ID_ANI_GOOMBA_WALKING;
+	int aniId = GOOMBA_NORMAL_ANI_WALKING;
 	if (state == GOOMBA_STATE_DIE) 
 	{
-		aniId = ID_ANI_GOOMBA_DIE;
+		aniId = GOOMBA_NORMAL_ANI_DIE;
 	}
 
-	CAnimations::GetInstance()->Get(aniId)->Render(x, y);
+	animation_set->at(aniId)->Render(x, y);
 	//RenderBoundingBox();
 }
 

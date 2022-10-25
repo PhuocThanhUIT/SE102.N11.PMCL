@@ -1,2 +1,12 @@
-﻿  Goomba.cpp
+﻿  Game.cpp
+  Goomba.cpp
+  Mario.cpp
+C:\Users\phuocthanh\Documents\game\SE102.N11.PMCL\05-SceneManager\Mario.cpp(19,20): warning C4018: '<': signed/unsigned mismatch
+  PlayScene.cpp
+C:\Users\phuocthanh\Documents\game\SE102.N11.PMCL\05-SceneManager\PlayScene.cpp(74,20): warning C4018: '<': signed/unsigned mismatch
+C:\Users\phuocthanh\Documents\game\SE102.N11.PMCL\05-SceneManager\PlayScene.cpp(306,20): warning C4018: '<': signed/unsigned mismatch
+C:\Users\phuocthanh\Documents\game\SE102.N11.PMCL\05-SceneManager\PlayScene.cpp(331,20): warning C4018: '<': signed/unsigned mismatch
+  SampleKeyEventHandler.cpp
+  main.cpp
+  Generating Code...
   05-SceneManager.vcxproj -> C:\Users\phuocthanh\Documents\game\SE102.N11.PMCL\Debug\05-SceneManager.exe
