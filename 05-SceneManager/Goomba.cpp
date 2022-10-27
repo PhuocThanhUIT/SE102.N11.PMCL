@@ -124,6 +124,8 @@ void CGoomba::Render()
 		break;
 	case RED_GOOMBA:
 		aniId = GOOMBA_RED_ANI_WALKING;
+		if (state == GOOMBA_STATE_DIE)
+			aniId = GOOMBA_RED_ANI_DIE;
 		break;
 	}
 
