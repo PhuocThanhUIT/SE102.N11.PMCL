@@ -40,6 +40,7 @@ public:
 	void GetSpeed(float &vx, float &vy) { vx = this->vx; vy = this->vy; }
 	void SetAnimationSet(LPANIMATION_SET ani_set) { animation_set = ani_set; }
 	int GetState() { return this->state; }
+	int GetTag() { return this->tag; }
 	virtual void Delete() { isDeleted = true;  }
 	bool IsDeleted() { return isDeleted; }
 
