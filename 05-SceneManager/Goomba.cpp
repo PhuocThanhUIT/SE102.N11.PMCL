@@ -119,6 +119,8 @@ void CGoomba::Render()
 		break;
 	case WING_GOOMBA:
 		aniId = GOOMBA_WING_ANI_WALKING;
+		if (state == GOOMBA_STATE_WING_JUMPING || state == GOOMBA_STATE_WING_HIGHJUMPING)
+			aniId = GOOMBA_WING_ANI_JUMPING;
 		break;
 	case RED_GOOMBA:
 		aniId = GOOMBA_RED_ANI_WALKING;
