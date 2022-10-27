@@ -39,7 +39,7 @@ void CQuestionBrick::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	if ((state == QUESTION_BRICK_STATE_MARIO_PUSH_UP) && (GetTickCount64() - push_up_start > PUSH_UP_TIMEOUT))
 	{
 		y+= QUESTIONBRICK_PUSH_MAX_HEIGHT;
-		this->SetState(200);
+		this->SetState(QUESTION_BRICK_STATE_AFTER_MARIO_PUSH_UP);
 		return;
 	}
 
@@ -51,6 +51,14 @@ void CQuestionBrick::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 void CQuestionBrick::Render()
 {
 	int aniId = 0;
+	switch (state) {
+	case QUESTION_BRICK_STATE_NORMAL:
+		aniId = QUESTIONBRICK_ANI_NORMAL;
+		break;
+	case QUESTION_BRICK_STATE_AFTER_MARIO_PUSH_UP:
+		aniId = QUESTIONBRICK_ANI_HIT;
+		break;
+	}
 
 	animation_set->at(aniId)->Render(x, y);
 	//RenderBoundingBox();
