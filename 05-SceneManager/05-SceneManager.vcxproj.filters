@@ -99,6 +99,9 @@
     <ClCompile Include="HiddenBrick.cpp">
       <Filter>Map Objects\Bricks</Filter>
     </ClCompile>
+    <ClCompile Include="QuestionBrick.cpp">
+      <Filter>Map Objects\Bricks</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animations.h">
@@ -168,6 +171,9 @@
       <Filter>Map</Filter>
     </ClInclude>
     <ClInclude Include="HiddenBrick.h">
+      <Filter>Map Objects\Bricks</Filter>
+    </ClInclude>
+    <ClInclude Include="QuestionBrick.h">
       <Filter>Map Objects\Bricks</Filter>
     </ClInclude>
   </ItemGroup>
