@@ -5,6 +5,7 @@
 #define BRICK_BBOX_HEIGHT 16
 #define QUESTIONBRICK_PUSH_MAX_HEIGHT 8
 #define QUESTION_BRICK_STATE_MARIO_PUSH_UP 100
+#define PUSH_UP_TIMEOUT 300
 
 
 class CQuestionBrick : public CGameObject
