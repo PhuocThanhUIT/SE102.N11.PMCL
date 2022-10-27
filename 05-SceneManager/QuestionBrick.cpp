@@ -54,5 +54,12 @@ void CQuestionBrick::Render()
 void CQuestionBrick::SetState(int state)
 {
 	CGameObject::SetState(state);
+	switch (state)
+	{
+	case QUESTION_BRICK_STATE_MARIO_PUSH_UP:
+		push_up_start = GetTickCount64();
+		y -= QUESTIONBRICK_PUSH_MAX_HEIGHT;
+		break;
+	}
 
 }

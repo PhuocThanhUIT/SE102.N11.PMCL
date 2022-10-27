@@ -10,6 +10,7 @@
 #include "HiddenBrick.h"
 
 #include "Collision.h"
+#include "QuestionBrick.h"
 
 void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 {
@@ -62,6 +63,8 @@ void CMario::OnCollisionWith(LPCOLLISIONEVENT e)
 
 	if (dynamic_cast<CGoomba*>(e->obj))
 		OnCollisionWithGoomba(e);
+	else if (dynamic_cast<CQuestionBrick*>(e->obj))
+		OnCollisionWithQuestionBrick(e);
 	else if (dynamic_cast<CCoin*>(e->obj))
 		OnCollisionWithCoin(e);
 	else if (dynamic_cast<CPortal*>(e->obj))
@@ -107,7 +110,13 @@ void CMario::OnCollisionWithGoomba(LPCOLLISIONEVENT e)
 		}
 	}
 }
-
+void CMario::OnCollisionWithQuestionBrick(LPCOLLISIONEVENT e) {
+	CQuestionBrick* questionbrick = dynamic_cast<CQuestionBrick*>(e->obj);
+	if (e->ny > 0)
+	{
+		questionbrick->SetState(QUESTION_BRICK_STATE_MARIO_PUSH_UP);
+	}
+}
 void CMario::OnCollisionWithCoin(LPCOLLISIONEVENT e)
 {
 	e->obj->Delete();
