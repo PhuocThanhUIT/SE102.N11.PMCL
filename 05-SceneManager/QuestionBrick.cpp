@@ -1,5 +1,7 @@
 #include "QuestionBrick.h"
-
+#include "Coin.h"
+#include "Mario.h"
+#include "PlayScene.h"
 
 CQuestionBrick::CQuestionBrick(float x, float y)
 {
@@ -40,11 +42,26 @@ void CQuestionBrick::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	{
 		y+= QUESTIONBRICK_PUSH_MAX_HEIGHT;
 		this->SetState(QUESTION_BRICK_STATE_AFTER_MARIO_PUSH_UP);
+		this->SetUpItem(ITEM_COIN_QUESTION_BRICK_COIN);
 		return;
 	}
 
 	CGameObject::Update(dt, coObjects);
 	CCollision::GetInstance()->Process(this, dt, coObjects);
+}
+
+CGameObject* CQuestionBrick::SetUpItem(int itemType) {
+	CPlayScene* currentScene = (CPlayScene*)CGame::GetInstance()->GetCurrentScene();
+	CMario* mario = currentScene->GetPlayer();
+	int ani_set_id = -1;
+	CAnimationSets* animation_sets = CAnimationSets::GetInstance();
+	if (itemType == ITEM_COIN_QUESTION_BRICK_COIN) {
+		obj = new CCoin(x,y);
+		ani_set_id = COIN_ANI_SET_ID;
+		LPANIMATION_SET ani_set = animation_sets->Get(ani_set_id);
+		obj->SetAnimationSet(ani_set);
+	}
+	return obj;
 }
 
 

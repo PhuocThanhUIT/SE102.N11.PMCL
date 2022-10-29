@@ -10,6 +10,8 @@
 #define QUESTION_BRICK_STATE_MARIO_PUSH_UP 200
 #define QUESTION_BRICK_STATE_AFTER_MARIO_PUSH_UP 300
 #define PUSH_UP_TIMEOUT 100
+#define ITEM_COIN_QUESTION_BRICK_COIN	0
+#define COIN_ANI_SET_ID 6
 
 
 class CQuestionBrick : public CGameObject
@@ -17,6 +19,7 @@ class CQuestionBrick : public CGameObject
 protected:
 
 	ULONGLONG push_up_start;
+	
 	virtual void GetBoundingBox(float& left, float& top, float& right, float& bottom);
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);
 	virtual void Render();
@@ -28,6 +31,8 @@ protected:
 	virtual void OnCollisionWith(LPCOLLISIONEVENT e);
 
 public:
+	CGameObject* obj = NULL;
+	CGameObject* SetUpItem(int itemType);
 	CQuestionBrick(float x, float y);
 	virtual void SetState(int state);
 };
