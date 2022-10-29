@@ -42,12 +42,26 @@ void CQuestionBrick::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	{
 		y+= QUESTIONBRICK_PUSH_MAX_HEIGHT;
 		this->SetState(QUESTION_BRICK_STATE_AFTER_MARIO_PUSH_UP);
-		this->SetUpItem(ITEM_COIN_QUESTION_BRICK_COIN);
+		this->ShowItem(ITEM_COIN_QUESTION_BRICK_COIN);
 		return;
 	}
 
 	CGameObject::Update(dt, coObjects);
 	CCollision::GetInstance()->Process(this, dt, coObjects);
+}
+void CQuestionBrick::ShowItem(int itemType) {
+	this->obj = SetUpItem(itemType);
+	if (this->obj == NULL) {
+		DebugOut(L"Coin null \n");
+		return;
+	}
+	CPlayScene* currentScene = (CPlayScene*)CGame::GetInstance()->GetCurrentScene();
+	if (dynamic_cast<CCoin*>(this->obj)) {
+		CCoin* obj = dynamic_cast<CCoin*>(this->obj);
+		obj->SetPosition(x, y - COIN_BBOX_HEIGHT - 1);
+		currentScene->AddObject(obj);
+		DebugOut(L"Coin create \n");
+	}
 }
 
 CGameObject* CQuestionBrick::SetUpItem(int itemType) {

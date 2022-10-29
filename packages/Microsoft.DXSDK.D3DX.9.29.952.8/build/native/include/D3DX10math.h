@@ -99,10 +99,11 @@ public:
     // binary operators
     BOOL operator == ( CONST D3DXFLOAT16& ) const;
     BOOL operator != ( CONST D3DXFLOAT16& ) const;
+  
 
 protected:
 #endif //__cplusplus
-    WORD value;
+    WORD value{};
 } D3DXFLOAT16, *LPD3DXFLOAT16;
 
 
@@ -121,7 +122,7 @@ typedef struct D3DXVECTOR2
 {
 #ifdef __cplusplus
 public:
-    D3DXVECTOR2() {};
+    D3DXVECTOR2(){};
     D3DXVECTOR2( CONST FLOAT * );
     D3DXVECTOR2( CONST D3DXFLOAT16 * );
     D3DXVECTOR2( FLOAT x, FLOAT y );
@@ -154,7 +155,7 @@ public:
 
 public:
 #endif //__cplusplus
-    FLOAT x, y;
+    FLOAT x{}, y{};
 } D3DXVECTOR2, *LPD3DXVECTOR2;
 
 

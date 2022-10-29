@@ -33,6 +33,7 @@ protected:
 public:
 	CGameObject* obj = NULL;
 	CGameObject* SetUpItem(int itemType);
+	void ShowItem(int itemType = ITEM_COIN_QUESTION_BRICK_COIN);
 	CQuestionBrick(float x, float y);
 	virtual void SetState(int state);
 };
