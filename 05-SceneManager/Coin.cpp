@@ -5,7 +5,8 @@
 
 
 CCoin::CCoin(float x, float y) : CGameObject(x, y) {
-	
+	CPlayScene* currentScene = (CPlayScene*)CGame::GetInstance()->GetCurrentScene();
+	mario = currentScene->GetPlayer();
 }
 
 void CCoin::Render()
@@ -36,7 +37,10 @@ void CCoin::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	{
 		this->SetState(COIN_STATE_DOWN);
 	}
-	
+	if (start_y - y < COIN_DOWN_LIMIT && vy > 0) {
+		this->Delete();
+		mario->UpdateCoin();
+	}
 
 	CGameObject::Update(dt, coObjects);
 	CCollision::GetInstance()->Process(this, dt, coObjects);
