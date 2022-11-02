@@ -58,7 +58,7 @@ void CQuestionBrick::ShowItem(int itemType) {
 	CPlayScene* currentScene = (CPlayScene*)CGame::GetInstance()->GetCurrentScene();
 	if (dynamic_cast<CCoin*>(this->obj)) {
 		CCoin* obj = dynamic_cast<CCoin*>(this->obj);
-		obj->SetPosition(x, y - COIN_BBOX_HEIGHT - 1);
+		//obj->SetPosition(x, y - COIN_BBOX_HEIGHT - 1);
 		currentScene->AddObject(obj);
 		DebugOut(L"Coin create \n");
 	}
@@ -70,7 +70,8 @@ CGameObject* CQuestionBrick::SetUpItem(int itemType) {
 	int ani_set_id = -1;
 	CAnimationSets* animation_sets = CAnimationSets::GetInstance();
 	if (itemType == ITEM_COIN_QUESTION_BRICK_COIN) {
-		obj = new CCoin(x,y);
+		obj = new CCoin(x,y - COIN_BBOX_HEIGHT - 1);
+		obj->SetTag(COIN_TYPE_INBRICK);
 		ani_set_id = COIN_ANI_SET_ID;
 		LPANIMATION_SET ani_set = animation_sets->Get(ani_set_id);
 		obj->SetAnimationSet(ani_set);

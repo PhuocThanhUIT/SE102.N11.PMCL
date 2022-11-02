@@ -137,6 +137,7 @@ public:
 	void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);
 	void Render();
 	void SetState(int state);
+	void UpdateCoin() { this->coin++; }
 
 	int IsCollidable()
 	{ 
