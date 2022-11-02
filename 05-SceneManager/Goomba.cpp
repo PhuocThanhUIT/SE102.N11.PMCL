@@ -128,7 +128,6 @@ void CGoomba::Render()
 			aniId = GOOMBA_RED_ANI_DIE;
 		break;
 	}
-
 	animation_set->at(aniId)->Render(x, y);
 	//RenderBoundingBox();
 }
