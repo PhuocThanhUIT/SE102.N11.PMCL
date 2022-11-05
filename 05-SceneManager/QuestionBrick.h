@@ -12,6 +12,7 @@
 #define PUSH_UP_TIMEOUT 100
 #define ITEM_COIN_QUESTION_BRICK_COIN	0
 #define COIN_ANI_SET_ID 6
+#define ITEM_MUSHROOM_QUESTION_BRICK 1
 
 
 class CQuestionBrick : public CGameObject
