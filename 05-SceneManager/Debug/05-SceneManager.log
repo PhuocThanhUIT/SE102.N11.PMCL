@@ -1,5 +1,3 @@
-﻿  PlayScene.cpp
-C:\Users\phuocthanh\Documents\game\SE102.N11.PMCL\05-SceneManager\PlayScene.cpp(75,20): warning C4018: '<': signed/unsigned mismatch
-C:\Users\phuocthanh\Documents\game\SE102.N11.PMCL\05-SceneManager\PlayScene.cpp(307,20): warning C4018: '<': signed/unsigned mismatch
-C:\Users\phuocthanh\Documents\game\SE102.N11.PMCL\05-SceneManager\PlayScene.cpp(332,20): warning C4018: '<': signed/unsigned mismatch
+﻿  MushRoom.cpp
+C:\Users\phuocthanh\Documents\game\SE102.N11.PMCL\05-SceneManager\MushRoom.cpp(61,2): warning C4060: switch statement contains no 'case' or 'default' labels
   05-SceneManager.vcxproj -> C:\Users\phuocthanh\Documents\game\SE102.N11.PMCL\Debug\05-SceneManager.exe

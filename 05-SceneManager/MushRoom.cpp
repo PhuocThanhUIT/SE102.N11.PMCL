@@ -2,7 +2,7 @@
 #include "debug.h"
 #include "Goomba.h"
 
-CMushRoom::CMushRoom(float x, float y)
+CMushRoom::CMushRoom(float x, float y):CGameObject(x,y)
 {
 }
 
@@ -10,8 +10,8 @@ void CMushRoom::GetBoundingBox(float& left, float& top, float& right, float& bot
 {
 		left = x;
 		top = y;
-		right = left + GOOMBA_BBOX_WIDTH;
-		bottom = top + GOOMBA_BBOX_HEIGHT;
+		right = left + MUSHROOM_BBOX_WIDTH;
+		bottom = top + MUSHROOM_BBOX_HEIGHT;
 }
 
 void CMushRoom::OnNoCollision(DWORD dt)
