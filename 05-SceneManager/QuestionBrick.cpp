@@ -81,10 +81,11 @@ CGameObject* CQuestionBrick::SetUpItem(int itemType) {
 	}
 	case ITEM_MUSHROOM_QUESTION_BRICK:
 	{
-		obj = new CMushRoom(x,y - MUSHROOM_BBOX_HEIGHT -1);
+		obj = new CMushRoom(x,y);
 		ani_set_id = MUSHROOM_ANI_SET_ID;
 		LPANIMATION_SET ani_set = animation_sets->Get(ani_set_id);
 		obj->SetAnimationSet(ani_set);
+		obj->SetZIndex(-1);
 		break;
 	}
 	default:

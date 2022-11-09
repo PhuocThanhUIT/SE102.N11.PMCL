@@ -32,7 +32,8 @@ protected:
 	LPANIMATION_SET animation_set;
 
 public: 
-	int tag = 0; // define for goomba tag
+	int tag = 0; // define for object tag
+	int z = 0;
 	void SetTag(int tag) { this->tag = tag; }
 	void SetPosition(float x, float y) { this->x = x, this->y = y; }
 	void SetSpeed(float vx, float vy) { this->vx = vx, this->vy = vy; }
@@ -43,7 +44,13 @@ public:
 	int GetTag() { return this->tag; }
 	virtual void Delete() { isDeleted = true;  }
 	bool IsDeleted() { return isDeleted; }
+	void SetZIndex(int z) {
+		this->z = z;
+	}
 
+	int GetZIndex() {
+		return this->z;
+	}
 	void RenderBoundingBox();
 
 	CGameObject();

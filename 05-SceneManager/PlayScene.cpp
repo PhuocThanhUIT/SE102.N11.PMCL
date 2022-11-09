@@ -304,6 +304,9 @@ void CPlayScene::Update(DWORD dt)
 void CPlayScene::Render()
 {
 	current_map->DrawMap();
+	sort(this->objects.begin(), this->objects.end(), [](const CGameObject* lObj, const CGameObject* rObj) {
+		return lObj->z < rObj->z;
+		});
 	for (int i = 0; i < objects.size(); i++)
 		objects[i]->Render();
 }

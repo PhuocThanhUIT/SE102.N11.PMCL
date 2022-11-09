@@ -3,6 +3,11 @@
 #include "GameObject.h"
 #define MUSHROOM_BBOX_WIDTH 16
 #define MUSHROOM_BBOX_HEIGHT 16
+#define MUSHROOM_STATE_IDLE 100
+#define MUSHROOM_STATE_MOVE 200
+#define MUSHROOM_MOVING_SPEED 0.15f
+#define MUSHROOM_GROWING_UP_SPEED 0.05f
+#define MUSHROOM_GRAVITY 0.002f
 
 class CMushRoom : public CGameObject
 {
