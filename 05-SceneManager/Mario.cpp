@@ -114,6 +114,7 @@ void CMario::OnCollisionWithQuestionBrick(LPCOLLISIONEVENT e) {
 	CQuestionBrick* questionbrick = dynamic_cast<CQuestionBrick*>(e->obj);
 	if (e->ny > 0)
 	{
+		DebugOut(L"state:%i", questionbrick->GetState());
 		if (questionbrick->GetState() != QUESTION_BRICK_STATE_AFTER_MARIO_PUSH_UP) {
 			questionbrick->SetState(QUESTION_BRICK_STATE_MARIO_PUSH_UP);
 		}

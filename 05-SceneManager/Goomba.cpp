@@ -19,12 +19,18 @@ void CGoomba::GetBoundingBox(float &left, float &top, float &right, float &botto
 		right = left + GOOMBA_BBOX_WIDTH;
 		bottom = top + GOOMBA_BBOX_HEIGHT_DIE;
 	}
-	else
+	else if (tag== NORMAL_GOOMBA)
 	{ 
 		left = x;
 		top = y;
 		right = left + GOOMBA_BBOX_WIDTH;
 		bottom = top + GOOMBA_BBOX_HEIGHT;
+	}
+	else {
+		left = x;
+		top = y;
+		right = left + GOOMBA_BBOX_WIDTH;
+		bottom = top + GOOMBA_BBOX_HEIGHT+2;
 	}
 }
 
@@ -68,7 +74,11 @@ void CGoomba::OnCollisionWith(LPCOLLISIONEVENT e)
 					}
 				}
 			}
+			else
+				ay = GOOMBA_GRAVITY;
 		}
+		else if (e->ny > 0)
+			ay = GOOMBA_GRAVITY;
 	}
 	if (e->ny != 0 )
 	{

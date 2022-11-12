@@ -43,7 +43,6 @@ void CQuestionBrick::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		y+= QUESTIONBRICK_PUSH_MAX_HEIGHT;
 		this->SetState(QUESTION_BRICK_STATE_AFTER_MARIO_PUSH_UP);
 		this->ShowItem(this->tag);
-		DebugOut(L"tag: %i", this->tag);
 		return;
 	}
 
@@ -83,9 +82,9 @@ CGameObject* CQuestionBrick::SetUpItem(int itemType) {
 	{
 		obj = new CMushRoom(x,y);
 		ani_set_id = MUSHROOM_ANI_SET_ID;
+		obj->SetState(MUSHROOM_STATE_IDLE);
 		LPANIMATION_SET ani_set = animation_sets->Get(ani_set_id);
 		obj->SetAnimationSet(ani_set);
-		obj->SetZIndex(-1);
 		break;
 	}
 	default:

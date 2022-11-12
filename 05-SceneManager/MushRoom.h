@@ -6,15 +6,15 @@
 #define MUSHROOM_STATE_IDLE 100
 #define MUSHROOM_STATE_MOVE 200
 #define MUSHROOM_MOVING_SPEED 0.15f
-#define MUSHROOM_GROWING_UP_SPEED 0.05f
+#define MUSHROOM_GROWING_UP_SPEED -0.01f
 #define MUSHROOM_GRAVITY 0.002f
+
 
 class CMushRoom : public CGameObject
 {
 protected:
-	float ax;
-	float ay;
-
+	float start_x = this->x;
+	float start_y = this->y;
 
 	virtual void GetBoundingBox(float& left, float& top, float& right, float& bottom);
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);

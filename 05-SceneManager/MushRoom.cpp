@@ -4,6 +4,7 @@
 
 CMushRoom::CMushRoom(float x, float y):CGameObject(x,y)
 {
+	
 }
 
 void CMushRoom::GetBoundingBox(float& left, float& top, float& right, float& bottom)
@@ -16,8 +17,8 @@ void CMushRoom::GetBoundingBox(float& left, float& top, float& right, float& bot
 
 void CMushRoom::OnNoCollision(DWORD dt)
 {
-	//x += vx * dt;
-	//y += vy * dt;
+	x += vx * dt;
+	y += vy * dt;
 };
 
 void CMushRoom::OnCollisionWith(LPCOLLISIONEVENT e)
@@ -36,8 +37,9 @@ void CMushRoom::OnCollisionWith(LPCOLLISIONEVENT e)
 
 void CMushRoom::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
-	//vy += ay * dt;
-	//vx += ax * dt;
+	if (start_y-y>MUSHROOM_BBOX_HEIGHT-1) {
+		this->SetState(MUSHROOM_STATE_MOVE);
+	}
 
 
 	CGameObject::Update(dt, coObjects);
@@ -48,8 +50,7 @@ void CMushRoom::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 void CMushRoom::Render()
 {
 	int aniId = 0;
-	animation_set->at(1)->Render(x, y);
-	DebugOut(L"Mushroom render");
+	animation_set->at(0)->Render(x, y);
 	//RenderBoundingBox();
 }
 
@@ -58,5 +59,12 @@ void CMushRoom::SetState(int state)
 	CGameObject::SetState(state);
 	switch (state)
 	{
+	case MUSHROOM_STATE_IDLE:
+		vy = MUSHROOM_GROWING_UP_SPEED;
+		break;
+
+	case MUSHROOM_STATE_MOVE:
+		vy = 0;
+		break;
 	}
 }
