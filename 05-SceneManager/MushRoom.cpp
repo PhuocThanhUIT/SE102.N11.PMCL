@@ -30,9 +30,7 @@ void CMushRoom::OnNoCollision(DWORD dt)
 
 void CMushRoom::OnCollisionWith(LPCOLLISIONEVENT e)
 {
-	CHiddenBrick* hiddenbrick = dynamic_cast<CHiddenBrick*>(e->obj);
-	DebugOut(L"block:%i", hiddenbrick);
-		if (hiddenbrick !=0 || e->ny != 0 && e->obj->IsBlocking())
+		if ( e->ny != 0 && e->obj->IsBlocking())
 		{
 			vy = 0;
 		}
@@ -48,7 +46,18 @@ void CMushRoom::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		if (start_y - y >= MUSHROOM_BBOX_HEIGHT && state == MUSHROOM_STATE_IDLE){
 			this->SetState(MUSHROOM_STATE_MOVE);
 		}
-	
+		for (int i = 0; i < coObjects->size(); i++) {
+			LPGAMEOBJECT obj = coObjects->at(i);
+			if (dynamic_cast<CHiddenBrick*>(obj))
+			{
+				if (obj->getY() > this->y) {
+					obj->SetIsBlocking(1);
+				}
+				else {
+					obj->SetIsBlocking(0);
+				}
+			}
+		}
 
 	CGameObject::Update(dt, coObjects);
 	CCollision::GetInstance()->Process(this, dt, coObjects);

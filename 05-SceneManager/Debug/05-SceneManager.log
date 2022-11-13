@@ -1,2 +1,20 @@
-﻿  Collision.cpp
+﻿  Brick.cpp
+  Coin.cpp
+  Collision.cpp
+  Game.cpp
+  GameObject.cpp
+  Goomba.cpp
+  HiddenBrick.cpp
+  Mario.cpp
+C:\Users\phuocthanh\Documents\game\SE102.N11.PMCL\05-SceneManager\Mario.cpp(20,20): warning C4018: '<': signed/unsigned mismatch
+  MushRoom.cpp
+C:\Users\phuocthanh\Documents\game\SE102.N11.PMCL\05-SceneManager\MushRoom.cpp(49,21): warning C4018: '<': signed/unsigned mismatch
+  PlayScene.cpp
+C:\Users\phuocthanh\Documents\game\SE102.N11.PMCL\05-SceneManager\PlayScene.cpp(75,20): warning C4018: '<': signed/unsigned mismatch
+C:\Users\phuocthanh\Documents\game\SE102.N11.PMCL\05-SceneManager\PlayScene.cpp(332,20): warning C4018: '<': signed/unsigned mismatch
+  Portal.cpp
+  QuestionBrick.cpp
+  SampleKeyEventHandler.cpp
+  main.cpp
+  Generating Code...
   05-SceneManager.vcxproj -> C:\Users\phuocthanh\Documents\game\SE102.N11.PMCL\Debug\05-SceneManager.exe
