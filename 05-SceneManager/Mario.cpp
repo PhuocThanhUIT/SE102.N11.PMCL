@@ -41,7 +41,9 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 
 	CCollision::GetInstance()->Process(this, dt, coObjects);
 }
-
+int CMario::GetMarioDirection() {
+	return this->ax > 0 ? 1 : -1;
+}
 void CMario::OnNoCollision(DWORD dt)
 {
 	x += vx * dt;

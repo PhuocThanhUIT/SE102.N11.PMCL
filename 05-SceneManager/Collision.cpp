@@ -1,6 +1,6 @@
 #include "Collision.h"
 #include "GameObject.h"
-
+#include "HiddenBrick.h"
 #include "debug.h"
 
 #define BLOCK_PUSH_FACTOR 0.4f

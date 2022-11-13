@@ -119,6 +119,7 @@ class CMario : public CGameObject
 
 	int GetAniIdBig();
 	int GetAniIdSmall();
+	
 
 public:
 	CMario(float x, float y) : CGameObject(x, y)
@@ -138,7 +139,7 @@ public:
 	void Render();
 	void SetState(int state);
 	void UpdateCoin() { this->coin++; }
-
+	int GetMarioDirection();
 	int IsCollidable()
 	{ 
 		return (state != MARIO_STATE_DIE); 

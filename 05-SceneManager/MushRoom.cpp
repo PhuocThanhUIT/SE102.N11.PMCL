@@ -1,7 +1,10 @@
 #include "MushRoom.h"
 #include "debug.h"
 #include "Goomba.h"
-
+#include "Mario.h"
+#include "PlayScene.h"
+#include "Game.h"
+#include "HiddenBrick.h"
 CMushRoom::CMushRoom(float x, float y):CGameObject(x,y)
 {
 	
@@ -17,30 +20,35 @@ void CMushRoom::GetBoundingBox(float& left, float& top, float& right, float& bot
 
 void CMushRoom::OnNoCollision(DWORD dt)
 {
-	x += vx * dt;
-	y += vy * dt;
+		x += vx * dt;
+		y += vy * dt;
+		if(state==MUSHROOM_STATE_MOVE){
+			vy = MUSHROOM_GRAVITY;
+		}
+		
 };
 
 void CMushRoom::OnCollisionWith(LPCOLLISIONEVENT e)
 {
-	if (!e->obj->IsBlocking()) return;
-	if (dynamic_cast<CGoomba*>(e->obj)) return;
-	if (e->ny != 0)
-	{
-		vy = 0;
-	}
-	else if (e->nx != 0)
-	{
-		vx = -vx;
-	}
+	CHiddenBrick* hiddenbrick = dynamic_cast<CHiddenBrick*>(e->obj);
+	DebugOut(L"block:%i", hiddenbrick);
+		if (hiddenbrick !=0 || e->ny != 0 && e->obj->IsBlocking())
+		{
+			vy = 0;
+		}
+		else if (e->nx != 0 && e->obj->IsBlocking())
+		{
+			vx = -vx;
+		}
+	
 }
 
 void CMushRoom::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
-	if (start_y-y>MUSHROOM_BBOX_HEIGHT-1) {
-		this->SetState(MUSHROOM_STATE_MOVE);
-	}
-
+		if (start_y - y >= MUSHROOM_BBOX_HEIGHT && state == MUSHROOM_STATE_IDLE){
+			this->SetState(MUSHROOM_STATE_MOVE);
+		}
+	
 
 	CGameObject::Update(dt, coObjects);
 	CCollision::GetInstance()->Process(this, dt, coObjects);
@@ -57,6 +65,7 @@ void CMushRoom::Render()
 void CMushRoom::SetState(int state)
 {
 	CGameObject::SetState(state);
+	CMario* mario = ((CPlayScene*)CGame::GetInstance()->GetCurrentScene())->GetPlayer();
 	switch (state)
 	{
 	case MUSHROOM_STATE_IDLE:
@@ -64,7 +73,8 @@ void CMushRoom::SetState(int state)
 		break;
 
 	case MUSHROOM_STATE_MOVE:
-		vy = 0;
+		this->vy = MUSHROOM_GRAVITY;
+		vx =-mario->GetMarioDirection()*MUSHROOM_MOVING_SPEED;
 		break;
 	}
 }
