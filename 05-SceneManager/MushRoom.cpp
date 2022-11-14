@@ -85,5 +85,9 @@ void CMushRoom::SetState(int state)
 		this->vy = MUSHROOM_GRAVITY;
 		vx =-mario->GetMarioDirection()*MUSHROOM_MOVING_SPEED;
 		break;
+	case MUSHROOM_STATE_DELETE:
+		this->Delete();
+		break;
 	}
+
 }
