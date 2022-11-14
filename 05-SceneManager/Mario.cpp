@@ -306,7 +306,7 @@ void CMario::Render()
 	else if (level == MARIO_LEVEL_SMALL)
 		aniId = GetAniIdSmall();
 	if (level == MARIO_LEVEL_BIG) {
-		animation_set->at(aniId)->Render(x, y+8);
+		animation_set->at(aniId)->Render(x, y+7);
 	}else animation_set->at(aniId)->Render(x, y);
 	
 
@@ -420,7 +420,7 @@ void CMario::SetLevel(int l)
 	// Adjust position to avoid falling off platform
 	if (this->level == MARIO_LEVEL_SMALL)
 	{
-		//y -= MARIO_BIG_BBOX_HEIGHT-MARIO_SMALL_BBOX_HEIGHT;
+		y -= MARIO_BIG_BBOX_HEIGHT-MARIO_SMALL_BBOX_HEIGHT;
 	}
 	level = l;
 }
