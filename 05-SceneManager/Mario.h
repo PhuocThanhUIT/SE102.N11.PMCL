@@ -16,6 +16,9 @@
 
 #define MARIO_JUMP_DEFLECT_SPEED  0.4f
 
+#define MARIO_BIG_DIF 7
+#define MARIO_SIT_DIF 3
+
 #pragma region STATE
 
 #define MARIO_STATE_DIE				-10
@@ -91,10 +94,10 @@
 #define MARIO_BIG_SITTING_BBOX_WIDTH  14
 #define MARIO_BIG_SITTING_BBOX_HEIGHT 18
 
-#define MARIO_SIT_HEIGHT_ADJUST ((MARIO_BIG_BBOX_HEIGHT-MARIO_BIG_SITTING_BBOX_HEIGHT)/2)
+#define MARIO_SIT_HEIGHT_ADJUST ((MARIO_BIG_BBOX_HEIGHT-MARIO_BIG_SITTING_BBOX_HEIGHT))
 
 #define MARIO_SMALL_BBOX_WIDTH  12
-#define MARIO_SMALL_BBOX_HEIGHT 16
+#define MARIO_SMALL_BBOX_HEIGHT 14
 
 
 #define MARIO_UNTOUCHABLE_TIME 2500
@@ -154,4 +157,5 @@ public:
 	void StartUntouchable() { untouchable = 1; untouchable_start = GetTickCount64(); }
 
 	void GetBoundingBox(float& left, float& top, float& right, float& bottom);
+	
 };

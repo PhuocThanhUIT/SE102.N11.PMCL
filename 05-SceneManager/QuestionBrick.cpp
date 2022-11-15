@@ -98,6 +98,7 @@ CGameObject* CQuestionBrick::SetUpItem(int itemType) {
 void CQuestionBrick::Render()
 {
 	int aniId = 0;
+	RenderBoundingBox();
 	switch (state) {
 	case QUESTION_BRICK_STATE_NORMAL:
 		aniId = QUESTIONBRICK_ANI_NORMAL;
@@ -108,7 +109,6 @@ void CQuestionBrick::Render()
 	}
 
 	animation_set->at(aniId)->Render(x, y);
-	//RenderBoundingBox();
 }
 
 void CQuestionBrick::SetState(int state)

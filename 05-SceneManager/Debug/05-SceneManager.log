@@ -1,7 +1,7 @@
 ﻿  Coin.cpp
   Game.cpp
   Mario.cpp
-C:\Users\phuocthanh\Documents\game\SE102.N11.PMCL\05-SceneManager\Mario.cpp(21,20): warning C4018: '<': signed/unsigned mismatch
+C:\Users\phuocthanh\Documents\game\SE102.N11.PMCL\05-SceneManager\Mario.cpp(20,20): warning C4018: '<': signed/unsigned mismatch
   MushRoom.cpp
 C:\Users\phuocthanh\Documents\game\SE102.N11.PMCL\05-SceneManager\MushRoom.cpp(49,21): warning C4018: '<': signed/unsigned mismatch
   PlayScene.cpp

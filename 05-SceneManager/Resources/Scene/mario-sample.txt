@@ -7,7 +7,7 @@ height	240
 0	Resources\Scene\World1-1\scene1.txt
 1	Resources\Scene\World1-1\scene1.txt
 [TEXTURES]
-# id	file_path	
+# id	file_path
 0	Resources\Textures\mario.png	
 1	Resources\Textures\mar.png	
 10	Resources\Textures\enemies.png	
@@ -20,4 +20,5 @@ height	240
 80	Resources\Textures\fonts.png	
 90	Resources\Textures\card.png	
 100	Resources\Textures\mario-left.png	
-110	Resources\Textures\mario-right.png	
+110	Resources\Textures\mario-right.png
+120	Resources\Textures\bbox.png	
