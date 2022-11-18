@@ -105,6 +105,9 @@
     <ClCompile Include="MushRoom.cpp">
       <Filter>Map Objects\Items</Filter>
     </ClCompile>
+    <ClCompile Include="Koopa.cpp">
+      <Filter>Map Objects\Enemies</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animations.h">
@@ -181,6 +184,9 @@
     </ClInclude>
     <ClInclude Include="MushRoom.h">
       <Filter>Map Objects\Items</Filter>
+    </ClInclude>
+    <ClInclude Include="Koopa.h">
+      <Filter>Map Objects\Enemies</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
