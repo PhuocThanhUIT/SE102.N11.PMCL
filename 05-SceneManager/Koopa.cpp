@@ -3,6 +3,7 @@
 #include "Brick.h"
 #include "Goomba.h"
 #include "HiddenBrick.h"
+#include "PlayScene.h"
 
 CKoopa::CKoopa(float x, float y)
 {
@@ -12,10 +13,19 @@ CKoopa::CKoopa(float x, float y)
 
 void CKoopa::GetBoundingBox(float& left, float& top, float& right, float& bottom)
 {
+	if (state == KOOPA_STATE_NORMAL) {
 		left = x;
 		top = y;
-		right = left+ KOOPA_BBOX_WIDTH;
+		right = left + KOOPA_BBOX_WIDTH;
 		bottom = top + KOOPA_BBOX_HEIGHT;
+	}
+	else {
+		left = x;
+		top = y;
+		right = left + KOOPA_SHELL_BBOX_WIDTH;
+		bottom = top + KOOPA_SHELL_BBOX_HEIGHT;
+	}
+		
 }
 
 void CKoopa::OnNoCollision(DWORD dt)
@@ -26,6 +36,7 @@ void CKoopa::OnNoCollision(DWORD dt)
 
 void CKoopa::OnCollisionWith(LPCOLLISIONEVENT e)
 {
+	
 	if (!e->obj->IsBlocking()) return;
 	if (dynamic_cast<CGoomba*>(e->obj)) return;
 	if (e->ny != 0)
@@ -55,15 +66,19 @@ void CKoopa::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		}
 	}
 
+
 	CGameObject::Update(dt, coObjects);
 	CCollision::GetInstance()->Process(this, dt, coObjects);
 }
 
 int CKoopa::GetAniIdKoopa() {
 	int aniId = 0;
-	if (state = KOOPA_STATE_NORMAL) {
+	if (state == KOOPA_STATE_NORMAL) {
 		if (vx > 0) aniId = KOOPA_WALK_RIGHT_ANI_ID;
 		else aniId = KOOPA_WALK_LEFT_ANI_ID;
+	}
+	if (state == KOOPA_STATE_SHELL) {
+		aniId = KOOPA_SHELL_ANI_ID;
 	}
 	return aniId;
 }
@@ -72,7 +87,11 @@ void CKoopa::Render()
 	int aniId = GetAniIdKoopa();
 	switch (tag) {
 	}
-	animation_set->at(aniId)->Render(x, y+7);
+	if (state == KOOPA_STATE_NORMAL) {
+		animation_set->at(aniId)->Render(x, y + KOOPA_DIFF);
+	}else
+		animation_set->at(aniId)->Render(x, y + KOOPA_SHELL_DIFF);
+	
 	//RenderBoundingBox();
 }
 
@@ -82,6 +101,9 @@ void CKoopa::SetState(int state)
 	switch (state)
 	{
 	case KOOPA_STATE_NORMAL:
-		vx = KOOPA_MOVING_SPEED;
+		vx = -KOOPA_MOVING_SPEED;
+		break;
+	case KOOPA_STATE_SHELL:
+		vx = 0;
 	}
 }

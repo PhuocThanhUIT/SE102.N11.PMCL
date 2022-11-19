@@ -12,6 +12,7 @@
 #include "Collision.h"
 #include "QuestionBrick.h"
 #include "MushRoom.h"
+#include "Koopa.h"
 
 void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 {
@@ -73,12 +74,32 @@ void CMario::OnCollisionWith(LPCOLLISIONEVENT e)
 		OnCollisionWithPortal(e);
 	else if (dynamic_cast<CMushRoom*>(e->obj))
 		OnCollisionWithMushRoom(e);
+	else if (dynamic_cast<CKoopa*>(e->obj))
+		OnCollisionWithKoopa(e);
 }
 
 void CMario::OnCollisionWithMushRoom(LPCOLLISIONEVENT e) {
 	CMushRoom* mushroom = dynamic_cast<CMushRoom*>(e->obj);
 	mushroom->SetState(MUSHROOM_STATE_DELETE);
 	this->SetLevel(MARIO_LEVEL_BIG);
+}
+void CMario::OnCollisionWithKoopa(LPCOLLISIONEVENT e)
+{
+	CKoopa* koopa = dynamic_cast<CKoopa*>(e->obj);
+
+	// jump on top >> kill Goomba and deflect a bit 
+	if (e->ny < 0)
+	{
+		if (koopa->GetState()==KOOPA_STATE_NORMAL)
+		{
+			koopa->SetState(KOOPA_STATE_SHELL);
+			vy = -MARIO_JUMP_DEFLECT_SPEED;
+		}
+	}
+	else 
+	{
+
+	}
 }
 void CMario::OnCollisionWithGoomba(LPCOLLISIONEVENT e)
 {
