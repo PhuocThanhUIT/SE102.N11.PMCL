@@ -12,8 +12,8 @@ void CKoopa::GetBoundingBox(float& left, float& top, float& right, float& bottom
 {
 		left = x;
 		top = y;
-		right = left;
-		bottom = top;
+		right = left+ KOOPA_BBOX_WIDTH;
+		bottom = top +KOOPA_BBOX_HEIGHT;
 }
 
 void CKoopa::OnNoCollision(DWORD dt)

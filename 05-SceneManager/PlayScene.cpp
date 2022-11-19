@@ -13,6 +13,7 @@
 #include "HiddenBrick.h"
 #include "QuestionBrick.h"
 #include "MushRoom.h"
+#include "Koopa.h"
 #include "SampleKeyEventHandler.h"
 
 using namespace std;
@@ -167,7 +168,7 @@ void CPlayScene::_ParseObjFromFile(LPCWSTR path) {
 		case OBJECT_TYPE_QUESTION_BRICK: obj = new CQuestionBrick(x, y); obj->SetTag(tag); break;
 		case OBJECT_TYPE_HIDDEN_BRICK: obj = new CHiddenBrick(); break;
 		case OBJECT_TYPE_COIN: obj = new CCoin(x, y); break;
-		
+		case OBJECT_TYPE_KOOPAS: obj = new CKoopa(x, y); break;
 
 		/*case OBJECT_TYPE_PORTAL:
 		{
