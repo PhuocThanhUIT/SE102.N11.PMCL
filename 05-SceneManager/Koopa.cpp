@@ -7,6 +7,7 @@
 CKoopa::CKoopa(float x, float y)
 {
 	this->SetState(KOOPA_STATE_NORMAL);
+	this->ay = KOOPA_GRAVITY;
 }
 
 void CKoopa::GetBoundingBox(float& left, float& top, float& right, float& bottom)
@@ -41,7 +42,18 @@ void CKoopa::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
 	vy += ay * dt;
 	vx += ax * dt;
-
+	for (int i = 0; i < coObjects->size(); i++) {
+		LPGAMEOBJECT obj = coObjects->at(i);
+		if (dynamic_cast<CHiddenBrick*>(obj))
+		{
+			if (obj->getY() > this->y) {
+				obj->SetIsBlocking(1);
+			}
+			else {
+				obj->SetIsBlocking(0);
+			}
+		}
+	}
 
 	CGameObject::Update(dt, coObjects);
 	CCollision::GetInstance()->Process(this, dt, coObjects);
@@ -60,7 +72,7 @@ void CKoopa::Render()
 	int aniId = GetAniIdKoopa();
 	switch (tag) {
 	}
-	animation_set->at(aniId)->Render(x, y);
+	animation_set->at(aniId)->Render(x, y+7);
 	//RenderBoundingBox();
 }
 
@@ -71,6 +83,5 @@ void CKoopa::SetState(int state)
 	{
 	case KOOPA_STATE_NORMAL:
 		vx = KOOPA_MOVING_SPEED;
-		vy = KOOPA_GRAVITY;
 	}
 }
