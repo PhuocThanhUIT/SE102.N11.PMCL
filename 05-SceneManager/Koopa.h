@@ -15,6 +15,8 @@
 #define KOOPA_PARA_RIGHT_ANI_ID 7
 #define KOOPA_PARA_LEFT_ANI_ID 8
 #define KOOPA_SHAKE_UP_ANI_ID 9
+#define KOOPA_MOVING_SPEED 0.05f
+#define KOOPA_GRAVITY 0.02f
 
 
 class CKoopa : public CGameObject
@@ -33,6 +35,7 @@ protected:
 	virtual void OnNoCollision(DWORD dt);
 
 	virtual void OnCollisionWith(LPCOLLISIONEVENT e);
+	int GetAniIdKoopa();
 
 public:
 	CKoopa(float x, float y);
