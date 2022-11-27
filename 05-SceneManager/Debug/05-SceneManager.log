@@ -1,10 +1,5 @@
 ﻿  Koopa.cpp
-C:\Users\phuocthanh\Documents\game\SE102.N11.PMCL\05-SceneManager\Koopa.cpp(56,20): warning C4018: '<': signed/unsigned mismatch
-C:\Users\phuocthanh\Documents\game\SE102.N11.PMCL\05-SceneManager\Koopa.cpp(89,2): warning C4060: switch statement contains no 'case' or 'default' labels
-  Mario.cpp
-C:\Users\phuocthanh\Documents\game\SE102.N11.PMCL\05-SceneManager\Mario.cpp(21,20): warning C4018: '<': signed/unsigned mismatch
-  PlayScene.cpp
-C:\Users\phuocthanh\Documents\game\SE102.N11.PMCL\05-SceneManager\PlayScene.cpp(76,20): warning C4018: '<': signed/unsigned mismatch
-C:\Users\phuocthanh\Documents\game\SE102.N11.PMCL\05-SceneManager\PlayScene.cpp(333,20): warning C4018: '<': signed/unsigned mismatch
-  Generating Code...
+C:\Users\phuocthanh\Documents\game\SE102.N11.PMCL\05-SceneManager\Koopa.cpp(52,20): warning C4018: '<': signed/unsigned mismatch
+C:\Users\phuocthanh\Documents\game\SE102.N11.PMCL\05-SceneManager\Koopa.cpp(73,20): warning C4018: '<': signed/unsigned mismatch
+C:\Users\phuocthanh\Documents\game\SE102.N11.PMCL\05-SceneManager\Koopa.cpp(111,2): warning C4060: switch statement contains no 'case' or 'default' labels
   05-SceneManager.vcxproj -> C:\Users\phuocthanh\Documents\game\SE102.N11.PMCL\Debug\05-SceneManager.exe

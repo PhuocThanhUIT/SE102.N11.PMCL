@@ -120,6 +120,7 @@ void CGoomba::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 
 void CGoomba::Render()
 {
+	
 	int aniId = 0;
 	switch (tag) {
 	case NORMAL_GOOMBA:
@@ -139,6 +140,7 @@ void CGoomba::Render()
 		break;
 	}
 	animation_set->at(aniId)->Render(x, y);
+	RenderBoundingBox();
 	//RenderBoundingBox();
 }
 

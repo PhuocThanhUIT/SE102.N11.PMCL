@@ -6,8 +6,9 @@
 #define KOOPA_SHELL_DIFF 3
 #define KOOPA_STATE_NORMAL 100
 #define KOOPA_STATE_SHELL 200
+#define KOOPA_STATE_SPIN 300
 #define KOOPA_BBOX_WIDTH 16
-#define KOOPA_BBOX_HEIGHT 26
+#define KOOPA_BBOX_HEIGHT 20
 #define KOOPA_SHELL_BBOX_WIDTH 16
 #define KOOPA_SHELL_BBOX_HEIGHT 16
 #define KOOPA_WALK_RIGHT_ANI_ID 0
@@ -20,7 +21,8 @@
 #define KOOPA_PARA_RIGHT_ANI_ID 7
 #define KOOPA_PARA_LEFT_ANI_ID 8
 #define KOOPA_SHAKE_UP_ANI_ID 9
-#define KOOPA_MOVING_SPEED 0.01f
+#define KOOPA_MOVING_SPEED 0.005f
+#define KOOPA_SPIN_SPEED 0.1f
 #define KOOPA_GRAVITY 0.02f
 
 
@@ -37,9 +39,8 @@ protected:
 	virtual int IsCollidable() { return 1; };
 	virtual int IsBlocking() { return 0; }
 	virtual void OnNoCollision(DWORD dt);
-
-	bool CalTurnable();
 	virtual void OnCollisionWith(LPCOLLISIONEVENT e);
+	void OnCollisionWithHiddenBrick(LPCOLLISIONEVENT e);
 	int GetAniIdKoopa();
 
 public:

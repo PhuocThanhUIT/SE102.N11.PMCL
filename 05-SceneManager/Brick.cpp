@@ -12,5 +12,5 @@ void CBrick::GetBoundingBox(float& l, float& t, float& r, float& b)
 void CBrick::Render()
 {
 	animation_set->at(BRICK_ANI_IDLE)->Render(x, y);
-	//RenderBoundingBox();
+	RenderBoundingBox();
 }

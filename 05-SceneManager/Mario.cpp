@@ -24,7 +24,7 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 			if (obj->getY() < this->y) {
 				obj->SetIsBlocking(0);
 			}
-			else { obj->SetIsBlocking(1); }
+			else { obj->SetIsBlocking(1);}
 		}
 	}
 	if (abs(vx) > abs(maxVx)) vx = maxVx;
@@ -64,8 +64,10 @@ void CMario::OnCollisionWith(LPCOLLISIONEVENT e)
 		vx = 0;
 	}
 
-	if (dynamic_cast<CGoomba*>(e->obj))
+	if (dynamic_cast<CGoomba*>(e->obj)) {
 		OnCollisionWithGoomba(e);
+	}
+		
 	else if (dynamic_cast<CQuestionBrick*>(e->obj))
 		OnCollisionWithQuestionBrick(e);
 	else if (dynamic_cast<CCoin*>(e->obj))
@@ -97,7 +99,12 @@ void CMario::OnCollisionWithKoopa(LPCOLLISIONEVENT e)
 		}
 	}
 	else 
-	{
+	{  
+		if (koopa->GetState() == KOOPA_STATE_SHELL) {
+			koopa->SetState(KOOPA_STATE_SPIN);
+			if (e->nx < 0) koopa->SetVx(KOOPA_SPIN_SPEED);
+			else koopa->SetVx(-KOOPA_SPIN_SPEED);
+		}
 
 	}
 }

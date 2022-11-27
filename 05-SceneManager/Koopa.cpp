@@ -15,7 +15,7 @@ void CKoopa::GetBoundingBox(float& left, float& top, float& right, float& bottom
 {
 	if (state == KOOPA_STATE_NORMAL) {
 		left = x;
-		top = y;
+		top = y ;
 		right = left + KOOPA_BBOX_WIDTH;
 		bottom = top + KOOPA_BBOX_HEIGHT;
 	}
@@ -36,19 +36,36 @@ void CKoopa::OnNoCollision(DWORD dt)
 
 void CKoopa::OnCollisionWith(LPCOLLISIONEVENT e)
 {
-	
-	if (!e->obj->IsBlocking()) return;
-	if (dynamic_cast<CGoomba*>(e->obj)) return;
-	if (e->ny != 0)
+	if (e->ny != 0 && e->obj->IsBlocking())
 	{
 		vy = 0;
-	}
-	else if (e->nx != 0)
+	}else if ( e->nx !=0&&e->obj->IsBlocking())
 	{
 		vx = -vx;
 	}
+	if (dynamic_cast<CHiddenBrick*>(e->obj)) OnCollisionWithHiddenBrick(e);
 }
 
+void CKoopa::OnCollisionWithHiddenBrick(LPCOLLISIONEVENT e) {
+	CPlayScene* currentScene = (CPlayScene*)CGame::GetInstance()->GetCurrentScene();
+	vector<LPGAMEOBJECT>* coObjects = currentScene->GetObjects();
+	for (int i = 0; i < coObjects->size(); i++) {
+		LPGAMEOBJECT obj = coObjects->at(i);
+		if (obj==e->obj)
+		{
+			
+			if (vx>0 && state==KOOPA_STATE_NORMAL) {
+				LPGAMEOBJECT obj1 = coObjects->at(i+1);
+				DebugOut(L"y1:%i,y2:%i", obj1->getY(), obj->getY());
+				if (obj1->getY() != obj->getY()) vx=-vx;
+			}
+			else if(vx<0&&state ==KOOPA_STATE_NORMAL) {
+				LPGAMEOBJECT obj1 = coObjects->at(i-1);
+				if (obj1->getY() != obj->getY() && obj->getX()>=this->x) vx = -vx;
+			}
+		}
+	}
+}
 void CKoopa::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
 	vy += ay * dt;
@@ -80,15 +97,20 @@ int CKoopa::GetAniIdKoopa() {
 	if (state == KOOPA_STATE_SHELL) {
 		aniId = KOOPA_SHELL_ANI_ID;
 	}
+	if (state == KOOPA_STATE_SPIN) {
+		if (vx > 0) aniId = KOOPA_SPIN_RIGHT_ANI_ID;
+		else aniId = KOOPA_SPIN_LEFT_ANI_ID;
+	}
 	return aniId;
 }
 void CKoopa::Render()
 {
+	RenderBoundingBox();
 	int aniId = GetAniIdKoopa();
 	switch (tag) {
 	}
 	if (state == KOOPA_STATE_NORMAL) {
-		animation_set->at(aniId)->Render(x, y + KOOPA_DIFF);
+		animation_set->at(aniId)->Render(x, y);
 	}else
 		animation_set->at(aniId)->Render(x, y + KOOPA_SHELL_DIFF);
 	
