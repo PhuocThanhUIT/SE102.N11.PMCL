@@ -12,8 +12,8 @@ CMushRoom::CMushRoom(float x, float y):CGameObject(x,y)
 
 void CMushRoom::GetBoundingBox(float& left, float& top, float& right, float& bottom)
 {
-		left = x;
-		top = y;
+		left = x - MUSHROOM_BBOX_WIDTH/2;
+		top = y - MUSHROOM_BBOX_HEIGHT/2;
 		right = left + MUSHROOM_BBOX_WIDTH;
 		bottom = top + MUSHROOM_BBOX_HEIGHT;
 }
