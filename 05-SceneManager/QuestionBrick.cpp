@@ -9,10 +9,10 @@ CQuestionBrick::CQuestionBrick(float x, float y)
 
 void CQuestionBrick::GetBoundingBox(float& l, float& t, float& r, float& b)
 {
-	l = x;
-	t = y;
-	r = x + BRICK_BBOX_WIDTH;
-	b = y + BRICK_BBOX_HEIGHT;
+	l = x - BRICK_BBOX_WIDTH/2;
+	t = y - BRICK_BBOX_HEIGHT/2;
+	r = l + BRICK_BBOX_WIDTH;
+	b = t + BRICK_BBOX_HEIGHT;
 }
 
 void CQuestionBrick::OnNoCollision(DWORD dt)
