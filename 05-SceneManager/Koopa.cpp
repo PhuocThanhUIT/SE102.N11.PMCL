@@ -15,7 +15,7 @@ void CKoopa::GetBoundingBox(float& left, float& top, float& right, float& bottom
 {
 	if (state == KOOPA_STATE_NORMAL) {
 		left = x;
-		top = y ;
+		top = y - KOOPA_BBOX_HEIGHT/4 ;
 		right = left + KOOPA_BBOX_WIDTH;
 		bottom = top + KOOPA_BBOX_HEIGHT;
 	}
@@ -36,10 +36,12 @@ void CKoopa::OnNoCollision(DWORD dt)
 
 void CKoopa::OnCollisionWith(LPCOLLISIONEVENT e)
 {
-	if (e->ny != 0 && e->obj->IsBlocking())
+	if (!e->obj->IsBlocking()) return;
+	if (e->ny != 0)
 	{
 		vy = 0;
-	}else if ( e->nx !=0&&e->obj->IsBlocking())
+	}
+	if ( e->nx !=0)
 	{
 		vx = -vx;
 	}
@@ -105,16 +107,12 @@ int CKoopa::GetAniIdKoopa() {
 }
 void CKoopa::Render()
 {
-	RenderBoundingBox();
 	int aniId = GetAniIdKoopa();
 	switch (tag) {
 	}
-	if (state == KOOPA_STATE_NORMAL) {
-		animation_set->at(aniId)->Render(x, y);
-	}else
-		animation_set->at(aniId)->Render(x, y + KOOPA_SHELL_DIFF);
+	animation_set->at(aniId)->Render(x, y);
 	
-	//RenderBoundingBox();
+	RenderBoundingBox();
 }
 
 void CKoopa::SetState(int state)

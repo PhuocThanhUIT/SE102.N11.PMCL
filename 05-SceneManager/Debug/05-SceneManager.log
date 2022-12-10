@@ -1,5 +1,5 @@
 ﻿  Koopa.cpp
-C:\Users\phuocthanh\Documents\game\SE102.N11.PMCL\05-SceneManager\Koopa.cpp(52,20): warning C4018: '<': signed/unsigned mismatch
-C:\Users\phuocthanh\Documents\game\SE102.N11.PMCL\05-SceneManager\Koopa.cpp(73,20): warning C4018: '<': signed/unsigned mismatch
-C:\Users\phuocthanh\Documents\game\SE102.N11.PMCL\05-SceneManager\Koopa.cpp(111,2): warning C4060: switch statement contains no 'case' or 'default' labels
+C:\Users\phuocthanh\Documents\game\SE102.N11.PMCL\05-SceneManager\Koopa.cpp(54,20): warning C4018: '<': signed/unsigned mismatch
+C:\Users\phuocthanh\Documents\game\SE102.N11.PMCL\05-SceneManager\Koopa.cpp(75,20): warning C4018: '<': signed/unsigned mismatch
+C:\Users\phuocthanh\Documents\game\SE102.N11.PMCL\05-SceneManager\Koopa.cpp(112,2): warning C4060: switch statement contains no 'case' or 'default' labels
   05-SceneManager.vcxproj -> C:\Users\phuocthanh\Documents\game\SE102.N11.PMCL\Debug\05-SceneManager.exe

@@ -163,12 +163,13 @@ void CPlayScene::_ParseObjFromFile(LPCWSTR path) {
 
 			DebugOut(L"[INFO] Player object has been created!\n");
 			break;
+		case OBJECT_TYPE_KOOPAS: obj = new CKoopa(x, y); break;
 		case OBJECT_TYPE_GOOMBA: obj = new CGoomba(x, y); obj->SetTag(tag); break;
 		case OBJECT_TYPE_BRICK: obj = new CBrick(); break;
 		case OBJECT_TYPE_QUESTION_BRICK: obj = new CQuestionBrick(x, y); obj->SetTag(tag); break;
 		case OBJECT_TYPE_HIDDEN_BRICK: obj = new CHiddenBrick(); break;
 		case OBJECT_TYPE_COIN: obj = new CCoin(x, y); break;
-		case OBJECT_TYPE_KOOPAS: obj = new CKoopa(x, y); break;
+		
 
 		/*case OBJECT_TYPE_PORTAL:
 		{
