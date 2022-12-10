@@ -7,8 +7,8 @@ void CHiddenBrick::Render()
 
 void CHiddenBrick::GetBoundingBox(float& l, float& t, float& r, float& b)
 {
-	l = x;
-	t = y;
-	r = x + HIDDEN_BRICK_BBOX_WIDTH;
-	b = y + HIDDEN_BRICK_BBOX_HEIGHT;
+	l = x - HIDDEN_BRICK_BBOX_WIDTH/2;
+	t = y - HIDDEN_BRICK_BBOX_HEIGHT/2;
+	r = l + HIDDEN_BRICK_BBOX_WIDTH;
+	b = t + HIDDEN_BRICK_BBOX_HEIGHT;
 }

@@ -2,7 +2,7 @@
 #include "GameObject.h"
 
 #define HIDDEN_BRICK_BBOX_WIDTH  16
-#define HIDDEN_BRICK_BBOX_HEIGHT 2
+#define HIDDEN_BRICK_BBOX_HEIGHT 16
 
 class CHiddenBrick : public CGameObject {
 public:
