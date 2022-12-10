@@ -21,7 +21,7 @@ void CKoopa::GetBoundingBox(float& left, float& top, float& right, float& bottom
 	}
 	else {
 		left = x;
-		top = y;
+		top = y - KOOPA_SHELL_BBOX_HEIGHT/4;
 		right = left + KOOPA_SHELL_BBOX_WIDTH;
 		bottom = top + KOOPA_SHELL_BBOX_HEIGHT;
 	}

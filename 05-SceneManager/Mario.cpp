@@ -92,11 +92,8 @@ void CMario::OnCollisionWithKoopa(LPCOLLISIONEVENT e)
 	// jump on top >> kill Goomba and deflect a bit 
 	if (e->ny < 0)
 	{
-		if (koopa->GetState()==KOOPA_STATE_NORMAL)
-		{
 			koopa->SetState(KOOPA_STATE_SHELL);
 			vy = -MARIO_JUMP_DEFLECT_SPEED;
-		}
 	}
 	else 
 	{  
@@ -332,11 +329,6 @@ void CMario::Render()
 		aniId = GetAniIdBig();
 	else if (level == MARIO_LEVEL_SMALL)
 		aniId = GetAniIdSmall();
-	if (level == MARIO_LEVEL_BIG) {
-		if(isSitting) animation_set->at(aniId)->Render(x, y + MARIO_SIT_DIF);
-		else
-		animation_set->at(aniId)->Render(x, y + MARIO_BIG_DIF);
-	}else
 	animation_set->at(aniId)->Render(x, y);
 
 	
@@ -429,23 +421,23 @@ void CMario::GetBoundingBox(float &left, float &top, float &right, float &bottom
 	{
 		if (isSitting)
 		{
-			left = x;
-			top = y;
+			left = x - MARIO_BIG_SITTING_BBOX_WIDTH /2;
+			top = y - MARIO_BIG_SITTING_BBOX_HEIGHT/2;
 			right = left + MARIO_BIG_SITTING_BBOX_WIDTH;
 			bottom = top + MARIO_BIG_SITTING_BBOX_HEIGHT;
 		}
 		else
 		{
-			left = x;
-			top = y;
+			left = x - MARIO_BIG_BBOX_WIDTH/2;
+			top = y - MARIO_BIG_BBOX_HEIGHT/2;
 			right = left + MARIO_BIG_BBOX_WIDTH;
 			bottom = top + MARIO_BIG_BBOX_HEIGHT;
 		}
 	}
 	else
 	{
-		left = x ;
-		top = y ;
+		left = x-MARIO_SMALL_BBOX_WIDTH/2;
+		top = y -MARIO_SMALL_BBOX_HEIGHT/2;
 		right = left + MARIO_SMALL_BBOX_WIDTH;
 		bottom = top + MARIO_SMALL_BBOX_HEIGHT;
 	}
