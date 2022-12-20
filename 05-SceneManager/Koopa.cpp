@@ -14,14 +14,14 @@ CKoopa::CKoopa(float x, float y)
 void CKoopa::GetBoundingBox(float& left, float& top, float& right, float& bottom)
 {
 	if (state == KOOPA_STATE_NORMAL) {
-		left = x;
-		top = y - KOOPA_BBOX_HEIGHT/4 ;
+		left = x- KOOPA_BBOX_WIDTH/2;
+		top = y - KOOPA_BBOX_HEIGHT/2 ;
 		right = left + KOOPA_BBOX_WIDTH;
 		bottom = top + KOOPA_BBOX_HEIGHT;
 	}
 	else {
-		left = x;
-		top = y - KOOPA_SHELL_BBOX_HEIGHT/4;
+		left = x -KOOPA_SHELL_BBOX_WIDTH/2;
+		top = y - KOOPA_SHELL_BBOX_HEIGHT/2;
 		right = left + KOOPA_SHELL_BBOX_WIDTH;
 		bottom = top + KOOPA_SHELL_BBOX_HEIGHT;
 	}
@@ -40,33 +40,62 @@ void CKoopa::OnCollisionWith(LPCOLLISIONEVENT e)
 	if (e->ny != 0)
 	{
 		vy = 0;
-	}
-	if ( e->nx !=0)
+	}else if ( e->nx !=0)
 	{
-		vx = -vx;
+		if (!dynamic_cast<CHiddenBrick*>(e->obj)) {
+			vx = -vx;
+		}
 	}
 	if (dynamic_cast<CHiddenBrick*>(e->obj)) OnCollisionWithHiddenBrick(e);
 }
 
 void CKoopa::OnCollisionWithHiddenBrick(LPCOLLISIONEVENT e) {
+	if ( state == KOOPA_STATE_NORMAL)
+	{
+		if (vx > 0 && x >= e->obj->x+4)
+			if (CalTurnableRight(e->obj))
+			{
+				vx = -vx;
+			}
+		if (vx < 0)
+			if (CalTurnableLeft(e->obj))
+			{		
+				vx = -vx;
+			}
+	}
+	
+}
+bool CKoopa::CalTurnableRight(LPGAMEOBJECT object)
+{
 	CPlayScene* currentScene = (CPlayScene*)CGame::GetInstance()->GetCurrentScene();
-	vector<LPGAMEOBJECT>* coObjects = currentScene->GetObjects();
-	for (int i = 0; i < coObjects->size(); i++) {
-		LPGAMEOBJECT obj = coObjects->at(i);
-		if (obj==e->obj)
+	vector<LPGAMEOBJECT> coObjects = currentScene->GetObjects();
+	for (UINT i = 0; i < coObjects.size(); i++) {
+		if (coObjects.at(i) == object)
 		{
-			
-			if (vx>0 && state==KOOPA_STATE_NORMAL) {
-				LPGAMEOBJECT obj1 = coObjects->at(i+1);
-				DebugOut(L"y1:%i,y2:%i", obj1->getY(), obj->getY());
-				if (obj1->getY() != obj->getY()) vx=-vx;
+			DebugOut(L"y3:%f", coObjects.at(i + 1)->y);
+			if (coObjects.at(i + 1)->y != coObjects.at(i)->y) {
+				 return true; 
 			}
-			else if(vx<0&&state ==KOOPA_STATE_NORMAL) {
-				LPGAMEOBJECT obj1 = coObjects->at(i-1);
-				if (obj1->getY() != obj->getY() && obj->getX()>=this->x) vx = -vx;
-			}
+			else return false;
 		}
 	}
+	return false;
+}
+bool CKoopa::CalTurnableLeft(LPGAMEOBJECT object)
+{
+	CPlayScene* currentScene = (CPlayScene*)CGame::GetInstance()->GetCurrentScene();
+	vector<LPGAMEOBJECT> coObjects = currentScene->GetObjects();
+	for (UINT i = 0; i < coObjects.size(); i++) {
+		if (coObjects.at(i) == object)
+		{
+			DebugOut(L"y1:%f", coObjects.at(i - 1)->y);
+			if (coObjects.at(i-1)->y != coObjects.at(i)->y&&x<= coObjects.at(i)->x-4) {
+				return true;
+			}
+			else return false;
+		}
+	}
+	return false;
 }
 void CKoopa::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
