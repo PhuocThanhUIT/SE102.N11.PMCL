@@ -20,8 +20,6 @@ protected:
 	int isBlocking = 1;
 	
 
-	int nx;	 
-
 	int state;
 
 	bool isDeleted; 
@@ -31,7 +29,7 @@ public:
 	int tag = 0; // define for object tag
 	float x;
 	float y;
-
+	int nx;
 	float vx;
 	float vy;
 	
