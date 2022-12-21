@@ -18,13 +18,7 @@ protected:
 
 	
 	int isBlocking = 1;
-	float x; 
-	float y;
-
-	float vx;
-	float vy;
-
-	int nx;	 
+	
 
 	int state;
 
@@ -33,6 +27,11 @@ protected:
 
 public: 
 	int tag = 0; // define for object tag
+	float x;
+	float y;
+	int nx;
+	float vx;
+	float vy;
 	
 	void SetTag(int tag) { this->tag = tag; }
 	void SetPosition(float x, float y) { this->x = x, this->y = y; }

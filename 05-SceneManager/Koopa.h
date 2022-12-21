@@ -8,7 +8,7 @@
 #define KOOPA_STATE_SHELL 200
 #define KOOPA_STATE_SPIN 300
 #define KOOPA_BBOX_WIDTH 16
-#define KOOPA_BBOX_HEIGHT 24
+#define KOOPA_BBOX_HEIGHT 26
 #define KOOPA_SHELL_BBOX_WIDTH 16
 #define KOOPA_SHELL_BBOX_HEIGHT 16
 #define KOOPA_WALK_RIGHT_ANI_ID 0
@@ -21,14 +21,14 @@
 #define KOOPA_PARA_RIGHT_ANI_ID 7
 #define KOOPA_PARA_LEFT_ANI_ID 8
 #define KOOPA_SHAKE_UP_ANI_ID 9
-#define KOOPA_MOVING_SPEED 0.005f
+#define KOOPA_MOVING_SPEED 0.05f
 #define KOOPA_SPIN_SPEED 0.1f
 #define KOOPA_GRAVITY 0.02f
 
 
 class CKoopa : public CGameObject
 {
-protected:
+public:
 	float ax;
 	float ay;
 
@@ -42,8 +42,9 @@ protected:
 	virtual void OnCollisionWith(LPCOLLISIONEVENT e);
 	void OnCollisionWithHiddenBrick(LPCOLLISIONEVENT e);
 	int GetAniIdKoopa();
+	bool CalTurnableRight(LPGAMEOBJECT object);
+	bool CalTurnableLeft(LPGAMEOBJECT object);
 
-public:
 	CKoopa(float x, float y);
 	virtual void SetState(int state);
 };
