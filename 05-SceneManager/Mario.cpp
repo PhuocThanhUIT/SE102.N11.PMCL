@@ -90,7 +90,7 @@ void CMario::OnCollisionWithKoopa(LPCOLLISIONEVENT e)
 	CKoopa* koopa = dynamic_cast<CKoopa*>(e->obj);
 
 	// jump on top >> kill Goomba and deflect a bit 
-	if (e->ny < 0)
+	if (e->ny < 0 && !isOnPlatform)
 	{
 			koopa->SetState(KOOPA_STATE_SHELL);
 			vy = -MARIO_JUMP_DEFLECT_SPEED;

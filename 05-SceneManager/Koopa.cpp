@@ -9,6 +9,7 @@ CKoopa::CKoopa(float x, float y)
 {
 	this->SetState(KOOPA_STATE_NORMAL);
 	this->ay = KOOPA_GRAVITY;
+	this->nx = -1;
 }
 
 void CKoopa::GetBoundingBox(float& left, float& top, float& right, float& bottom)
@@ -39,11 +40,13 @@ void CKoopa::OnCollisionWith(LPCOLLISIONEVENT e)
 	if (!e->obj->IsBlocking()) return;
 	if (e->ny != 0)
 	{
-		vy = 0;
+		vy = 0.002f;
+		ay = vy;
 	}else if ( e->nx !=0)
 	{
 		if (!dynamic_cast<CHiddenBrick*>(e->obj)) {
 			vx = -vx;
+			nx = -nx;
 		}
 	}
 	if (dynamic_cast<CHiddenBrick*>(e->obj)) OnCollisionWithHiddenBrick(e);
@@ -100,7 +103,7 @@ bool CKoopa::CalTurnableLeft(LPGAMEOBJECT object)
 void CKoopa::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
 	vy += ay * dt;
-	vx += ax * dt;
+	//vx += ax * dt;
 	for (int i = 0; i < coObjects->size(); i++) {
 		LPGAMEOBJECT obj = coObjects->at(i);
 		if (dynamic_cast<CHiddenBrick*>(obj))
@@ -150,7 +153,7 @@ void CKoopa::SetState(int state)
 	switch (state)
 	{
 	case KOOPA_STATE_NORMAL:
-		vx = -KOOPA_MOVING_SPEED;
+		vx = nx*KOOPA_MOVING_SPEED;
 		break;
 	case KOOPA_STATE_SHELL:
 		vx = 0;

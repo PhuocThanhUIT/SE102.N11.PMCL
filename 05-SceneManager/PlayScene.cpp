@@ -8,7 +8,6 @@
 #include "Sprites.h"
 #include "Portal.h"
 #include "Coin.h"
-#include "Platform.h"
 #include "Map.h"
 #include "HiddenBrick.h"
 #include "QuestionBrick.h"

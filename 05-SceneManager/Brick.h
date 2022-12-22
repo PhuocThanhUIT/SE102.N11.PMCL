@@ -23,8 +23,8 @@ class CBrick : public CGameObject
 public:
 	virtual void Render();
 	virtual int IsBlocking() { return 1; }
-	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);
+	/*virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);
 	virtual int IsCollidable() { return 1; };
-	virtual void OnCollisionWith(LPCOLLISIONEVENT e);
+	virtual void OnCollisionWith(LPCOLLISIONEVENT e);*/
 	virtual void GetBoundingBox(float& l, float& t, float& r, float& b);
 };
