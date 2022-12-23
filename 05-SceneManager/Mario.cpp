@@ -102,6 +102,21 @@ void CMario::OnCollisionWithKoopa(LPCOLLISIONEVENT e)
 			if (e->nx < 0) koopa->SetVx(KOOPA_SPIN_SPEED);
 			else koopa->SetVx(-KOOPA_SPIN_SPEED);
 		}
+		else {
+			if (untouchable == 0)
+			{
+					if (level > MARIO_LEVEL_SMALL)
+					{
+						level -=1;
+						StartUntouchable();
+					}
+					else
+					{
+						DebugOut(L">>> Mario DIE >>> \n");
+						SetState(MARIO_STATE_DIE);
+					}
+			}
+		}
 
 	}
 }

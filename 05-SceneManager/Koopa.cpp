@@ -9,7 +9,7 @@ CKoopa::CKoopa(float x, float y)
 {
 	this->SetState(KOOPA_STATE_NORMAL);
 	this->ay = KOOPA_GRAVITY;
-	this->nx = -1;
+	this->ax = 0;
 }
 
 void CKoopa::GetBoundingBox(float& left, float& top, float& right, float& bottom)
@@ -37,20 +37,18 @@ void CKoopa::OnNoCollision(DWORD dt)
 
 void CKoopa::OnCollisionWith(LPCOLLISIONEVENT e)
 {
-	if (!e->obj->IsBlocking()) return;
-	if (e->ny != 0)
+	if (e->ny != 0 && e->obj->IsBlocking())
 	{
-		vy = 0.002f;
-		ay = vy;
-	}else if ( e->nx !=0)
+		vy = 0;
+	}else if ( e->nx !=0 && e->obj->IsBlocking())
 	{
 		if (!dynamic_cast<CHiddenBrick*>(e->obj)) {
 			vx = -vx;
-			nx = -nx;
 		}
 	}
 	if (dynamic_cast<CHiddenBrick*>(e->obj)) OnCollisionWithHiddenBrick(e);
 }
+
 
 void CKoopa::OnCollisionWithHiddenBrick(LPCOLLISIONEVENT e) {
 	if ( state == KOOPA_STATE_NORMAL)
@@ -75,7 +73,6 @@ bool CKoopa::CalTurnableRight(LPGAMEOBJECT object)
 	for (UINT i = 0; i < coObjects.size(); i++) {
 		if (coObjects.at(i) == object)
 		{
-			DebugOut(L"y3:%f", coObjects.at(i + 1)->y);
 			if (coObjects.at(i + 1)->y != coObjects.at(i)->y) {
 				 return true; 
 			}
@@ -91,7 +88,6 @@ bool CKoopa::CalTurnableLeft(LPGAMEOBJECT object)
 	for (UINT i = 0; i < coObjects.size(); i++) {
 		if (coObjects.at(i) == object)
 		{
-			DebugOut(L"y1:%f", coObjects.at(i - 1)->y);
 			if (coObjects.at(i-1)->y != coObjects.at(i)->y&&x<= coObjects.at(i)->x-4) {
 				return true;
 			}
@@ -103,7 +99,7 @@ bool CKoopa::CalTurnableLeft(LPGAMEOBJECT object)
 void CKoopa::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
 	vy += ay * dt;
-	//vx += ax * dt;
+	vx += ax * dt;
 	for (int i = 0; i < coObjects->size(); i++) {
 		LPGAMEOBJECT obj = coObjects->at(i);
 		if (dynamic_cast<CHiddenBrick*>(obj))
@@ -153,7 +149,7 @@ void CKoopa::SetState(int state)
 	switch (state)
 	{
 	case KOOPA_STATE_NORMAL:
-		vx = nx*KOOPA_MOVING_SPEED;
+		vx = -KOOPA_MOVING_SPEED;
 		break;
 	case KOOPA_STATE_SHELL:
 		vx = 0;
