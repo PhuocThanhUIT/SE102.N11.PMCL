@@ -47,9 +47,17 @@ void CKoopa::OnCollisionWith(LPCOLLISIONEVENT e)
 		}
 	}
 	if (dynamic_cast<CHiddenBrick*>(e->obj)) OnCollisionWithHiddenBrick(e);
+	else if (dynamic_cast<CGoomba*>(e->obj)) OnCollisionWithGoomba(e);
 }
 
+void CKoopa::OnCollisionWithGoomba(LPCOLLISIONEVENT e) {
+	CGoomba* goomba = dynamic_cast<CGoomba*>(e->obj);
+	if (state == KOOPA_STATE_SPIN)
+	{
+		goomba->SetState(GOOMBA_STATE_DIE);
+	}
 
+}
 void CKoopa::OnCollisionWithHiddenBrick(LPCOLLISIONEVENT e) {
 	if ( state == KOOPA_STATE_NORMAL)
 	{

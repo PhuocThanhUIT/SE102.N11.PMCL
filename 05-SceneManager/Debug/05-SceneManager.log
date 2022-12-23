@@ -1,7 +1,6 @@
-﻿  Brick.cpp
-  Koopa.cpp
-C:\Users\phuocthanh\Documents\game\SE102.N11.PMCL\05-SceneManager\Koopa.cpp(103,20): warning C4018: '<': signed/unsigned mismatch
-C:\Users\phuocthanh\Documents\game\SE102.N11.PMCL\05-SceneManager\Koopa.cpp(140,2): warning C4060: switch statement contains no 'case' or 'default' labels
+﻿  Koopa.cpp
+C:\Users\phuocthanh\Documents\game\SE102.N11.PMCL\05-SceneManager\Koopa.cpp(111,20): warning C4018: '<': signed/unsigned mismatch
+C:\Users\phuocthanh\Documents\game\SE102.N11.PMCL\05-SceneManager\Koopa.cpp(148,2): warning C4060: switch statement contains no 'case' or 'default' labels
   Mario.cpp
 C:\Users\phuocthanh\Documents\game\SE102.N11.PMCL\05-SceneManager\Mario.cpp(21,20): warning C4018: '<': signed/unsigned mismatch
   PlayScene.cpp

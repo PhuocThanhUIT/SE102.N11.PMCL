@@ -41,6 +41,7 @@ public:
 	virtual void OnNoCollision(DWORD dt);
 	virtual void OnCollisionWith(LPCOLLISIONEVENT e);
 	void OnCollisionWithHiddenBrick(LPCOLLISIONEVENT e);
+	void OnCollisionWithGoomba(LPCOLLISIONEVENT e);
 	int GetAniIdKoopa();
 	bool CalTurnableRight(LPGAMEOBJECT object);
 	bool CalTurnableLeft(LPGAMEOBJECT object);
