@@ -17,6 +17,7 @@
 
 #define GOOMBA_STATE_WALKING 100
 #define GOOMBA_STATE_DIE 200
+#define GOOMBA_STATE_DIE_BY_KOOPA 250
 
 #define GOOMBA_WING_JUMPING_STACKS	3
 #define GOOMBA_WING_TIME_WALKING 500
@@ -28,9 +29,9 @@
 #define GOOMBA_WING_ANI_WALKING		    3
 #define GOOMBA_RED_ANI_WALKING			4
 #define GOOMBA_RED_ANI_DIE				5
+#define GOOMBA_NORMAL_ANI_DIE_BY_KOOPA  6
 
 // Red goomba
-#define GOOMBA_STATE_DIE_BY_MARIO		250
 #define GOOMBA_STATE_WING_JUMPING		300
 #define GOOMBA_STATE_WING_HIGHJUMPING	350
 #define GOOMBA_STATE_WING_WALKING	400
@@ -57,7 +58,7 @@ protected:
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects);
 	virtual void Render();
 
-	virtual int IsCollidable() { return 1; };
+	virtual int IsCollidable() { return (state != GOOMBA_STATE_DIE_BY_KOOPA); };
 	virtual int IsBlocking() { return 0; }
 	virtual void OnNoCollision(DWORD dt);
 

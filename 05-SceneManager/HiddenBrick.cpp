@@ -2,7 +2,7 @@
 
 void CHiddenBrick::Render()
 {
-	RenderBoundingBox();
+	//RenderBoundingBox();
 }
 
 void CHiddenBrick::GetBoundingBox(float& l, float& t, float& r, float& b)

@@ -52,9 +52,9 @@ void CKoopa::OnCollisionWith(LPCOLLISIONEVENT e)
 
 void CKoopa::OnCollisionWithGoomba(LPCOLLISIONEVENT e) {
 	CGoomba* goomba = dynamic_cast<CGoomba*>(e->obj);
-	if (state == KOOPA_STATE_SPIN)
+	if (state == KOOPA_STATE_SPIN && goomba->y-this->y<24)
 	{
-		goomba->SetState(GOOMBA_STATE_DIE);
+		goomba->SetState(GOOMBA_STATE_DIE_BY_KOOPA);
 	}
 
 }
@@ -107,7 +107,7 @@ bool CKoopa::CalTurnableLeft(LPGAMEOBJECT object)
 void CKoopa::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
 	vy += ay * dt;
-	vx += ax * dt;
+	//vx += ax * dt;
 	for (int i = 0; i < coObjects->size(); i++) {
 		LPGAMEOBJECT obj = coObjects->at(i);
 		if (dynamic_cast<CHiddenBrick*>(obj))
@@ -148,7 +148,7 @@ void CKoopa::Render()
 	}
 	animation_set->at(aniId)->Render(x, y);
 	
-	RenderBoundingBox();
+	//RenderBoundingBox();
 }
 
 void CKoopa::SetState(int state)

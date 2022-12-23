@@ -80,7 +80,7 @@ void CGoomba::OnCollisionWith(LPCOLLISIONEVENT e)
 		else if (e->ny > 0)
 			ay = GOOMBA_GRAVITY;
 	}
-	if (e->ny != 0 )
+	if (e->ny != 0 && state!=GOOMBA_STATE_DIE_BY_KOOPA)
 	{
 		vy = 0;
 	}
@@ -127,6 +127,7 @@ void CGoomba::Render()
 		aniId = GOOMBA_NORMAL_ANI_WALKING;
 		if (state == GOOMBA_STATE_DIE)
 			aniId = GOOMBA_NORMAL_ANI_DIE;
+		else if (state == GOOMBA_STATE_DIE_BY_KOOPA) aniId = GOOMBA_NORMAL_ANI_DIE_BY_KOOPA;
 		break;
 	case WING_GOOMBA:
 		aniId = GOOMBA_WING_ANI_WALKING;
@@ -140,7 +141,6 @@ void CGoomba::Render()
 		break;
 	}
 	animation_set->at(aniId)->Render(x, y);
-	RenderBoundingBox();
 	//RenderBoundingBox();
 }
 
@@ -155,6 +155,10 @@ void CGoomba::SetState(int state)
 			vx = 0;
 			vy = 0;
 			ay = 0; 
+			break;
+		case GOOMBA_STATE_DIE_BY_KOOPA:
+			vy = -GOOMBA_DIE_DEFLECT_SPEED;
+			ay = GOOMBA_GRAVITY;
 			break;
 		case GOOMBA_STATE_WALKING: 
 			vx = -GOOMBA_WALKING_SPEED;
