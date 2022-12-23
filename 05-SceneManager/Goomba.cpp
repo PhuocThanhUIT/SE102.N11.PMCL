@@ -100,6 +100,7 @@ void CGoomba::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 		isDeleted = true;
 		return;
 	}
+	if (y > 500) isDeleted = true;
 
 	//// limit y 
 	if (vy < -GOOMBA_JUMP_SPEED && state == GOOMBA_STATE_WING_JUMPING)
@@ -120,7 +121,7 @@ void CGoomba::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 
 void CGoomba::Render()
 {
-	
+	if (isDeleted) return;
 	int aniId = 0;
 	switch (tag) {
 	case NORMAL_GOOMBA:

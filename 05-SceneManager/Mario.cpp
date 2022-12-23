@@ -103,7 +103,7 @@ void CMario::OnCollisionWithKoopa(LPCOLLISIONEVENT e)
 			else koopa->SetVx(-KOOPA_SPIN_SPEED);
 		}
 		else {
-			if (untouchable == 0)
+			if (untouchable == 0 && koopa->y-y<16)
 			{
 					if (level > MARIO_LEVEL_SMALL)
 					{
@@ -125,9 +125,9 @@ void CMario::OnCollisionWithGoomba(LPCOLLISIONEVENT e)
 	CGoomba* goomba = dynamic_cast<CGoomba*>(e->obj);
 
 	// jump on top >> kill Goomba and deflect a bit 
-	if (e->ny < 0)
+	if (e->ny < 0 && !isOnPlatform)
 	{
-		if (goomba->GetState() != GOOMBA_STATE_DIE)
+		if (goomba->GetState() != GOOMBA_STATE_DIE && goomba->GetState() != GOOMBA_STATE_DIE_BY_KOOPA)
 		{
 			if (goomba->GetTag() == NORMAL_GOOMBA || goomba->GetTag() == RED_GOOMBA) {
 				goomba->SetState(GOOMBA_STATE_DIE);
@@ -143,7 +143,7 @@ void CMario::OnCollisionWithGoomba(LPCOLLISIONEVENT e)
 	{
 		if (untouchable == 0)
 		{
-			if (goomba->GetState() != GOOMBA_STATE_DIE)
+			if (goomba->GetState() != GOOMBA_STATE_DIE && goomba->GetState() != GOOMBA_STATE_DIE_BY_KOOPA)
 			{
 				if (level > MARIO_LEVEL_SMALL)
 				{

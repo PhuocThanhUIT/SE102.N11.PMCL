@@ -40,7 +40,8 @@ void CKoopa::OnCollisionWith(LPCOLLISIONEVENT e)
 	if (e->ny != 0 && e->obj->IsBlocking())
 	{
 		vy = 0;
-	}else if ( e->nx !=0 && e->obj->IsBlocking())
+	}
+	if ( e->nx !=0 && e->obj->IsBlocking())
 	{
 		if (!dynamic_cast<CHiddenBrick*>(e->obj)) {
 			vx = -vx;
@@ -143,6 +144,7 @@ int CKoopa::GetAniIdKoopa() {
 }
 void CKoopa::Render()
 {
+	if (isDeleted) return;
 	int aniId = GetAniIdKoopa();
 	switch (tag) {
 	}

@@ -66,6 +66,7 @@ void CMushRoom::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 void CMushRoom::Render()
 {
+	if (isDeleted) return;
 	int aniId = 0;
 	animation_set->at(0)->Render(x, y);
 	//RenderBoundingBox();

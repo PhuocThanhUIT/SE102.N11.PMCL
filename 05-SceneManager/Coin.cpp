@@ -11,6 +11,7 @@ CCoin::CCoin(float x, float y) : CGameObject(x, y) {
 
 void CCoin::Render()
 {
+	if (isDeleted) return;
 	CAnimations* animations = CAnimations::GetInstance();
 	animation_set->at(0)->Render(x, y);
 

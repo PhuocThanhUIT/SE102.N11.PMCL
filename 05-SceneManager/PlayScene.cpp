@@ -307,6 +307,7 @@ void CPlayScene::Render()
 	current_map->DrawMap();
 	for (int i = objects.size()-1; i > -1; i--)
 		objects[i]->Render();
+	
 }
 
 /*
