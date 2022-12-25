@@ -25,17 +25,24 @@
 #define KOOPA_SPIN_SPEED 0.1f
 #define KOOPA_GRAVITY 0.02f
 
+#define KOOPA_REVIVE_TIME		2000
+#define KOOPA_SHELL_TIME		5000
+
 
 class CKoopa : public CGameObject
 {
 public:
+
+	ULONGLONG reviving_start = 0;
+	ULONGLONG shell_start = 0;
 	float ax;
 	float ay;
 
 	virtual void GetBoundingBox(float& left, float& top, float& right, float& bottom);
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);
 	virtual void Render();
-
+	void StartReviving() { reviving_start = GetTickCount64(); }
+	void StartShell() { shell_start = GetTickCount64(); reviving_start = 0; }
 	virtual int IsCollidable() { return 1; };
 	virtual int IsBlocking() { return 0; }
 	virtual void OnNoCollision(DWORD dt);

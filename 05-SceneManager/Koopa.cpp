@@ -108,7 +108,17 @@ bool CKoopa::CalTurnableLeft(LPGAMEOBJECT object)
 void CKoopa::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
 	vy += ay * dt;
+	if (GetTickCount64() - shell_start >= KOOPA_SHELL_TIME && shell_start != 0 && state != KOOPA_STATE_SPIN) {
+		shell_start = 0;
+		StartReviving();
+	}
 
+	if (GetTickCount64() - reviving_start >= KOOPA_REVIVE_TIME && reviving_start != 0 && state != KOOPA_STATE_SPIN && shell_start == 0)
+	{
+		reviving_start = 0;
+		y -= (KOOPA_BBOX_HEIGHT - KOOPA_SHELL_BBOX_HEIGHT) + 1.0f;
+		SetState(KOOPA_STATE_NORMAL);
+	}
 
 	CGameObject::Update(dt, coObjects);
 	CCollision::GetInstance()->Process(this, dt, coObjects);
@@ -121,6 +131,9 @@ int CKoopa::GetAniIdKoopa() {
 		else aniId = KOOPA_WALK_LEFT_ANI_ID;
 	}
 	if (state == KOOPA_STATE_SHELL) {
+		if (reviving_start != 0) {
+			aniId = KOOPA_SHAKE_ANI_ID;
+		}else
 		aniId = KOOPA_SHELL_ANI_ID;
 	}
 	if (state == KOOPA_STATE_SPIN) {
@@ -150,5 +163,6 @@ void CKoopa::SetState(int state)
 		break;
 	case KOOPA_STATE_SHELL:
 		vx = 0;
+		StartShell();
 	}
 }
