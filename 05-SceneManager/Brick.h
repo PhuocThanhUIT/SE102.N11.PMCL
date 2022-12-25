@@ -22,6 +22,7 @@ class CBrick : public CGameObject
 {
 public:
 	virtual void Render();
+	virtual int IsCollidable() { return 1; };
 	virtual int IsBlocking() { return 1; }
 	virtual void GetBoundingBox(float& l, float& t, float& r, float& b);
 };

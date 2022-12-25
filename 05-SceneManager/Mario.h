@@ -112,7 +112,7 @@ class CMario : public CGameObject
 	
 	
 	ULONGLONG untouchable_start;
-	BOOLEAN isOnPlatform;
+	
 	int coin; 
 
 	void OnCollisionWithGoomba(LPCOLLISIONEVENT e);
@@ -126,6 +126,7 @@ class CMario : public CGameObject
 	
 
 public:
+	BOOLEAN isOnPlatform;
 	int level;
 	int untouchable; 
 	CMario(float x, float y) : CGameObject(x, y)

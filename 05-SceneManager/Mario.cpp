@@ -18,15 +18,6 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 {
 	vy += ay * dt;
 	vx += ax * dt;
-	for (int i = 0; i < coObjects->size(); i++) {
-		LPGAMEOBJECT obj = coObjects->at(i);
-		if (dynamic_cast<CHiddenBrick*>(obj)) {
-			if (obj->getY() < this->y) {
-				obj->SetIsBlocking(0);
-			}
-			else { obj->SetIsBlocking(1);}
-		}
-	}
 	if (abs(vx) > abs(maxVx)) vx = maxVx;
 
 	// reset untouchable timer if untouchable time has passed
@@ -53,17 +44,19 @@ void CMario::OnNoCollision(DWORD dt)
 
 void CMario::OnCollisionWith(LPCOLLISIONEVENT e)
 {
-	if (e->ny != 0 && e->obj->IsBlocking())
-	{
-		vy = 0;
-		if (e->ny < 0) isOnPlatform = true;
+	if (!dynamic_cast<CHiddenBrick*>(e->obj)) {
+		if (e->ny != 0 && e->obj->IsBlocking())
+		{
+			vy = 0;
+			if (e->ny < 0) isOnPlatform = true;
+		}
+		else
+			if (e->nx != 0 && e->obj->IsBlocking())
+			{
+				vx = 0;
+			}
 	}
-	else 
-	if (e->nx != 0 && e->obj->IsBlocking())
-	{
-		vx = 0;
-	}
-
+	
 	if (dynamic_cast<CGoomba*>(e->obj)) {
 		OnCollisionWithGoomba(e);
 	}
@@ -90,7 +83,7 @@ void CMario::OnCollisionWithKoopa(LPCOLLISIONEVENT e)
 	CKoopa* koopa = dynamic_cast<CKoopa*>(e->obj);
 
 	// jump on top >> kill Goomba and deflect a bit 
-	if (e->ny < 0 && !isOnPlatform)
+	if (e->ny < 0)
 	{
 			koopa->SetState(KOOPA_STATE_SHELL);
 			vy = -MARIO_JUMP_DEFLECT_SPEED;
@@ -103,7 +96,7 @@ void CMario::OnCollisionWithKoopa(LPCOLLISIONEVENT e)
 			else koopa->SetVx(-KOOPA_SPIN_SPEED);
 		}
 		else {
-			if (untouchable == 0 && koopa->y-y<16)
+			if (untouchable == 0)
 			{
 					if (level > MARIO_LEVEL_SMALL)
 					{
@@ -125,7 +118,7 @@ void CMario::OnCollisionWithGoomba(LPCOLLISIONEVENT e)
 	CGoomba* goomba = dynamic_cast<CGoomba*>(e->obj);
 
 	// jump on top >> kill Goomba and deflect a bit 
-	if (e->ny < 0 && !isOnPlatform)
+	if (e->ny < 0)
 	{
 		if (goomba->GetState() != GOOMBA_STATE_DIE && goomba->GetState() != GOOMBA_STATE_DIE_BY_KOOPA)
 		{

@@ -17,8 +17,6 @@ class CGameObject
 protected:
 
 	
-	int isBlocking = 1;
-	
 
 	int state;
 
@@ -69,9 +67,6 @@ public:
 	// Is this object blocking other object? If YES, collision framework will automatically push the other object
 	virtual int IsBlocking() { return 1; }
 
-	virtual void SetIsBlocking(int blocking) {
-		 this->isBlocking = blocking;
-	}
 
 	void SetVx(float x) { this->vx = x; }
 
