@@ -46,6 +46,10 @@ void CKoopa::OnCollisionWith(LPCOLLISIONEVENT e)
 		if (!dynamic_cast<CHiddenBrick*>(e->obj)) {
 			vx = -vx;
 		}
+		else {
+			CHiddenBrick* hiddenbrick = dynamic_cast<CHiddenBrick*>(e->obj);
+			hiddenbrick->SetIsBlocking(0);
+		}
 	}
 	if (dynamic_cast<CHiddenBrick*>(e->obj)) OnCollisionWithHiddenBrick(e);
 	else if (dynamic_cast<CGoomba*>(e->obj)) OnCollisionWithGoomba(e);
@@ -107,6 +111,7 @@ bool CKoopa::CalTurnableLeft(LPGAMEOBJECT object)
 }
 void CKoopa::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
+	CMario* mario = ((CPlayScene*)CGame::GetInstance()->GetCurrentScene())->GetPlayer();
 	vy += ay * dt;
 	if (GetTickCount64() - shell_start >= KOOPA_SHELL_TIME && shell_start != 0 && state != KOOPA_STATE_SPIN) {
 		shell_start = 0;
@@ -120,10 +125,19 @@ void CKoopa::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		SetState(KOOPA_STATE_NORMAL);
 	}
 
+	HandleBeingHeld(mario);
+
 	CGameObject::Update(dt, coObjects);
 	CCollision::GetInstance()->Process(this, dt, coObjects);
 }
-
+void CKoopa::HandleBeingHeld(LPGAMEOBJECT object) {
+	CMario* mario = dynamic_cast<CMario*>(object);
+	if (mario->isHolding && this->isBeingHeld) {
+		if(mario->nx>0) x = mario->x + MARIO_SMALL_BBOX_WIDTH*mario->nx -3.0f;
+		else  x = mario->x + MARIO_SMALL_BBOX_WIDTH*mario->nx;
+		y = mario->y - 2.0f;
+	}
+}
 int CKoopa::GetAniIdKoopa() {
 	int aniId = 0;
 	if (state == KOOPA_STATE_NORMAL) {

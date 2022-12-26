@@ -53,8 +53,8 @@ public:
 	int GetAniIdKoopa();
 	bool CalTurnableRight(LPGAMEOBJECT object);
 	bool CalTurnableLeft(LPGAMEOBJECT object);
-	bool SetIsBeingHeld(bool beingheld) { this->isBeingHeld = beingheld; }
-
+	bool SetIsBeingHeld(bool beingheld) { return this->isBeingHeld = beingheld; }
+	void HandleBeingHeld(LPGAMEOBJECT object);
 	CKoopa(float x, float y);
 	virtual void SetState(int state);
 };

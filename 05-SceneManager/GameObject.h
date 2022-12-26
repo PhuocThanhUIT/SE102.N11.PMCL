@@ -30,7 +30,7 @@ public:
 	int nx;
 	float vx;
 	float vy;
-	
+	int isBlocking = 1;
 	void SetTag(int tag) { this->tag = tag; }
 	void SetPosition(float x, float y) { this->x = x, this->y = y; }
 	void SetSpeed(float vx, float vy) { this->vx = vx, this->vy = vy; }
@@ -67,6 +67,7 @@ public:
 	// Is this object blocking other object? If YES, collision framework will automatically push the other object
 	virtual int IsBlocking() { return 1; }
 
+	virtual int SetIsBlocking(int block) { return this->isBlocking = block; }
 
 	void SetVx(float x) { this->vx = x; }
 
