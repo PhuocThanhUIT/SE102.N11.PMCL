@@ -35,6 +35,7 @@ public:
 
 	ULONGLONG reviving_start = 0;
 	ULONGLONG shell_start = 0;
+	BOOLEAN isBeingHeld = false;
 	float ax;
 	float ay;
 
@@ -52,6 +53,7 @@ public:
 	int GetAniIdKoopa();
 	bool CalTurnableRight(LPGAMEOBJECT object);
 	bool CalTurnableLeft(LPGAMEOBJECT object);
+	bool SetIsBeingHeld(bool beingheld) { this->isBeingHeld = beingheld; }
 
 	CKoopa(float x, float y);
 	virtual void SetState(int state);

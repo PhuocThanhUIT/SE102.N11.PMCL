@@ -128,6 +128,7 @@ class CMario : public CGameObject
 public:
 	BOOLEAN isOnPlatform;
 	BOOLEAN isHolding = false;
+	BOOLEAN isReadyToHold = false;
 	int level;
 	int untouchable; 
 	CMario(float x, float y) : CGameObject(x, y)

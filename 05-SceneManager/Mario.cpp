@@ -91,9 +91,15 @@ void CMario::OnCollisionWithKoopa(LPCOLLISIONEVENT e)
 	else 
 	{  
 		if (koopa->GetState() == KOOPA_STATE_SHELL) {
-			koopa->SetState(KOOPA_STATE_SPIN);
-			if (e->nx < 0) koopa->SetVx(KOOPA_SPIN_SPEED);
-			else koopa->SetVx(-KOOPA_SPIN_SPEED);
+			if (isReadyToHold) {
+				this->isHolding = true;
+				koopa->SetIsBeingHeld(true);
+			}
+			else {
+				koopa->SetState(KOOPA_STATE_SPIN);
+				if (e->nx < 0) koopa->SetVx(KOOPA_SPIN_SPEED);
+				else koopa->SetVx(-KOOPA_SPIN_SPEED);
+			}	
 		}
 		else {
 			if (untouchable == 0)
