@@ -123,6 +123,11 @@ void CKoopa::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		reviving_start = 0;
 		y -= (KOOPA_BBOX_HEIGHT - KOOPA_SHELL_BBOX_HEIGHT) + 1.0f;
 		SetState(KOOPA_STATE_NORMAL);
+		if (isBeingHeld) {
+			this->isBeingHeld = false;
+			mario->isHolding = false;
+			this->SetVx(mario->nx * KOOPA_MOVING_SPEED);
+		}
 	}
 	if (!isBeingHeld) {
 		vy += ay * dt;
