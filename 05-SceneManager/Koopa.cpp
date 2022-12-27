@@ -112,7 +112,7 @@ bool CKoopa::CalTurnableLeft(LPGAMEOBJECT object)
 void CKoopa::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
 	CMario* mario = ((CPlayScene*)CGame::GetInstance()->GetCurrentScene())->GetPlayer();
-	vy += ay * dt;
+	
 	if (GetTickCount64() - shell_start >= KOOPA_SHELL_TIME && shell_start != 0 && state != KOOPA_STATE_SPIN) {
 		shell_start = 0;
 		StartReviving();
@@ -124,7 +124,9 @@ void CKoopa::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		y -= (KOOPA_BBOX_HEIGHT - KOOPA_SHELL_BBOX_HEIGHT) + 1.0f;
 		SetState(KOOPA_STATE_NORMAL);
 	}
-
+	if (!isBeingHeld) {
+		vy += ay * dt;
+	}
 	HandleBeingHeld(mario);
 
 	CGameObject::Update(dt, coObjects);

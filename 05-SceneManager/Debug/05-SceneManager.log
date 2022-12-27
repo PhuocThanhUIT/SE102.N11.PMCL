@@ -1,20 +1,3 @@
-﻿  Brick.cpp
-  Coin.cpp
-  Collision.cpp
-  Game.cpp
-  GameObject.cpp
-  Goomba.cpp
-  HiddenBrick.cpp
-  Koopa.cpp
-C:\Users\phuocthanh\Documents\game\SE102.N11.PMCL\05-SceneManager\Koopa.cpp(164,2): warning C4060: switch statement contains no 'case' or 'default' labels
-  Mario.cpp
-  MushRoom.cpp
-  PlayScene.cpp
-C:\Users\phuocthanh\Documents\game\SE102.N11.PMCL\05-SceneManager\PlayScene.cpp(75,20): warning C4018: '<': signed/unsigned mismatch
-C:\Users\phuocthanh\Documents\game\SE102.N11.PMCL\05-SceneManager\PlayScene.cpp(333,20): warning C4018: '<': signed/unsigned mismatch
-  Portal.cpp
-  QuestionBrick.cpp
-  SampleKeyEventHandler.cpp
-  main.cpp
-  Generating Code...
+﻿  Koopa.cpp
+C:\Users\phuocthanh\Documents\game\SE102.N11.PMCL\05-SceneManager\Koopa.cpp(166,2): warning C4060: switch statement contains no 'case' or 'default' labels
   05-SceneManager.vcxproj -> C:\Users\phuocthanh\Documents\game\SE102.N11.PMCL\Debug\05-SceneManager.exe
