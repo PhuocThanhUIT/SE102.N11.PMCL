@@ -308,26 +308,55 @@ int CMario::GetAniIdBig()
 	{
 		if (abs(ax) == MARIO_ACCEL_RUN_X)
 		{
-			if (nx >= 0)
-				aniId = MARIO_ANI_BIG_RUNNING_RIGHT;
-			else
-				aniId = MARIO_ANI_BIG_RUNNING_LEFT;
+			if (isHolding) {
+				if (nx >= 0)
+					aniId = MARIO_ANI_BIG_HOLD_RUNNING_RIGHT;
+				else
+					aniId = MARIO_ANI_BIG_HOLD_RUNNING_LEFT;
+			}
+			else {
+				if (nx >= 0)
+					aniId = MARIO_ANI_BIG_RUNNING_RIGHT;
+				else
+					aniId = MARIO_ANI_BIG_RUNNING_LEFT;
+			}
+			
 		}
 		else
 		{
-			if (nx >= 0)
-				aniId = MARIO_ANI_BIG_WALKING_FAST_RIGHT;
-			else
-				aniId = MARIO_ANI_BIG_WALKING_FAST_LEFT;
+			if (isHolding) {
+				if (nx >= 0)
+					aniId = MARIO_ANI_BIG_HOLD_WALKING_FAST_RIGHT;
+				else
+					aniId = MARIO_ANI_BIG_HOLD_WALKING_FAST_LEFT;
+			}
+			else {
+				if (nx >= 0)
+					aniId = MARIO_ANI_BIG_WALKING_FAST_RIGHT;
+				else
+					aniId = MARIO_ANI_BIG_WALKING_FAST_LEFT;
+			}
+			
 		}
 	}
 	if (state == MARIO_STATE_JUMP || state == MARIO_STATE_RELEASE_JUMP) {
-		if (nx > 0) {
-			aniId = MARIO_ANI_BIG_JUMPINGUP_RIGHT;
+		if(isHolding){
+			if (nx > 0) {
+				aniId = MARIO_ANI_BIG_HOLD_JUMPINGUP_RIGHT;
+			}
+			if (nx < 0) {
+				aniId = MARIO_ANI_BIG_HOLD_JUMPINGUP_LEFT;
+			}
 		}
-		if (nx < 0) {
-			aniId = MARIO_ANI_BIG_JUMPINGUP_LEFT;
+		else {
+			if (nx > 0) {
+				aniId = MARIO_ANI_BIG_JUMPINGUP_RIGHT;
+			}
+			if (nx < 0) {
+				aniId = MARIO_ANI_BIG_JUMPINGUP_LEFT;
+			}
 		}
+		
 	}
 	else
 		if (isSitting)
@@ -341,46 +370,94 @@ int CMario::GetAniIdBig()
 		else
 			if (vx == 0)
 			{
-				if (nx > 0) {
-					aniId = MARIO_ANI_BIG_IDLE_RIGHT;
+				if (isHolding) {
+					if (nx > 0) {
+						aniId = MARIO_ANI_BIG_HOLD_IDLE_RIGHT;
+					}
+					else {
+						aniId = MARIO_ANI_BIG_HOLD_IDLE_LEFT;
+					}
 				}
 				else {
-					aniId = MARIO_ANI_BIG_IDLE_LEFT;
+					if (nx > 0) {
+						aniId = MARIO_ANI_BIG_IDLE_RIGHT;
+					}
+					else {
+						aniId = MARIO_ANI_BIG_IDLE_LEFT;
+					}
 				}
+				
 			}
 			else if (vx > 0)
 			{
-				if (ax < 0)
-					aniId = MARIO_ANI_BIG_BRAKING_RIGHT;
-				else if (ax == MARIO_ACCEL_RUN_X)
-				{
-					aniId = MARIO_ANI_BIG_RUNNING_RIGHT;
-				}
-				else if (ax == MARIO_ACCEL_WALK_X) {
-					aniId = MARIO_ANI_BIG_WALKING_RIGHT;
-				}
+				if (isHolding) {
+					if (ax < 0)
+						aniId = MARIO_ANI_BIG_HOLD_BRAKING_RIGHT;
+					else if (ax == MARIO_ACCEL_RUN_X)
+					{
+						aniId = MARIO_ANI_BIG_HOLD_RUNNING_RIGHT;
+					}
+					else if (ax == MARIO_ACCEL_WALK_X) {
+						aniId = MARIO_ANI_BIG_HOLD_WALKING_RIGHT;
+					}
 
-				if (!isOnPlatform) {
-					aniId = MARIO_ANI_BIG_JUMPINGUP_RIGHT;
+					if (!isOnPlatform) {
+						aniId = MARIO_ANI_BIG_HOLD_JUMPINGUP_RIGHT;
+					}
 				}
+				else {
+					if (ax < 0)
+						aniId = MARIO_ANI_BIG_BRAKING_RIGHT;
+					else if (ax == MARIO_ACCEL_RUN_X)
+					{
+						aniId = MARIO_ANI_BIG_RUNNING_RIGHT;
+					}
+					else if (ax == MARIO_ACCEL_WALK_X) {
+						aniId = MARIO_ANI_BIG_WALKING_RIGHT;
+					}
+
+					if (!isOnPlatform) {
+						aniId = MARIO_ANI_BIG_JUMPINGUP_RIGHT;
+					}
+				}
+				
 
 			}
 			else // vx < 0
 			{
-				if (ax > 0)
-					aniId = MARIO_ANI_BIG_BRAKING_LEFT;
-				else if (ax == -MARIO_ACCEL_RUN_X) {
-					aniId = MARIO_ANI_BIG_RUNNING_LEFT;
+				if (isHolding) {
+					if (ax > 0)
+						aniId = MARIO_ANI_BIG_HOLD_BRAKING_LEFT;
+					else if (ax == -MARIO_ACCEL_RUN_X) {
+						aniId = MARIO_ANI_BIG_HOLD_RUNNING_LEFT;
 
-				}
-				else if (ax == -MARIO_ACCEL_WALK_X)
-				{
-					aniId = MARIO_ANI_BIG_WALKING_LEFT;
-				}
+					}
+					else if (ax == -MARIO_ACCEL_WALK_X)
+					{
+						aniId = MARIO_ANI_BIG_HOLD_WALKING_LEFT;
+					}
 
-				if (!isOnPlatform) {
-					aniId = MARIO_ANI_BIG_JUMPINGUP_LEFT;
+					if (!isOnPlatform) {
+						aniId = MARIO_ANI_BIG_HOLD_JUMPINGUP_LEFT;
+					}
 				}
+				else {
+					if (ax > 0)
+						aniId = MARIO_ANI_BIG_BRAKING_LEFT;
+					else if (ax == -MARIO_ACCEL_RUN_X) {
+						aniId = MARIO_ANI_BIG_RUNNING_LEFT;
+
+					}
+					else if (ax == -MARIO_ACCEL_WALK_X)
+					{
+						aniId = MARIO_ANI_BIG_WALKING_LEFT;
+					}
+
+					if (!isOnPlatform) {
+						aniId = MARIO_ANI_BIG_JUMPINGUP_LEFT;
+					}
+				}
+				
 			}
 
 	if (aniId == -1) aniId = MARIO_ANI_BIG_IDLE_RIGHT;
