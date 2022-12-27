@@ -139,6 +139,11 @@ void CKoopa::HandleBeingHeld(LPGAMEOBJECT object) {
 		else  x = mario->x + MARIO_SMALL_BBOX_WIDTH*mario->nx;
 		y = mario->y - 2.0f;
 	}
+	else if(!mario->isHolding && this->isBeingHeld) {
+		this->isBeingHeld = false;
+		this->SetState(KOOPA_STATE_SPIN);
+		this->SetVx(mario->nx * KOOPA_SPIN_SPEED);
+	}
 }
 int CKoopa::GetAniIdKoopa() {
 	int aniId = 0;
