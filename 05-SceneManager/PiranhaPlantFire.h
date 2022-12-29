@@ -2,14 +2,9 @@
 #pragma once
 #pragma once
 #include "GameObject.h"
-#define MUSHROOM_BBOX_WIDTH 16
-#define MUSHROOM_BBOX_HEIGHT 16
-#define MUSHROOM_STATE_IDLE 100
-#define MUSHROOM_STATE_MOVE 200
-#define MUSHROOM_STATE_DELETE 300
-#define MUSHROOM_MOVING_SPEED 0.08f
-#define MUSHROOM_GROWING_UP_SPEED -0.01f
-#define MUSHROOM_GRAVITY 0.2f
+#define PIRANHA_PLANT_FIRE_BBOX_WIDTH 16
+#define PIRANHA_PLANT_FIRE_BBOX_HEIGHT 32
+
 
 
 class CPiranhaPlantFire : public CGameObject

@@ -37,6 +37,9 @@
     <Filter Include="Map">
       <UniqueIdentifier>{b098c261-f366-487a-b185-dd92b83e3ed1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Map Objects\Enemies\PiranhaPlantFire">
+      <UniqueIdentifier>{383e9854-837e-4cef-a97c-a2ed896862c7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -104,6 +107,9 @@
     </ClCompile>
     <ClCompile Include="Koopa.cpp">
       <Filter>Map Objects\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="PiranhaPlantFire.cpp">
+      <Filter>Map Objects\Enemies\PiranhaPlantFire</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -175,6 +181,9 @@
     </ClInclude>
     <ClInclude Include="Koopa.h">
       <Filter>Map Objects\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="PiranhaPlantFire.h">
+      <Filter>Map Objects\Enemies\PiranhaPlantFire</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

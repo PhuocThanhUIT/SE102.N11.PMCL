@@ -1,4 +1,15 @@
-﻿  PlayScene.cpp
-C:\Users\phuocthanh\Documents\game\SE102.N11.PMCL\05-SceneManager\PlayScene.cpp(75,20): warning C4018: '<': signed/unsigned mismatch
-C:\Users\phuocthanh\Documents\game\SE102.N11.PMCL\05-SceneManager\PlayScene.cpp(333,20): warning C4018: '<': signed/unsigned mismatch
+﻿  Brick.cpp
+  Collision.cpp
+  HiddenBrick.cpp
+  Koopa.cpp
+C:\Users\phuocthanh\Documents\game\SE102.N11.PMCL\05-SceneManager\Koopa.cpp(176,2): warning C4060: switch statement contains no 'case' or 'default' labels
+  main.cpp
+  Mario.cpp
+  MushRoom.cpp
+  PiranhaPlantFire.cpp
+C:\Users\phuocthanh\Documents\game\SE102.N11.PMCL\05-SceneManager\PiranhaPlantFire.cpp(62,2): warning C4060: switch statement contains no 'case' or 'default' labels
+  PlayScene.cpp
+C:\Users\phuocthanh\Documents\game\SE102.N11.PMCL\05-SceneManager\PlayScene.cpp(76,20): warning C4018: '<': signed/unsigned mismatch
+C:\Users\phuocthanh\Documents\game\SE102.N11.PMCL\05-SceneManager\PlayScene.cpp(335,20): warning C4018: '<': signed/unsigned mismatch
+  Generating Code...
   05-SceneManager.vcxproj -> C:\Users\phuocthanh\Documents\game\SE102.N11.PMCL\Debug\05-SceneManager.exe
