@@ -80,7 +80,7 @@ void CPiranhaPlantFire::Shoot() {
 	int ani_set_id = BULLET_ANI_SET_ID;
 	LPANIMATION_SET ani_set = animation_sets->Get(ani_set_id);
 	bullet->SetAnimationSet(ani_set);
-	currentScene->AddObject(bullet);
+	currentScene->AddObjectEnd(bullet);
 }
 
 void CPiranhaPlantFire::Render()

@@ -14,6 +14,7 @@
 #include "MushRoom.h"
 #include "Koopa.h"
 #include "PiranhaPlantFire.h"
+#include "FireBullet.h"
 
 void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 {
@@ -59,23 +60,45 @@ void CMario::OnCollisionWith(LPCOLLISIONEVENT e)
 	}
 	
 	if (dynamic_cast<CGoomba*>(e->obj)) {
+		DebugOut(L"MARIO COLLISON WITH GOOMBA\n");
 		OnCollisionWithGoomba(e);
 	}
-
-	else if (dynamic_cast<CQuestionBrick*>(e->obj))
+	else if (dynamic_cast<CQuestionBrick*>(e->obj)) {
+		DebugOut(L"MARIO COLLISON WITH QUESTION BRICK\n");
 		OnCollisionWithQuestionBrick(e);
-	else if (dynamic_cast<CCoin*>(e->obj))
+	}
+	else if (dynamic_cast<CCoin*>(e->obj)) {
+		DebugOut(L"MARIO COLLISON WITH COIN\n");
 		OnCollisionWithCoin(e);
+	}
 	else if (dynamic_cast<CPortal*>(e->obj))
 		OnCollisionWithPortal(e);
 	else if (dynamic_cast<CMushRoom*>(e->obj))
 		OnCollisionWithMushRoom(e);
-	else if (dynamic_cast<CKoopa*>(e->obj))
+	else if (dynamic_cast<CKoopa*>(e->obj)) {
+		DebugOut(L"MARIO COLLISON WITH KOOPA\n");
 		OnCollisionWithKoopa(e);
+	}
 	else if (dynamic_cast<CPiranhaPlantFire*>(e->obj))
 		OnCollisionWithPiranhaFire(e);
+	else if (dynamic_cast<FireBullet*>(e->obj))
+		OnCollisionWithFireBullet(e);
 }
-
+void CMario::OnCollisionWithFireBullet(LPCOLLISIONEVENT e) {
+	if (untouchable == 0)
+	{
+		if (level > MARIO_LEVEL_SMALL)
+		{
+			level -= 1;
+			StartUntouchable();
+		}
+		else
+		{
+			DebugOut(L">>> Mario DIE >>> \n");
+			SetState(MARIO_STATE_DIE);
+		}
+	}
+}
 void CMario::OnCollisionWithPiranhaFire(LPCOLLISIONEVENT e) {
 	if (untouchable == 0)
 	{
