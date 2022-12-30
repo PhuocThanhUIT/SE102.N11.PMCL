@@ -32,10 +32,14 @@ void CPiranhaPlantFire::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		vy = 0;
 		StartAim();
 	}
-
-	if (y >= limitY + PIRANHAPLANT_RED_BBOX_HEIGHT && vy > 0)
-	{
+	if (y >= limitY + PIRANHAPLANT_RED_BBOX_HEIGHT && vy > 0) {
+		vy = 0;
 		y = limitY + PIRANHAPLANT_RED_BBOX_HEIGHT + 12;
+	}
+
+	if (GetTickCount64() - delay_stop >= PIRANHAPLANT_DELAY_STOP_TIME && delay_stop != 0)
+	{
+		delay_stop = 0;
 		SetState(PIRANHAPLANT_STATE_DARTING);
 		//StartDelay();
 	}
@@ -52,6 +56,7 @@ void CPiranhaPlantFire::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		delay_start = 0;
 		if (y == limitY)
 			vy = PIRANHAPLANT_DARTING_SPEED;
+		StartDelayStop();
 	}
 }
 void CPiranhaPlantFire::GetDirect() {

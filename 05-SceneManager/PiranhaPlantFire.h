@@ -23,6 +23,7 @@
 #define PIRANHAPLANT_ANI_DEATH				4
 
 #define PIRANHAPLANT_DELAY_TIME			750
+#define PIRANHAPLANT_DELAY_STOP_TIME	3000
 #define PIRANHAPLANT_AIM_TIME			750
 #define PIRANHAPLANT_DIYING_TIME		250
 
@@ -36,6 +37,7 @@ class CPiranhaPlantFire : public CGameObject
 {
 protected:
 	ULONGLONG delay_start = 0;
+	ULONGLONG delay_stop = 0;
 	ULONGLONG dying_start = 0;
 	ULONGLONG shooting_start = 0;
 	ULONGLONG aim_start = 0;
@@ -51,6 +53,7 @@ protected:
 	virtual int IsBlocking() { return 0; }
 	void GetDirect();
 	void StartDelay() { delay_start = GetTickCount64(); }
+	void StartDelayStop() { delay_stop = GetTickCount64(); }
 	void StartShooting() { shooting_start = GetTickCount64(); }
 	void StartAim() { aim_start = GetTickCount64(); }
 	void Shoot();

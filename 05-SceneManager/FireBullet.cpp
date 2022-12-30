@@ -8,18 +8,18 @@ FireBullet::FireBullet(float bx, float by, bool up, bool right) {
 		vy = -BULLET_SPEED_Y;
 	}
 	else {
-		y = by;// +BULLET_BBOX_HEIGHT;
+		y = by;
 		vy = BULLET_SPEED_Y;
 	}
 
 	if (right)
 	{
-		x = bx;// +PIRANHAPLANT_BBOX_WIDTH;
+		x = bx;
 		vx = BULLET_SPEED_X;
 	}
 	else
 	{
-		x = bx;// -BULLET_BBOX_WIDTH;
+		x = bx;
 		vx = -BULLET_SPEED_X;
 	}
 }
