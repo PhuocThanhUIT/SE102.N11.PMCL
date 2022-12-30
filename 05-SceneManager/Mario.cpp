@@ -13,6 +13,7 @@
 #include "QuestionBrick.h"
 #include "MushRoom.h"
 #include "Koopa.h"
+#include "PiranhaPlantFire.h"
 
 void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 {
@@ -60,7 +61,7 @@ void CMario::OnCollisionWith(LPCOLLISIONEVENT e)
 	if (dynamic_cast<CGoomba*>(e->obj)) {
 		OnCollisionWithGoomba(e);
 	}
-		
+
 	else if (dynamic_cast<CQuestionBrick*>(e->obj))
 		OnCollisionWithQuestionBrick(e);
 	else if (dynamic_cast<CCoin*>(e->obj))
@@ -71,8 +72,25 @@ void CMario::OnCollisionWith(LPCOLLISIONEVENT e)
 		OnCollisionWithMushRoom(e);
 	else if (dynamic_cast<CKoopa*>(e->obj))
 		OnCollisionWithKoopa(e);
+	else if (dynamic_cast<CPiranhaPlantFire*>(e->obj))
+		OnCollisionWithPiranhaFire(e);
 }
 
+void CMario::OnCollisionWithPiranhaFire(LPCOLLISIONEVENT e) {
+	if (untouchable == 0)
+	{
+		if (level > MARIO_LEVEL_SMALL)
+		{
+			level -= 1;
+			StartUntouchable();
+		}
+		else
+		{
+			DebugOut(L">>> Mario DIE >>> \n");
+			SetState(MARIO_STATE_DIE);
+		}
+	}
+}
 void CMario::OnCollisionWithMushRoom(LPCOLLISIONEVENT e) {
 	CMushRoom* mushroom = dynamic_cast<CMushRoom*>(e->obj);
 	mushroom->SetState(MUSHROOM_STATE_DELETE);
