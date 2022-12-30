@@ -19,7 +19,7 @@
 #define PIRANHAPLANT_ANI_RIGHT_DOWN			1
 #define PIRANHAPLANT_ANI_LEFT_UP			2
 #define PIRANHAPLANT_ANI_LEFT_DOWN			3
-//#define PIRANHAPLANT_ANI_DEATH				4
+#define PIRANHAPLANT_ANI_DEATH				4
 
 #define PIRANHAPLANT_DELAY_TIME			750
 #define PIRANHAPLANT_AIM_TIME			750
@@ -35,14 +35,17 @@ class CPiranhaPlantFire : public CGameObject
 {
 protected:
 	ULONGLONG delay_start = 0;
+	ULONGLONG dying_start = 0;
 	float limitY = 0;
+	bool Up = false;
+	bool Right = false;
 	virtual void GetBoundingBox(float& left, float& top, float& right, float& bottom);
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* colliable_objects = NULL);
 	virtual void Render();
 
 	virtual int IsCollidable() { return 1; };
 	virtual int IsBlocking() { return 0; }
-
+	void GetDirect();
 	void StartDelay() { delay_start = GetTickCount64(); }
 
 public:

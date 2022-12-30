@@ -25,7 +25,7 @@ void CPiranhaPlantFire::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 	CGameObject::Update(dt);
 	y += vy * dt;
-
+	GetDirect();
 	if (y <= limitY && vy < 0)
 	{
 		y = limitY;
@@ -47,13 +47,41 @@ void CPiranhaPlantFire::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			vy = PIRANHAPLANT_DARTING_SPEED;
 	}
 }
+void CPiranhaPlantFire::GetDirect() {
+	CMario* mario = ((CPlayScene*)CGame::GetInstance()->GetCurrentScene())->GetPlayer();
+	int mHeight;
+	if (mario->level == MARIO_LEVEL_SMALL)
+		mHeight = MARIO_SMALL_BBOX_HEIGHT;
+	else
+		mHeight = MARIO_BIG_BBOX_HEIGHT;
 
+	if (mario->y + mHeight < limitY + PIRANHAPLANT_RED_BBOX_HEIGHT)
+		Up = true;
+	else
+		Up = false;
+	if (mario->x <= x)
+		Right = false;
+	else
+		Right = true;
+};
 
 void CPiranhaPlantFire::Render()
 {
-	if (isDeleted) return;
-	int aniId = 0;
-	animation_set->at(0)->Render(x, y);
+	int ani = PIRANHAPLANT_ANI_DEATH;
+	if (state != PIRANHAPLANT_STATE_DEATH && dying_start == 0)
+	{
+		if (Up)
+			if (Right)
+				ani = PIRANHAPLANT_ANI_RIGHT_UP;
+			else
+				ani = PIRANHAPLANT_ANI_LEFT_UP;
+		else
+			if (Right)
+				ani = PIRANHAPLANT_ANI_RIGHT_DOWN;
+			else
+				ani = PIRANHAPLANT_ANI_LEFT_DOWN;
+	}
+	animation_set->at(ani)->Render(x, y);
 	//RenderBoundingBox();
 }
 
