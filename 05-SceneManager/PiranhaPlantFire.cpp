@@ -30,13 +30,20 @@ void CPiranhaPlantFire::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	{
 		y = limitY;
 		vy = 0;
-		StartDelay();
+		StartAim();
 	}
 
 	if (y >= limitY + PIRANHAPLANT_RED_BBOX_HEIGHT && vy > 0)
 	{
 		y = limitY + PIRANHAPLANT_RED_BBOX_HEIGHT + 12;
 		SetState(PIRANHAPLANT_STATE_DARTING);
+		//StartDelay();
+	}
+
+	if (GetTickCount64() - aim_start >= PIRANHAPLANT_AIM_TIME && aim_start != 0)
+	{
+		aim_start = 0;
+		SetState(PIRANHAPLANT_STATE_SHOOTING);
 		StartDelay();
 	}
 
@@ -64,6 +71,17 @@ void CPiranhaPlantFire::GetDirect() {
 	else
 		Right = true;
 };
+void CPiranhaPlantFire::Shoot() {
+	CPlayScene* currentScene = (CPlayScene*)CGame::GetInstance()->GetCurrentScene();
+	CAnimationSets* animation_sets = CAnimationSets::GetInstance();
+	this->bullet = new FireBullet(x, y, Up, Right);
+
+	//! Basic setup for bullet object
+	int ani_set_id = BULLET_ANI_SET_ID;
+	LPANIMATION_SET ani_set = animation_sets->Get(ani_set_id);
+	bullet->SetAnimationSet(ani_set);
+	currentScene->AddObject(bullet);
+}
 
 void CPiranhaPlantFire::Render()
 {
@@ -93,6 +111,10 @@ void CPiranhaPlantFire::SetState(int state)
 	{
 	case PIRANHAPLANT_STATE_DARTING:
 		vy = -PIRANHAPLANT_DARTING_SPEED;
+		break;
+	case PIRANHAPLANT_STATE_SHOOTING:
+		vy = 0;
+		Shoot();
 		break;
 	case PIRANHAPLANT_STATE_INACTIVE:
 		vy = 0;

@@ -49,7 +49,7 @@ void FireBullet::Render()
 	else
 		ani = BULLET_ANI_LEFT;
 	animation_set->at(ani)->Render(x, y);
-	RenderBoundingBox();
+	//RenderBoundingBox();
 }
 
 void FireBullet::GetBoundingBox(float& l, float& t, float& r, float& b)

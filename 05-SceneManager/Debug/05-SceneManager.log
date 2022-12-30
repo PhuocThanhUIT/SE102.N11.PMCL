@@ -1,10 +1,8 @@
-﻿  Coin.cpp
-  FireBullet.cpp
+﻿  FireBullet.cpp
   Mario.cpp
-  MushRoom.cpp
+  PiranhaPlantFire.cpp
   PlayScene.cpp
 C:\Users\phuocthanh\Documents\game\SE102.N11.PMCL\05-SceneManager\PlayScene.cpp(76,20): warning C4018: '<': signed/unsigned mismatch
 C:\Users\phuocthanh\Documents\game\SE102.N11.PMCL\05-SceneManager\PlayScene.cpp(335,20): warning C4018: '<': signed/unsigned mismatch
-  QuestionBrick.cpp
   Generating Code...
   05-SceneManager.vcxproj -> C:\Users\phuocthanh\Documents\game\SE102.N11.PMCL\Debug\05-SceneManager.exe

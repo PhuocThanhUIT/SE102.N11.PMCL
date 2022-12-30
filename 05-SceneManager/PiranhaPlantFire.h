@@ -1,5 +1,6 @@
 #pragma once
 #include "GameObject.h"
+#include "FireBullet.h"
 #define PIRANHAPLANT_GREEN_TYPE					0
 #define PIRANHAPLANT_RED_TYPE					1
 
@@ -36,6 +37,9 @@ class CPiranhaPlantFire : public CGameObject
 protected:
 	ULONGLONG delay_start = 0;
 	ULONGLONG dying_start = 0;
+	ULONGLONG shooting_start = 0;
+	ULONGLONG aim_start = 0;
+	FireBullet* bullet = NULL;
 	float limitY = 0;
 	bool Up = false;
 	bool Right = false;
@@ -47,6 +51,9 @@ protected:
 	virtual int IsBlocking() { return 0; }
 	void GetDirect();
 	void StartDelay() { delay_start = GetTickCount64(); }
+	void StartShooting() { shooting_start = GetTickCount64(); }
+	void StartAim() { aim_start = GetTickCount64(); }
+	void Shoot();
 
 public:
 	CPiranhaPlantFire(float x, float y);
