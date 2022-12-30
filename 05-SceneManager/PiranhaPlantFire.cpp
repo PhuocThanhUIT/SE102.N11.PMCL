@@ -5,43 +5,47 @@
 #include "PlayScene.h"
 #include "Game.h"
 #include "HiddenBrick.h"
-CPiranhaPlantFire::CPiranhaPlantFire(float x, float y) :CGameObject(x, y)
+CPiranhaPlantFire::CPiranhaPlantFire(float x,float y)
 {
-
+	this->limitY = y - PIRANHAPLANT_RED_BBOX_HEIGHT;
+	SetState(PIRANHAPLANT_STATE_DARTING);
 }
 
 void CPiranhaPlantFire::GetBoundingBox(float& left, float& top, float& right, float& bottom)
 {
-	left = x - PIRANHA_PLANT_FIRE_BBOX_WIDTH / 2;
-	top = y - PIRANHA_PLANT_FIRE_BBOX_HEIGHT / 2;
-	right = left + PIRANHA_PLANT_FIRE_BBOX_WIDTH;
-	bottom = top + PIRANHA_PLANT_FIRE_BBOX_HEIGHT;
+	left = x - PIRANHAPLANT_BBOX_WIDTH / 2;
+	top = y - PIRANHAPLANT_RED_BBOX_HEIGHT / 2;
+	right = left + PIRANHAPLANT_BBOX_WIDTH;
+	bottom = top + PIRANHAPLANT_RED_BBOX_HEIGHT;
 }
 
-void CPiranhaPlantFire::OnNoCollision(DWORD dt)
-{
-	x += vx * dt;
-	y += vy * dt;
-};
-
-void CPiranhaPlantFire::OnCollisionWith(LPCOLLISIONEVENT e)
-{
-	if (e->ny != 0 && e->obj->IsBlocking())
-	{
-		vy = 0;
-	}
-	else if (e->nx != 0 && e->obj->IsBlocking())
-	{
-		vx = -vx;
-	}
-
-}
 
 void CPiranhaPlantFire::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
 
-	CGameObject::Update(dt, coObjects);
-	CCollision::GetInstance()->Process(this, dt, coObjects);
+	CGameObject::Update(dt);
+	y += vy * dt;
+
+	if (y <= limitY && vy < 0)
+	{
+		y = limitY;
+		vy = 0;
+		StartDelay();
+	}
+
+	if (y >= limitY + PIRANHAPLANT_RED_BBOX_HEIGHT && vy > 0)
+	{
+		y = limitY + PIRANHAPLANT_RED_BBOX_HEIGHT + 12;
+		SetState(PIRANHAPLANT_STATE_DARTING);
+		StartDelay();
+	}
+
+	if (GetTickCount64() - delay_start >= PIRANHAPLANT_DELAY_TIME && delay_start != 0)
+	{
+		delay_start = 0;
+		if (y == limitY)
+			vy = PIRANHAPLANT_DARTING_SPEED;
+	}
 }
 
 
@@ -59,6 +63,12 @@ void CPiranhaPlantFire::SetState(int state)
 	CMario* mario = ((CPlayScene*)CGame::GetInstance()->GetCurrentScene())->GetPlayer();
 	switch (state)
 	{
+	case PIRANHAPLANT_STATE_DARTING:
+		vy = -PIRANHAPLANT_DARTING_SPEED;
+		break;
+	case PIRANHAPLANT_STATE_INACTIVE:
+		vy = 0;
+		break;
 	}
 
 }

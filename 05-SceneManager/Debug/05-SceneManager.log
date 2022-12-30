@@ -1,13 +1,4 @@
-﻿  Brick.cpp
-  Collision.cpp
-  HiddenBrick.cpp
-  Koopa.cpp
-C:\Users\phuocthanh\Documents\game\SE102.N11.PMCL\05-SceneManager\Koopa.cpp(176,2): warning C4060: switch statement contains no 'case' or 'default' labels
-  main.cpp
-  Mario.cpp
-  MushRoom.cpp
-  PiranhaPlantFire.cpp
-C:\Users\phuocthanh\Documents\game\SE102.N11.PMCL\05-SceneManager\PiranhaPlantFire.cpp(62,2): warning C4060: switch statement contains no 'case' or 'default' labels
+﻿  PiranhaPlantFire.cpp
   PlayScene.cpp
 C:\Users\phuocthanh\Documents\game\SE102.N11.PMCL\05-SceneManager\PlayScene.cpp(76,20): warning C4018: '<': signed/unsigned mismatch
 C:\Users\phuocthanh\Documents\game\SE102.N11.PMCL\05-SceneManager\PlayScene.cpp(335,20): warning C4018: '<': signed/unsigned mismatch

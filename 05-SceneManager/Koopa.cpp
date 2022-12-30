@@ -47,12 +47,12 @@ void CKoopa::OnCollisionWith(LPCOLLISIONEVENT e)
 			vx = -vx;
 		}
 		else {
-			CHiddenBrick* hiddenbrick = dynamic_cast<CHiddenBrick*>(e->obj);
-			hiddenbrick->SetIsBlocking(0);
+			//CHiddenBrick* hiddenbrick = dynamic_cast<CHiddenBrick*>(e->obj);
+			//hiddenbrick->SetIsBlocking(0);
 		}
 	}
 	if (dynamic_cast<CHiddenBrick*>(e->obj)) OnCollisionWithHiddenBrick(e);
-	else if (dynamic_cast<CGoomba*>(e->obj)) OnCollisionWithGoomba(e);
+	if (dynamic_cast<CGoomba*>(e->obj)) OnCollisionWithGoomba(e);
 }
 
 void CKoopa::OnCollisionWithGoomba(LPCOLLISIONEVENT e) {
