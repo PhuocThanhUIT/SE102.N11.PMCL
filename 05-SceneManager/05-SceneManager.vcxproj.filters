@@ -40,6 +40,9 @@
     <Filter Include="Map Objects\Enemies\PiranhaPlantFire">
       <UniqueIdentifier>{383e9854-837e-4cef-a97c-a2ed896862c7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Map Objects\Others\FireBullet">
+      <UniqueIdentifier>{8d3120f8-3462-45bb-aeb1-b906d6b334b1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -110,6 +113,9 @@
     </ClCompile>
     <ClCompile Include="PiranhaPlantFire.cpp">
       <Filter>Map Objects\Enemies\PiranhaPlantFire</Filter>
+    </ClCompile>
+    <ClCompile Include="FireBullet.cpp">
+      <Filter>Map Objects\Others\FireBullet</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -184,6 +190,9 @@
     </ClInclude>
     <ClInclude Include="PiranhaPlantFire.h">
       <Filter>Map Objects\Enemies\PiranhaPlantFire</Filter>
+    </ClInclude>
+    <ClInclude Include="FireBullet.h">
+      <Filter>Map Objects\Others\FireBullet</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

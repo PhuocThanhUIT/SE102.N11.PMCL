@@ -1,5 +1,4 @@
 #pragma once
-#pragma once
 #include "GameObject.h"
 #define MUSHROOM_BBOX_WIDTH 16
 #define MUSHROOM_BBOX_HEIGHT 16

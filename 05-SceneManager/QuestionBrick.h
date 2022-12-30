@@ -1,5 +1,5 @@
 #pragma once
-#pragma once
+
 #include "GameObject.h"
 #define QUESTIONBRICK_ANI_NORMAL 0
 #define QUESTIONBRICK_ANI_HIT 1
