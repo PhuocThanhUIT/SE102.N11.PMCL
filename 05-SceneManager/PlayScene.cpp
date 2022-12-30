@@ -281,7 +281,7 @@ void CPlayScene::Update(DWORD dt)
 		coObjects.push_back(objects[i]);
 	}
 
-	for (int i = objects.size() - 1; i > -1; i--)
+	for (int i = 0; i < objects.size(); i++)
 	{
 		objects[i]->Update(dt, &coObjects);
 	}
@@ -307,7 +307,7 @@ void CPlayScene::Update(DWORD dt)
 void CPlayScene::Render()
 {
 	current_map->DrawMap();
-	for (int i = objects.size()-1; i > -1; i--)
+	for (int i = 0; i < objects.size(); i++)
 		objects[i]->Render();
 }
 

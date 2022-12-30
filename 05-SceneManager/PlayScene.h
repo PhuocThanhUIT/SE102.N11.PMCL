@@ -40,7 +40,7 @@ public:
 	void PurgeDeletedObjects();
 
 	static bool IsGameObjectDeleted(const LPGAMEOBJECT& o);
-	void AddObject(LPGAMEOBJECT obj) { this->objects.push_back(obj); } // add obj to scene
+	void AddObject(LPGAMEOBJECT obj) { this->objects.insert(this->objects.begin()+1, obj); } // add obj to scene
 	vector<LPGAMEOBJECT> GetObjects() { return this->objects; }
 };
 
