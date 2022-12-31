@@ -44,6 +44,7 @@ void CKoopa::OnCollisionWith(LPCOLLISIONEVENT e)
 	if ( e->nx !=0 && e->obj->IsBlocking())
 	{
 		if (!dynamic_cast<CHiddenBrick*>(e->obj)) {
+			x = e->obj->getX();
 			vx = -vx;
 		}
 		else {
@@ -112,7 +113,7 @@ bool CKoopa::CalTurnableLeft(LPGAMEOBJECT object)
 void CKoopa::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
 	CMario* mario = ((CPlayScene*)CGame::GetInstance()->GetCurrentScene())->GetPlayer();
-	
+	DebugOutTitle(L"x:%f,y:%f", x, y);
 	if (GetTickCount64() - shell_start >= KOOPA_SHELL_TIME && shell_start != 0 && state != KOOPA_STATE_SPIN) {
 		shell_start = 0;
 		StartReviving();

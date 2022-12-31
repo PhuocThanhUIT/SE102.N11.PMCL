@@ -520,7 +520,7 @@ void CMario::Render()
 	animation_set->at(aniId)->Render(x, y);
 
 	
-	DebugOutTitle(L"Coins: %d", coin);
+	//DebugOutTitle(L"Coins: %d", coin);
 }
 
 void CMario::SetState(int state)
