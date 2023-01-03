@@ -44,7 +44,6 @@ void CKoopa::OnCollisionWith(LPCOLLISIONEVENT e)
 	if ( e->nx !=0 && e->obj->IsBlocking())
 	{
 		if (!dynamic_cast<CHiddenBrick*>(e->obj)) {
-			x = e->obj->getX();
 			vx = -vx;
 		}
 		else {
