@@ -184,7 +184,7 @@ void CPlayScene::_ParseObjFromFile(LPCWSTR path) {
 
 		default:
 			DebugOut(L"[ERROR] Invalid object type: %d\n", object_type);
-			return;
+			continue;
 		}
 
 		// General object setup

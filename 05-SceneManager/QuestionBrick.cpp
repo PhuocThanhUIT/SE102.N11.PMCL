@@ -90,11 +90,11 @@ CGameObject* CQuestionBrick::SetUpItem(int itemType) {
 	}
 	case ITEM_LEAF_QUESTION_BRICK:
 	{
-		obj = new CLeaf();
+		obj = new CLeaf(x,y - LEAF_BBOX_HEIGHT);
+		obj->SetState(LEAF_STATE_UP);
 		ani_set_id = LEAF_ANI_SET_ID;
 		LPANIMATION_SET ani_set = animation_sets->Get(ani_set_id);
 		obj->SetAnimationSet(ani_set);
-		obj->SetPosition(x, y);
 	}
 	default:
 		break;
