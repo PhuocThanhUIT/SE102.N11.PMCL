@@ -4,6 +4,7 @@
 #include "Goomba.h"
 #include "HiddenBrick.h"
 #include "PlayScene.h"
+#include "QuestionBrick.h"
 
 CKoopa::CKoopa(float x, float y)
 {
@@ -53,8 +54,16 @@ void CKoopa::OnCollisionWith(LPCOLLISIONEVENT e)
 	}
 	if (dynamic_cast<CHiddenBrick*>(e->obj)) OnCollisionWithHiddenBrick(e);
 	if (dynamic_cast<CGoomba*>(e->obj)) OnCollisionWithGoomba(e);
+	if (dynamic_cast<CQuestionBrick*>(e->obj)) OnCollisionWithQuestionBrick(e);
 }
 
+void CKoopa::OnCollisionWithQuestionBrick(LPCOLLISIONEVENT e) {
+	CQuestionBrick* qsbrick = dynamic_cast<CQuestionBrick*>(e->obj);
+	if (qsbrick->GetState() != QUESTION_BRICK_STATE_AFTER_MARIO_PUSH_UP && state==KOOPA_STATE_SPIN) {
+		qsbrick->ShowItem(qsbrick->tag);
+		qsbrick->SetState(QUESTION_BRICK_STATE_AFTER_MARIO_PUSH_UP);
+	}
+}
 void CKoopa::OnCollisionWithGoomba(LPCOLLISIONEVENT e) {
 	CGoomba* goomba = dynamic_cast<CGoomba*>(e->obj);
 	if (state == KOOPA_STATE_SPIN)

@@ -3,6 +3,7 @@
 #include "Mario.h"
 #include "PlayScene.h"
 #include "MushRoom.h"
+#include "Leaf.h"
 CQuestionBrick::CQuestionBrick(float x, float y)
 {
 }
@@ -86,6 +87,14 @@ CGameObject* CQuestionBrick::SetUpItem(int itemType) {
 		LPANIMATION_SET ani_set = animation_sets->Get(ani_set_id);
 		obj->SetAnimationSet(ani_set);
 		break;
+	}
+	case ITEM_LEAF_QUESTION_BRICK:
+	{
+		obj = new CLeaf();
+		ani_set_id = LEAF_ANI_SET_ID;
+		LPANIMATION_SET ani_set = animation_sets->Get(ani_set_id);
+		obj->SetAnimationSet(ani_set);
+		obj->SetPosition(x, y);
 	}
 	default:
 		break;
