@@ -17,7 +17,15 @@ void CSampleKeyHandler::OnKeyDown(int KeyCode)
 		mario->SetState(MARIO_STATE_SIT);
 		break;
 	case DIK_S:
-		mario->SetState(MARIO_STATE_JUMP);
+		if (mario->isTailFlying) {
+			mario->vy = -0.065f;
+			mario->ay = -0.005f;
+		}
+		else if (mario->level == MARIO_LEVEL_TAIL && !mario->isOnPlatform)
+			mario->isFlapping = true;
+		else {
+			mario->SetState(MARIO_STATE_JUMP);
+		}
 		break;
 	case DIK_1:
 		mario->SetLevel(MARIO_LEVEL_SMALL);
@@ -42,6 +50,7 @@ void CSampleKeyHandler::OnKeyUp(int KeyCode)
 	switch (KeyCode)
 	{
 	case DIK_S:
+		mario->isFlapping = false;
 		mario->SetState(MARIO_STATE_RELEASE_JUMP);
 		break;
 	case DIK_DOWN:

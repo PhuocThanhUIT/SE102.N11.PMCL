@@ -11,6 +11,9 @@
 
 #define MARIO_JUMP_SPEED_Y		0.5f
 #define MARIO_JUMP_RUN_SPEED_Y	0.6f
+#define MARIO_SLOW_FALLING_SPEED	0.05f
+
+#define MARIO_FLY_MAX 0.3f
 
 #define MARIO_GRAVITY			0.002f
 
@@ -154,6 +157,23 @@
 #define MARIO_ANI_TAIL_HOLD_JUMPINGDOWN_LEFT	85
 #define MARIO_ANI_TAIL_HOLD_BRAKING_LEFT		84
 #define MARIO_ANI_TAIL_KICKING_LEFT				86
+
+#define MARIO_ANI_TAIL_TURNING_RIGHT			95
+#define MARIO_ANI_TAIL_TURNING_LEFT				96
+#define MARIO_ANI_TAIL_FLAPPING_RIGHT			97
+#define MARIO_ANI_TAIL_FLAPPING_LEFT			98
+
+//FLY
+#define MARIO_ANI_SMALL_FLY_RIGHT				103
+#define MARIO_ANI_SMALL_FLY_LEFT				104
+#define MARIO_ANI_BIG_FLY_RIGHT					105
+#define MARIO_ANI_BIG_FLY_LEFT					106
+#define MARIO_ANI_TAIL_FLY_UP_RIGHT				107
+#define MARIO_ANI_TAIL_FLY_DOWN_RIGHT			108
+#define MARIO_ANI_TAIL_FLY_FLAPPING_RIGHT		109
+#define MARIO_ANI_TAIL_FLY_UP_LEFT				110
+#define MARIO_ANI_TAIL_FLY_DOWN_LEFT			111
+#define MARIO_ANI_TAIL_FLY_FLAPPING_LEFT		112
 #pragma endregion
 
 #define GROUND_Y 160.0f
@@ -177,14 +197,13 @@
 
 
 #define MARIO_UNTOUCHABLE_TIME 2500
+#define MARIO_FLYING_TIME		1750
 
 class CMario : public CGameObject
 {
 	BOOLEAN isSitting;
 	float maxVx;
-	float ax;				// acceleration on x 
-	float ay;				// acceleration on y 
-
+	
 	
 	
 	ULONGLONG untouchable_start;
@@ -206,9 +225,15 @@ class CMario : public CGameObject
 	
 
 public:
+	float ax;				// acceleration on x 
+	float ay;				// acceleration on y 
+
 	BOOLEAN isOnPlatform;
 	BOOLEAN isHolding = false;
 	BOOLEAN isReadyToHold = false;
+	BOOLEAN isTailFlying = false;
+	BOOLEAN isFlapping = false;
+	ULONGLONG tail_fly_start = 0;
 	int level;
 	int untouchable; 
 	CMario(float x, float y) : CGameObject(x, y)
@@ -238,7 +263,9 @@ public:
 
 	void OnNoCollision(DWORD dt);
 	void OnCollisionWith(LPCOLLISIONEVENT e);
-
+	void HandleFlying();
+	void HandleFlapping();
+	void StartTailFlying() { tail_fly_start = GetTickCount64(); }
 	void SetLevel(int l);
 	void StartUntouchable() { untouchable = 1; untouchable_start = GetTickCount64(); }
 
