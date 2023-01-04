@@ -293,15 +293,46 @@ void CPlayScene::Update(DWORD dt)
 	float cx, cy;
 	player->GetPosition(cx, cy);
 	
-	CGame *game = CGame::GetInstance();
-	cx -= game->GetBackBufferWidth() / 2;
-	cy -= game->GetBackBufferHeight() / 2;
-
-	if (cx < 0) cx = 0;
-
-	CGame::GetInstance()->SetCamPos(cx, 250.0f/*cy*/);
-	current_map->SetCamPos(cx, cy);
+	SetCam(cx, cy, dt);
 	PurgeDeletedObjects();
+}
+
+void CPlayScene::SetCam(float cx, float cy, DWORD dt) {
+	float sw = 0, sh = 0, mw = 0, mh = 0, mx = 0, my = 0;
+	CGame* game = CGame::GetInstance();
+	CMario* mario = (CMario*)((LPPLAYSCENE)CGame::GetInstance()->GetCurrentScene())->GetPlayer();
+	sw = (float)(game->GetBackBufferWidth());
+	sh = (float)(game->GetBackBufferHeight() - 32);
+	mw = (float)(current_map->GetMapWidth());
+	mh = (float)(current_map->GetMapHeight());
+	cx -= sw / 2;
+	// CamX
+	if (cx <= 0)//Left Edge
+		cx = 0;
+	if (cx >= mw - sw)//Right Edge
+		cx = mw - sw;
+
+	//CamY
+	if (isTurnOnCamY)
+		cy -= sh / 2;
+	else
+		//cy -= sh / 2;
+		cy = mh - sh;
+
+	if (cy <= 0)//Top Edge
+		cy = 0;
+	if (cy + sh >= mh)//Bottom Edge
+		cy = mh - sh;
+
+	//Update CamY when Flying
+	if ( mario->isTailFlying)
+		isTurnOnCamY = true;
+	else if (cy > mh - sh - 16)
+		isTurnOnCamY = true;
+
+	game->SetCamPos(ceil(cx), ceil(cy));
+	current_map->SetCamPos(cx, cy);
+
 }
 
 void CPlayScene::Render()

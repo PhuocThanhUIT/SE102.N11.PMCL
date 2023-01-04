@@ -27,6 +27,7 @@ protected:
 	
 	
 public: 
+	bool isTurnOnCamY = false;
 	CPlayScene(int id, LPCWSTR filePath);
 
 	virtual void Load();
@@ -38,7 +39,7 @@ public:
 
 	void Clear();
 	void PurgeDeletedObjects();
-
+	virtual void SetCam(float cx, float cy, DWORD dt = 0);
 	static bool IsGameObjectDeleted(const LPGAMEOBJECT& o);
 	void AddObject(LPGAMEOBJECT obj) { this->objects.insert(this->objects.begin()+1, obj); }// add obj to scene
 	void AddObjectEnd(LPGAMEOBJECT obj) { this->objects.push_back(obj); }
