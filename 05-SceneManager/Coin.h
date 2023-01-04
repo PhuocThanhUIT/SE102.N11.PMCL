@@ -25,7 +25,7 @@ public:
 	float start_x = this->x;
 	float start_y = this->y;
 	void Render();
-	void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);
+	void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects = NULL);
 	void GetBoundingBox(float& l, float& t, float& r, float& b);
 	int IsBlocking() { return 0; }
 	virtual void SetState(int state);

@@ -15,6 +15,7 @@
 #include "Koopa.h"
 #include "PiranhaPlantFire.h"
 #include "FireBullet.h"
+#include "Leaf.h"
 
 void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 {
@@ -83,6 +84,13 @@ void CMario::OnCollisionWith(LPCOLLISIONEVENT e)
 		OnCollisionWithPiranhaFire(e);
 	else if (dynamic_cast<FireBullet*>(e->obj))
 		OnCollisionWithFireBullet(e);
+	else if (dynamic_cast<CLeaf*>(e->obj))
+		OnCollisionWithLeaf(e);
+}
+void CMario::OnCollisionWithLeaf(LPCOLLISIONEVENT e) {
+	CLeaf* leaf = dynamic_cast<CLeaf*>(e->obj);
+	this->SetLevel(MARIO_LEVEL_TAIL);
+	leaf->Delete();
 }
 void CMario::OnCollisionWithFireBullet(LPCOLLISIONEVENT e) {
 	if (untouchable == 0)
@@ -506,6 +514,169 @@ int CMario::GetAniIdBig()
 	return aniId;
 }
 
+int CMario::GetAniIdTail()
+{
+	int aniId = -1;
+	if (!isOnPlatform)
+	{
+		if (abs(ax) == MARIO_ACCEL_RUN_X)
+		{
+			if (isHolding) {
+				if (nx >= 0)
+					aniId = MARIO_ANI_TAIL_HOLD_RUNNING_RIGHT;
+				else
+					aniId = MARIO_ANI_TAIL_HOLD_RUNNING_LEFT;
+			}
+			else {
+				if (nx >= 0)
+					aniId = MARIO_ANI_TAIL_RUNNING_RIGHT;
+				else
+					aniId = MARIO_ANI_TAIL_RUNNING_LEFT;
+			}
+
+		}
+		else
+		{
+			if (isHolding) {
+				if (nx >= 0)
+					aniId = MARIO_ANI_TAIL_HOLD_WALKING_FAST_RIGHT;
+				else
+					aniId = MARIO_ANI_TAIL_HOLD_WALKING_FAST_LEFT;
+			}
+			else {
+				if (nx >= 0)
+					aniId = MARIO_ANI_TAIL_WALKING_FAST_RIGHT;
+				else
+					aniId = MARIO_ANI_TAIL_WALKING_FAST_LEFT;
+			}
+
+		}
+	}
+	if (state == MARIO_STATE_JUMP || state == MARIO_STATE_RELEASE_JUMP) {
+		if (isHolding) {
+			if (nx > 0) {
+				aniId = MARIO_ANI_TAIL_HOLD_JUMPINGUP_RIGHT;
+			}
+			if (nx < 0) {
+				aniId = MARIO_ANI_TAIL_HOLD_JUMPINGUP_LEFT;
+			}
+		}
+		else {
+			if (nx > 0) {
+				aniId = MARIO_ANI_TAIL_JUMPINGUP_RIGHT;
+			}
+			if (nx < 0) {
+				aniId = MARIO_ANI_TAIL_JUMPINGUP_LEFT;
+			}
+		}
+
+	}
+	else
+		if (isSitting)
+		{
+			if (nx > 0) {
+				aniId = MARIO_ANI_TAIL_SITTING_RIGHT;
+			}
+			else
+				aniId = MARIO_ANI_TAIL_SITTING_LEFT;
+		}
+		else
+			if (vx == 0)
+			{
+				if (isHolding) {
+					if (nx > 0) {
+						aniId = MARIO_ANI_TAIL_HOLD_IDLE_RIGHT;
+					}
+					else {
+						aniId = MARIO_ANI_TAIL_HOLD_IDLE_LEFT;
+					}
+				}
+				else {
+					if (nx > 0) {
+						aniId = MARIO_ANI_TAIL_IDLE_RIGHT;
+					}
+					else {
+						aniId = MARIO_ANI_TAIL_IDLE_LEFT;
+					}
+				}
+
+			}
+			else if (vx > 0)
+			{
+				if (isHolding) {
+					if (ax < 0)
+						aniId = MARIO_ANI_TAIL_HOLD_BRAKING_RIGHT;
+					else if (ax == MARIO_ACCEL_RUN_X)
+					{
+						aniId = MARIO_ANI_TAIL_HOLD_RUNNING_RIGHT;
+					}
+					else if (ax == MARIO_ACCEL_WALK_X) {
+						aniId = MARIO_ANI_TAIL_HOLD_WALKING_RIGHT;
+					}
+
+					if (!isOnPlatform) {
+						aniId = MARIO_ANI_TAIL_HOLD_JUMPINGUP_RIGHT;
+					}
+				}
+				else {
+					if (ax < 0)
+						aniId = MARIO_ANI_TAIL_BRAKING_RIGHT;
+					else if (ax == MARIO_ACCEL_RUN_X)
+					{
+						aniId = MARIO_ANI_TAIL_RUNNING_RIGHT;
+					}
+					else if (ax == MARIO_ACCEL_WALK_X) {
+						aniId = MARIO_ANI_TAIL_WALKING_RIGHT;
+					}
+
+					if (!isOnPlatform) {
+						aniId = MARIO_ANI_TAIL_JUMPINGUP_RIGHT;
+					}
+				}
+
+
+			}
+			else // vx < 0
+			{
+				if (isHolding) {
+					if (ax > 0)
+						aniId = MARIO_ANI_TAIL_HOLD_BRAKING_LEFT;
+					else if (ax == -MARIO_ACCEL_RUN_X) {
+						aniId = MARIO_ANI_TAIL_HOLD_RUNNING_LEFT;
+
+					}
+					else if (ax == -MARIO_ACCEL_WALK_X)
+					{
+						aniId = MARIO_ANI_TAIL_HOLD_WALKING_LEFT;
+					}
+
+					if (!isOnPlatform) {
+						aniId = MARIO_ANI_TAIL_HOLD_JUMPINGUP_LEFT;
+					}
+				}
+				else {
+					if (ax > 0)
+						aniId = MARIO_ANI_TAIL_BRAKING_LEFT;
+					else if (ax == -MARIO_ACCEL_RUN_X) {
+						aniId = MARIO_ANI_TAIL_RUNNING_LEFT;
+
+					}
+					else if (ax == -MARIO_ACCEL_WALK_X)
+					{
+						aniId = MARIO_ANI_TAIL_WALKING_LEFT;
+					}
+
+					if (!isOnPlatform) {
+						aniId = MARIO_ANI_TAIL_JUMPINGUP_LEFT;
+					}
+				}
+
+			}
+
+	if (aniId == -1) aniId = MARIO_ANI_TAIL_IDLE_RIGHT;
+
+	return aniId;
+}
 void CMario::Render()
 {
 	//CAnimations* animations = CAnimations::GetInstance();
@@ -517,6 +688,8 @@ void CMario::Render()
 		aniId = GetAniIdBig();
 	else if (level == MARIO_LEVEL_SMALL)
 		aniId = GetAniIdSmall();
+	else if (level == MARIO_LEVEL_TAIL)
+		aniId = GetAniIdTail();
 	animation_set->at(aniId)->Render(x, y);
 
 	
@@ -605,7 +778,7 @@ void CMario::SetState(int state)
 
 void CMario::GetBoundingBox(float &left, float &top, float &right, float &bottom)
 {
-	if (level == MARIO_LEVEL_BIG)
+	if (level != MARIO_LEVEL_SMALL)
 	{
 		if (isSitting)
 		{

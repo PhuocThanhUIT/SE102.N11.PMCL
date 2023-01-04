@@ -16,29 +16,12 @@ void CQuestionBrick::GetBoundingBox(float& l, float& t, float& r, float& b)
 	b = t + BRICK_BBOX_HEIGHT;
 }
 
-void CQuestionBrick::OnNoCollision(DWORD dt)
-{
-	x += vx * dt;
-	y += vy * dt;
-};
 
-void CQuestionBrick::OnCollisionWith(LPCOLLISIONEVENT e)
-{
-	if (!e->obj->IsBlocking()) return;
-	if (e->ny != 0)
-	{
-		vy = 0;
-	}
-	else if (e->nx != 0)
-	{
-		vx = -vx;
-	}
-}
 
 void CQuestionBrick::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
-	//vy += ay * dt;
-	//vx += ax * dt;
+	y += vy * dt;
+	x += vx * dt;
 	if ((state == QUESTION_BRICK_STATE_MARIO_PUSH_UP) && (GetTickCount64() - push_up_start > PUSH_UP_TIMEOUT))
 	{
 		y+= QUESTIONBRICK_PUSH_MAX_HEIGHT;
@@ -47,8 +30,7 @@ void CQuestionBrick::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		return;
 	}
 
-	CGameObject::Update(dt, coObjects);
-	CCollision::GetInstance()->Process(this, dt, coObjects);
+	CGameObject::Update(dt);
 }
 void CQuestionBrick::ShowItem(int itemType) {
 	this->obj = SetUpItem(itemType);

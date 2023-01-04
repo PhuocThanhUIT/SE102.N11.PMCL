@@ -43,8 +43,7 @@ void CCoin::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		mario->UpdateCoin();
 	}
 
-	CGameObject::Update(dt, coObjects);
-	CCollision::GetInstance()->Process(this, dt, coObjects);
+	CGameObject::Update(dt);
 }
 
 void CCoin::SetState(int state)
