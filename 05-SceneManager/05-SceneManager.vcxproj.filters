@@ -43,6 +43,9 @@
     <Filter Include="Map Objects\Others\FireBullet">
       <UniqueIdentifier>{8d3120f8-3462-45bb-aeb1-b906d6b334b1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="HUD">
+      <UniqueIdentifier>{5e934096-8e85-4e09-a9cb-ce7fdce44114}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -119,6 +122,9 @@
     </ClCompile>
     <ClCompile Include="Leaf.cpp">
       <Filter>Map Objects\Items</Filter>
+    </ClCompile>
+    <ClCompile Include="Hud.cpp">
+      <Filter>HUD</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -199,6 +205,9 @@
     </ClInclude>
     <ClInclude Include="Leaf.h">
       <Filter>Map Objects\Items</Filter>
+    </ClInclude>
+    <ClInclude Include="Hud.h">
+      <Filter>HUD</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

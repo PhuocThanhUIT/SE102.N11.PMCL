@@ -5,6 +5,8 @@
 #define FONT_BBOX_WIDTH						8
 #define DEFAULT_TIME						300
 
+#define SPRITE_HUD_ID						99999
+
 class HUD :public CGameObject {
 
 public:
