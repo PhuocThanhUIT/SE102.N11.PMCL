@@ -17,7 +17,7 @@ void CSampleKeyHandler::OnKeyDown(int KeyCode)
 		mario->SetState(MARIO_STATE_SIT);
 		break;
 	case DIK_S:
-		if (mario->isTailFlying) {
+		if (mario->isTailFlying && mario->level==MARIO_LEVEL_TAIL) {
 			mario->vy = -0.065f;
 			mario->ay = -0.005f;
 		}

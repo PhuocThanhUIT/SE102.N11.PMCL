@@ -9,8 +9,8 @@
 #define MARIO_ACCEL_WALK_X	0.0005f
 #define MARIO_ACCEL_RUN_X	0.0007f
 
-#define MARIO_JUMP_SPEED_Y		0.5f
-#define MARIO_JUMP_RUN_SPEED_Y	0.6f
+#define MARIO_JUMP_SPEED_Y		0.4f
+#define MARIO_JUMP_RUN_SPEED_Y	0.5f
 #define MARIO_SLOW_FALLING_SPEED	0.05f
 
 #define MARIO_FLY_MAX 0.3f
@@ -231,6 +231,8 @@ public:
 	float ax;				// acceleration on x 
 	float ay;				// acceleration on y 
 	int speedStack = 0;
+	BOOLEAN isFlying = false;
+	BOOLEAN isJumping = false;
 	BOOLEAN isRunning = false;
 	BOOLEAN isReadyToRun = false;
 	BOOLEAN isOnPlatform;
@@ -239,6 +241,7 @@ public:
 	BOOLEAN isTailFlying = false;
 	BOOLEAN isFlapping = false;
 	ULONGLONG tail_fly_start = 0;
+	ULONGLONG fly_start = 0;
 	ULONGLONG start_speed_stack = 0;
 	ULONGLONG start_running = 0;
 	int level;
@@ -270,10 +273,12 @@ public:
 
 	void OnNoCollision(DWORD dt);
 	void OnCollisionWith(LPCOLLISIONEVENT e);
+	void HandleMarioJump();
 	void HandleFlying();
 	void HandleFlapping();
 	void HandleSpeedStack();
 	void StartTailFlying() { tail_fly_start = GetTickCount64(); }
+	void StartFlying() { fly_start = GetTickCount64(); }
 	void SetLevel(int l);
 	void StartUntouchable() { untouchable = 1; untouchable_start = GetTickCount64(); }
 
