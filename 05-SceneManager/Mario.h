@@ -22,6 +22,8 @@
 #define MARIO_BIG_DIF 7
 #define MARIO_SIT_DIF 3
 
+#define MARIO_RUNNING_STACKS		7
+
 #pragma region STATE
 
 #define MARIO_STATE_DIE				-10
@@ -198,6 +200,7 @@
 
 #define MARIO_UNTOUCHABLE_TIME 2500
 #define MARIO_FLYING_TIME		1750
+#define MARIO_RUNNING_STACK_TIME	200
 
 class CMario : public CGameObject
 {
@@ -227,13 +230,17 @@ class CMario : public CGameObject
 public:
 	float ax;				// acceleration on x 
 	float ay;				// acceleration on y 
-
+	int speedStack = 0;
+	BOOLEAN isRunning = false;
+	BOOLEAN isReadyToRun = false;
 	BOOLEAN isOnPlatform;
 	BOOLEAN isHolding = false;
 	BOOLEAN isReadyToHold = false;
 	BOOLEAN isTailFlying = false;
 	BOOLEAN isFlapping = false;
 	ULONGLONG tail_fly_start = 0;
+	ULONGLONG start_speed_stack = 0;
+	ULONGLONG start_running = 0;
 	int level;
 	int untouchable; 
 	CMario(float x, float y) : CGameObject(x, y)
@@ -265,6 +272,7 @@ public:
 	void OnCollisionWith(LPCOLLISIONEVENT e);
 	void HandleFlying();
 	void HandleFlapping();
+	void HandleSpeedStack();
 	void StartTailFlying() { tail_fly_start = GetTickCount64(); }
 	void SetLevel(int l);
 	void StartUntouchable() { untouchable = 1; untouchable_start = GetTickCount64(); }

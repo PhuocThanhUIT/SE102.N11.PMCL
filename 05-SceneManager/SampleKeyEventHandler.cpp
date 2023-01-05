@@ -61,6 +61,7 @@ void CSampleKeyHandler::OnKeyUp(int KeyCode)
 			mario->isReadyToHold = false;
 			mario->isHolding = false;
 		}
+		mario->isReadyToRun = false;
 		break;
 	}
 }

@@ -25,6 +25,7 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 
 	HandleFlying();
 	HandleFlapping();
+	HandleSpeedStack();
 
 	// reset untouchable timer if untouchable time has passed
 	if ( GetTickCount64() - untouchable_start > MARIO_UNTOUCHABLE_TIME) 
@@ -662,12 +663,14 @@ void CMario::SetState(int state)
 		maxVx = MARIO_RUNNING_SPEED;
 		ax = MARIO_ACCEL_RUN_X;
 		nx = 1;
+		isReadyToRun = true;
 		break;
 	case MARIO_STATE_RUNNING_LEFT:
 		if (isSitting) break;
 		maxVx = -MARIO_RUNNING_SPEED;
 		ax = -MARIO_ACCEL_RUN_X;
 		nx = -1;
+		isReadyToRun = true;
 		break;
 	case MARIO_STATE_WALKING_RIGHT:
 		if (isSitting) break;
@@ -793,6 +796,30 @@ void CMario::HandleFlying() {
 void CMario::HandleFlapping() {
 	if (level == MARIO_LEVEL_TAIL && isFlapping) {
 		vy = MARIO_SLOW_FALLING_SPEED;
+	}
+}
+
+void CMario::HandleSpeedStack() {
+	DebugOutTitle(L"SpeedStack:%i", speedStack);
+	if (GetTickCount64() - start_running > MARIO_RUNNING_STACK_TIME && vx != 0 && isReadyToRun) {
+		start_running = GetTickCount64();
+		speedStack++;
+		if (speedStack >= MARIO_RUNNING_STACKS) {
+			isRunning = true;
+			speedStack = MARIO_RUNNING_STACKS;
+		}
+	}
+	if (GetTickCount64() - start_running > MARIO_RUNNING_STACK_TIME && !isReadyToRun)
+	{
+		isRunning = false;
+		start_running = GetTickCount64();
+		speedStack--;
+		//isFlying = false;
+		if (speedStack < 0)
+		{
+			speedStack = 0;
+			isRunning = false;
+		}
 	}
 }
 
