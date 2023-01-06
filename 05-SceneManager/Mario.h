@@ -265,6 +265,7 @@ public:
 	void Render();
 	void SetState(int state);
 	void UpdateCoin() { this->coin++; }
+	void AddScore(float x, float y, int score);
 	int GetMarioDirection();
 	int IsCollidable()
 	{ 

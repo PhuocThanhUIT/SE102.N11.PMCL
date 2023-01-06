@@ -16,6 +16,8 @@
 #include "PiranhaPlantFire.h"
 #include "FireBullet.h"
 #include "Leaf.h"
+#include "PlayScene.h"
+#include "Point.h"
 
 void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 {
@@ -224,6 +226,7 @@ void CMario::OnCollisionWithQuestionBrick(LPCOLLISIONEVENT e) {
 void CMario::OnCollisionWithCoin(LPCOLLISIONEVENT e)
 {
 	e->obj->Delete();
+	AddScore(e->obj->x, e->obj->y, 100);
 	coin++;
 }
 
@@ -804,3 +807,15 @@ void CMario::HandleSpeedStack() {
 	//}
 }
 
+void CMario::AddScore(float x, float y, int score) {
+	CPlayScene* currentScene = (CPlayScene*)CGame::GetInstance()->GetCurrentScene();
+
+	Point* point = new Point(score);
+	int previousScore = score;
+
+	point->SetPosition(x, y);
+	currentScene->AddObject(point);
+
+	this->marioScore += score;
+
+}

@@ -11,10 +11,13 @@
 #define SCORE_SPRITE_8000_ID	50056
 #define SCORE_SPRITE_1UP_ID		50057
 
+#define SCORE_SPEED 0.05f
 
+#define SCORE_TIME 500
 
 class Point : public CGameObject
 {
+    DWORD start_exist = 0;
     virtual void Render();
     virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects = NULL);
 public:

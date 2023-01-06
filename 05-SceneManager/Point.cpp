@@ -2,12 +2,19 @@
 
 Point::Point(int score)
 {
-
+	vx = 0;
+	vy = -SCORE_SPEED;
+	isDeleted = false;
+	start_exist = GetTickCount64();
+	state = score;
 }
 
 void Point::Update(DWORD dt, vector<LPGAMEOBJECT>* colliable_objects)
 {
 	CGameObject::Update(dt);
+	y += vy * dt;
+	if (GetTickCount64() - start_exist >= SCORE_TIME)
+		Delete();
 }
 
 void Point::Render() {
