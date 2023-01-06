@@ -779,7 +779,7 @@ void CMario::HandleSpeedStack() {
 			isTailFlying = true;
 		}
 	}
-	if (GetTickCount64() - start_running > MARIO_RUNNING_STACK_TIME && !isReadyToRun)
+	if (GetTickCount64() - start_running > MARIO_RUNNING_STACK_TIME && !isReadyToRun || GetTickCount64() - start_running > MARIO_RUNNING_STACK_TIME && vx==0)
 	{
 		isRunning = false;
 		isFlying = false;
