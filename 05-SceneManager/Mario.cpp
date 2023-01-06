@@ -243,107 +243,91 @@ int CMario::GetAniIdSmall()
 	{
 		if (abs(ax) == MARIO_ACCEL_RUN_X)
 		{
-			if (isHolding) {
-				if (nx >= 0)
-					aniId = MARIO_ANI_SMALL_HOLD_JUMPINGUP_RIGHT;
-				else
-					aniId = MARIO_ANI_SMALL_HOLD_JUMPINGUP_LEFT;
-			}
-			else {
-				if (nx >= 0)
-					aniId = MARIO_ANI_SMALL_JUMPINGUP_RIGHT;
-				else
-					aniId = MARIO_ANI_SMALL_JUMPINGUP_LEFT;
-			}	
+			if (nx >= 0)
+				aniId = MARIO_ANI_SMALL_JUMPINGUP_RIGHT;
+			else
+				aniId = MARIO_ANI_SMALL_JUMPINGUP_LEFT;
 		}
 		else
 		{
+			if (nx >= 0)
+				aniId = MARIO_ANI_SMALL_JUMPINGUP_RIGHT;
+			else
+				aniId = MARIO_ANI_SMALL_JUMPINGUP_LEFT;		
+		}
+	}
+	if (state == MARIO_STATE_JUMP || state == MARIO_STATE_RELEASE_JUMP || isHolding) {
+		if (nx > 0) {
+			aniId = MARIO_ANI_SMALL_JUMPINGUP_RIGHT;
+			if (isFlying) {
+				aniId = MARIO_ANI_SMALL_FLY_RIGHT;
+			}
 			if (isHolding) {
-				if (nx >= 0)
-					aniId = MARIO_ANI_SMALL_HOLD_JUMPINGUP_RIGHT;
-				else
-					aniId = MARIO_ANI_SMALL_HOLD_JUMPINGUP_LEFT;
+				aniId = MARIO_ANI_SMALL_HOLD_RUNNING_RIGHT;
 			}
-			else {
-				if (nx >= 0)
-					aniId = MARIO_ANI_SMALL_JUMPINGUP_RIGHT;
-				else
-					aniId = MARIO_ANI_SMALL_JUMPINGUP_LEFT;
+		}
+		if (nx < 0) {
+			aniId = MARIO_ANI_SMALL_JUMPINGUP_LEFT;
+			if (isFlying) {
+				aniId = MARIO_ANI_SMALL_FLY_LEFT;
 			}
-			
+			if (isHolding) {
+				aniId = MARIO_ANI_SMALL_HOLD_RUNNING_LEFT;
+			}
 		}
 	}
 	else
 		if (isSitting)
 		{
-			if (isHolding) {
-				if (nx > 0)
-					aniId = MARIO_ANI_SMALL_HOLD_IDLE_RIGHT;
-				else
-					aniId = MARIO_ANI_SMALL_HOLD_IDLE_LEFT;
-			}
-			else {
+			if (nx > 0)
+				aniId = MARIO_ANI_SMALL_IDLE_RIGHT;
+			else
+				aniId = MARIO_ANI_SMALL_IDLE_LEFT;
+		}
+		else
+			if (vx == 0)
+			{	
 				if (nx > 0)
 					aniId = MARIO_ANI_SMALL_IDLE_RIGHT;
 				else
 					aniId = MARIO_ANI_SMALL_IDLE_LEFT;
 			}
-		}
-		else
-			if (vx == 0)
-			{
-				if (isHolding) {
-					if (nx > 0)
-						aniId = MARIO_ANI_SMALL_HOLD_IDLE_RIGHT;
-					else
-						aniId = MARIO_ANI_SMALL_HOLD_IDLE_LEFT;
-				}
-				else {
-					if (nx > 0)
-						aniId = MARIO_ANI_SMALL_IDLE_RIGHT;
-					else
-						aniId = MARIO_ANI_SMALL_IDLE_LEFT;
-				}
-			}
 			else if (vx > 0)
 			{
-				if (isHolding) {
-					if (ax < 0)
-						aniId = MARIO_ANI_SMALL_HOLD_BRAKING_RIGHT;
-					else if (ax == MARIO_ACCEL_RUN_X)
-						aniId = MARIO_ANI_SMALL_HOLD_RUNNING_RIGHT;
-					else if (ax == MARIO_ACCEL_WALK_X)
-						aniId = MARIO_ANI_SMALL_HOLD_WALKING_RIGHT;
-				}
-				else {
-					if (ax < 0)
-						aniId = MARIO_ANI_SMALL_BRAKING_RIGHT;
-					else if (ax == MARIO_ACCEL_RUN_X)
+				if (ax < 0)
+					aniId = MARIO_ANI_SMALL_BRAKING_RIGHT;
+				else if (ax == MARIO_ACCEL_RUN_X) {
+					if (isRunning)
 						aniId = MARIO_ANI_SMALL_RUNNING_RIGHT;
-					else if (ax == MARIO_ACCEL_WALK_X)
-						aniId = MARIO_ANI_SMALL_WALKING_RIGHT;
+					else aniId = MARIO_ANI_SMALL_WALKING_RIGHT;
 				}
-				
+				else if (ax == MARIO_ACCEL_WALK_X)
+					aniId = MARIO_ANI_SMALL_WALKING_RIGHT;	
+				if (!isOnPlatform) {
+					aniId = MARIO_ANI_SMALL_JUMPINGUP_RIGHT;
+					if (isFlying) {
+						aniId = MARIO_ANI_SMALL_FLY_RIGHT;
+					}
+				}
 			}
 			else // vx < 0
 			{
-				if (isHolding) {
-					if (ax > 0)
-						aniId = MARIO_ANI_SMALL_HOLD_BRAKING_LEFT;
-					else if (ax == -MARIO_ACCEL_RUN_X)
-						aniId = MARIO_ANI_SMALL_HOLD_RUNNING_LEFT;
-					else if (ax == -MARIO_ACCEL_WALK_X)
-						aniId = MARIO_ANI_SMALL_HOLD_WALKING_LEFT;
-				}
-				else {
-					if (ax > 0)
-						aniId = MARIO_ANI_SMALL_BRAKING_LEFT;
-					else if (ax == -MARIO_ACCEL_RUN_X)
+				if (ax > 0)
+					aniId = MARIO_ANI_SMALL_BRAKING_LEFT;
+				else if (ax == -MARIO_ACCEL_RUN_X)
+				{
+					if (isRunning)
 						aniId = MARIO_ANI_SMALL_RUNNING_LEFT;
-					else if (ax == -MARIO_ACCEL_WALK_X)
-						aniId = MARIO_ANI_SMALL_WALKING_LEFT;
+					else aniId = MARIO_ANI_SMALL_WALKING_LEFT;
 				}
-				
+				else if (ax == -MARIO_ACCEL_WALK_X)
+					aniId = MARIO_ANI_SMALL_WALKING_LEFT;
+				if (!isOnPlatform) {
+					aniId = MARIO_ANI_SMALL_JUMPINGUP_LEFT;
+					if (isFlying) {
+						aniId = MARIO_ANI_SMALL_FLY_LEFT;
+					}
+				}
 			}
 
 	if (aniId == -1) aniId = MARIO_ANI_SMALL_IDLE_RIGHT;
@@ -362,55 +346,32 @@ int CMario::GetAniIdBig()
 	{
 		if (abs(ax) == MARIO_ACCEL_RUN_X)
 		{
-			if (isHolding) {
-				if (nx >= 0)
-					aniId = MARIO_ANI_BIG_HOLD_RUNNING_RIGHT;
-				else
-					aniId = MARIO_ANI_BIG_HOLD_RUNNING_LEFT;
-			}
-			else {
-				if (nx >= 0)
-					aniId = MARIO_ANI_BIG_RUNNING_RIGHT;
-				else
-					aniId = MARIO_ANI_BIG_RUNNING_LEFT;
-			}
-			
+			if (nx >= 0)
+				aniId = MARIO_ANI_BIG_RUNNING_RIGHT;
+			else
+				aniId = MARIO_ANI_BIG_RUNNING_LEFT;
 		}
 		else
 		{
-			if (isHolding) {
-				if (nx >= 0)
-					aniId = MARIO_ANI_BIG_HOLD_WALKING_FAST_RIGHT;
-				else
-					aniId = MARIO_ANI_BIG_HOLD_WALKING_FAST_LEFT;
-			}
-			else {
-				if (nx >= 0)
-					aniId = MARIO_ANI_BIG_WALKING_FAST_RIGHT;
-				else
-					aniId = MARIO_ANI_BIG_WALKING_FAST_LEFT;
-			}
-			
+			if (nx >= 0)
+				aniId = MARIO_ANI_BIG_WALKING_FAST_RIGHT;
+			else
+				aniId = MARIO_ANI_BIG_WALKING_FAST_LEFT;
 		}
 	}
 	if (state == MARIO_STATE_JUMP || state == MARIO_STATE_RELEASE_JUMP) {
-		if(isHolding){
-			if (nx > 0) {
+		if (nx > 0) {
+			aniId = MARIO_ANI_BIG_JUMPINGUP_RIGHT;
+			if (isHolding) {
 				aniId = MARIO_ANI_BIG_HOLD_JUMPINGUP_RIGHT;
 			}
-			if (nx < 0) {
+		}
+		if (nx < 0) {
+			aniId = MARIO_ANI_BIG_JUMPINGUP_LEFT;
+			if (isHolding) {
 				aniId = MARIO_ANI_BIG_HOLD_JUMPINGUP_LEFT;
 			}
 		}
-		else {
-			if (nx > 0) {
-				aniId = MARIO_ANI_BIG_JUMPINGUP_RIGHT;
-			}
-			if (nx < 0) {
-				aniId = MARIO_ANI_BIG_JUMPINGUP_LEFT;
-			}
-		}
-		
 	}
 	else
 		if (isSitting)
@@ -424,94 +385,78 @@ int CMario::GetAniIdBig()
 		else
 			if (vx == 0)
 			{
-				if (isHolding) {
-					if (nx > 0) {
+				if (nx > 0) {
+					aniId = MARIO_ANI_BIG_IDLE_RIGHT;
+					if (isHolding) {
 						aniId = MARIO_ANI_BIG_HOLD_IDLE_RIGHT;
 					}
-					else {
+				}
+				else {
+					aniId = MARIO_ANI_BIG_IDLE_LEFT;
+					if (isHolding) {
 						aniId = MARIO_ANI_BIG_HOLD_IDLE_LEFT;
 					}
 				}
-				else {
-					if (nx > 0) {
-						aniId = MARIO_ANI_BIG_IDLE_RIGHT;
-					}
-					else {
-						aniId = MARIO_ANI_BIG_IDLE_LEFT;
-					}
-				}
-				
 			}
 			else if (vx > 0)
 			{
-				if (isHolding) {
-					if (ax < 0)
-						aniId = MARIO_ANI_BIG_HOLD_BRAKING_RIGHT;
-					else if (ax == MARIO_ACCEL_RUN_X)
-					{
+				if (ax < 0)
+					aniId = MARIO_ANI_BIG_BRAKING_RIGHT;
+				else if (ax == MARIO_ACCEL_RUN_X)
+				{
+					if (isRunning) {
+						aniId = MARIO_ANI_BIG_RUNNING_RIGHT;
+					}else aniId = MARIO_ANI_BIG_WALKING_RIGHT;
+					if (isHolding) {
 						aniId = MARIO_ANI_BIG_HOLD_RUNNING_RIGHT;
 					}
-					else if (ax == MARIO_ACCEL_WALK_X) {
+				}
+				else if (ax == MARIO_ACCEL_WALK_X) {
+					aniId = MARIO_ANI_BIG_WALKING_RIGHT;
+					if (isHolding) {
 						aniId = MARIO_ANI_BIG_HOLD_WALKING_RIGHT;
 					}
-
-					if (!isOnPlatform) {
-						aniId = MARIO_ANI_BIG_HOLD_JUMPINGUP_RIGHT;
-					}
 				}
-				else {
-					if (ax < 0)
-						aniId = MARIO_ANI_BIG_BRAKING_RIGHT;
-					else if (ax == MARIO_ACCEL_RUN_X)
-					{
-						aniId = MARIO_ANI_BIG_RUNNING_RIGHT;
-					}
-					else if (ax == MARIO_ACCEL_WALK_X) {
-						aniId = MARIO_ANI_BIG_WALKING_RIGHT;
-					}
 
-					if (!isOnPlatform) {
+				if (!isOnPlatform) {
 						aniId = MARIO_ANI_BIG_JUMPINGUP_RIGHT;
-					}
+						if (isFlying) {
+							aniId = MARIO_ANI_BIG_FLY_RIGHT;
+						}
+						if (isHolding) {
+							aniId = MARIO_ANI_BIG_HOLD_JUMPINGUP_RIGHT;
+						}
 				}
-				
-
 			}
 			else // vx < 0
 			{
-				if (isHolding) {
-					if (ax > 0)
-						aniId = MARIO_ANI_BIG_HOLD_BRAKING_LEFT;
-					else if (ax == -MARIO_ACCEL_RUN_X) {
-						aniId = MARIO_ANI_BIG_HOLD_RUNNING_LEFT;
-
+				if (ax > 0)
+					aniId = MARIO_ANI_BIG_BRAKING_LEFT;
+				else if (ax == -MARIO_ACCEL_RUN_X) {
+					if (isRunning) {
+						aniId = MARIO_ANI_BIG_RUNNING_LEFT;
 					}
-					else if (ax == -MARIO_ACCEL_WALK_X)
-					{
+					else aniId = MARIO_ANI_BIG_WALKING_LEFT;
+					if (isHolding) {
+						aniId = MARIO_ANI_BIG_HOLD_RUNNING_LEFT;
+					}
+				}
+				else if (ax == -MARIO_ACCEL_WALK_X)
+				{
+					aniId = MARIO_ANI_BIG_WALKING_LEFT;
+					if (isHolding) {
 						aniId = MARIO_ANI_BIG_HOLD_WALKING_LEFT;
 					}
-
-					if (!isOnPlatform) {
+				}
+				if (!isOnPlatform) {
+					aniId = MARIO_ANI_BIG_JUMPINGUP_LEFT;
+					if (isFlying) {
+						aniId = MARIO_ANI_BIG_FLY_LEFT;
+					}
+					if (isHolding) {
 						aniId = MARIO_ANI_BIG_HOLD_JUMPINGUP_LEFT;
 					}
 				}
-				else {
-					if (ax > 0)
-						aniId = MARIO_ANI_BIG_BRAKING_LEFT;
-					else if (ax == -MARIO_ACCEL_RUN_X) {
-						aniId = MARIO_ANI_BIG_RUNNING_LEFT;
-
-					}
-					else if (ax == -MARIO_ACCEL_WALK_X)
-					{
-						aniId = MARIO_ANI_BIG_WALKING_LEFT;
-					}
-
-					if (!isOnPlatform) {
-						aniId = MARIO_ANI_BIG_JUMPINGUP_LEFT;
-					}
-				}
-				
 			}
 
 	if (aniId == -1) aniId = MARIO_ANI_BIG_IDLE_RIGHT;
@@ -589,7 +534,10 @@ int CMario::GetAniIdTail()
 						aniId = MARIO_ANI_TAIL_BRAKING_RIGHT;
 					else if (ax == MARIO_ACCEL_RUN_X)
 					{
-						aniId = MARIO_ANI_TAIL_RUNNING_RIGHT;
+						if (isRunning) {
+							aniId = MARIO_ANI_TAIL_RUNNING_RIGHT;
+						} else aniId = MARIO_ANI_TAIL_WALKING_RIGHT;
+						
 					}
 					else if (ax == MARIO_ACCEL_WALK_X) {
 						aniId = MARIO_ANI_TAIL_WALKING_RIGHT;
@@ -610,8 +558,10 @@ int CMario::GetAniIdTail()
 					if (ax > 0)
 						aniId = MARIO_ANI_TAIL_BRAKING_LEFT;
 					else if (ax == -MARIO_ACCEL_RUN_X) {
-						aniId = MARIO_ANI_TAIL_RUNNING_LEFT;
-
+						if (isRunning) {
+							aniId = MARIO_ANI_TAIL_RUNNING_LEFT;
+						}
+						else aniId = MARIO_ANI_TAIL_WALKING_LEFT;
 					}
 					else if (ax == -MARIO_ACCEL_WALK_X)
 					{
