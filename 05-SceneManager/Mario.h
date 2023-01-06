@@ -211,7 +211,7 @@ class CMario : public CGameObject
 	
 	ULONGLONG untouchable_start;
 	
-	int coin; 
+	
 
 	void OnCollisionWithGoomba(LPCOLLISIONEVENT e);
 	void OnCollisionWithCoin(LPCOLLISIONEVENT e);
@@ -231,6 +231,8 @@ public:
 	float ax;				// acceleration on x 
 	float ay;				// acceleration on y 
 	int speedStack = 0;
+	int marioScore = 0;
+	int coin;
 	BOOLEAN isFlying = false;
 	BOOLEAN isJumping = false;
 	BOOLEAN isRunning = false;
