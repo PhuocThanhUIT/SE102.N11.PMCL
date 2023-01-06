@@ -11,12 +11,15 @@
 #define BULLET_ANI_LEFT			1	
 
 #define BULLET_ANI_SET_ID		9
+
+#define STOP_TIME	3000
 class FireBullet :
     public CGameObject
 {
     virtual void Render();
     virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);
 public:
+    ULONGLONG exist_time = 0;
     FireBullet();
     FireBullet(float bx, float by, bool up, bool right);
     virtual void GetBoundingBox(float& l, float& t, float& r, float& b);

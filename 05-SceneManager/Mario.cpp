@@ -97,6 +97,7 @@ void CMario::OnCollisionWith(LPCOLLISIONEVENT e)
 void CMario::OnCollisionWithLeaf(LPCOLLISIONEVENT e) {
 	CLeaf* leaf = dynamic_cast<CLeaf*>(e->obj);
 	this->SetLevel(MARIO_LEVEL_TAIL);
+	AddScore(leaf->x, leaf->y, 1000);
 	leaf->Delete();
 }
 void CMario::OnCollisionWithFireBullet(LPCOLLISIONEVENT e) {
@@ -131,6 +132,7 @@ void CMario::OnCollisionWithPiranhaFire(LPCOLLISIONEVENT e) {
 }
 void CMario::OnCollisionWithMushRoom(LPCOLLISIONEVENT e) {
 	CMushRoom* mushroom = dynamic_cast<CMushRoom*>(e->obj);
+	AddScore(mushroom->x, mushroom->y, 1000);
 	mushroom->SetState(MUSHROOM_STATE_DELETE);
 	this->SetLevel(MARIO_LEVEL_BIG);
 }
@@ -142,6 +144,7 @@ void CMario::OnCollisionWithKoopa(LPCOLLISIONEVENT e)
 	if (e->ny < 0)
 	{
 			koopa->SetState(KOOPA_STATE_SHELL);
+			AddScore(koopa->x, koopa->y, 100);
 			vy = -MARIO_JUMP_DEFLECT_SPEED;
 	}
 	else 
@@ -186,10 +189,12 @@ void CMario::OnCollisionWithGoomba(LPCOLLISIONEVENT e)
 		{
 			if (goomba->GetTag() == NORMAL_GOOMBA || goomba->GetTag() == RED_GOOMBA) {
 				goomba->SetState(GOOMBA_STATE_DIE);
+				AddScore(goomba->x, goomba->y, 100);
 				vy = -MARIO_JUMP_DEFLECT_SPEED;
 			}
 			else {
 				goomba->SetTag(RED_GOOMBA);
+				AddScore(goomba->x, goomba->y, 100);
 				vy = -MARIO_JUMP_DEFLECT_SPEED;
 			}
 		}

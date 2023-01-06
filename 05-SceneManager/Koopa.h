@@ -1,7 +1,7 @@
 #pragma once
 
 #include "GameObject.h"
-
+#include "Mario.h"
 #define KOOPA_DIFF 7
 #define KOOPA_SHELL_DIFF 3
 #define KOOPA_STATE_NORMAL 100
@@ -32,7 +32,7 @@
 class CKoopa : public CGameObject
 {
 public:
-
+	CMario* mario = NULL;
 	ULONGLONG reviving_start = 0;
 	ULONGLONG shell_start = 0;
 	BOOLEAN isBeingHeld = false;

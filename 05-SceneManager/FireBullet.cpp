@@ -22,13 +22,17 @@ FireBullet::FireBullet(float bx, float by, bool up, bool right) {
 		x = bx;
 		vx = -BULLET_SPEED_X;
 	}
+	exist_time = GetTickCount64();
 }
 
 void FireBullet::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects) {
 
+	if (isDeleted) return;
 	CGameObject::Update(dt);
 
-
+	if (GetTickCount64() - exist_time > STOP_TIME && exist_time != 0) {
+		this->Delete();
+	}
 
 	vector<LPCOLLISIONEVENT> coEvents;
 	vector<LPCOLLISIONEVENT> coEventsResult;

@@ -6,8 +6,9 @@
 #include "PlayScene.h"
 #include "QuestionBrick.h"
 
-CKoopa::CKoopa(float x, float y)
-{
+CKoopa::CKoopa(float x, float y){
+	CPlayScene* currentScene = (CPlayScene*)CGame::GetInstance()->GetCurrentScene();
+	mario = currentScene->GetPlayer();
 	this->SetState(KOOPA_STATE_NORMAL);
 	this->ay = KOOPA_GRAVITY;
 	this->ax = 0;
@@ -66,8 +67,9 @@ void CKoopa::OnCollisionWithQuestionBrick(LPCOLLISIONEVENT e) {
 }
 void CKoopa::OnCollisionWithGoomba(LPCOLLISIONEVENT e) {
 	CGoomba* goomba = dynamic_cast<CGoomba*>(e->obj);
-	if (state == KOOPA_STATE_SPIN)
+	if (goomba->y-this->y<5&&state == KOOPA_STATE_SPIN && goomba->GetState() != GOOMBA_STATE_DIE_BY_KOOPA)
 	{
+		mario->AddScore(goomba->x, goomba->y, 100);
 		goomba->SetState(GOOMBA_STATE_DIE_BY_KOOPA);
 	}
 
@@ -120,7 +122,7 @@ bool CKoopa::CalTurnableLeft(LPGAMEOBJECT object)
 }
 void CKoopa::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
-	CMario* mario = ((CPlayScene*)CGame::GetInstance()->GetCurrentScene())->GetPlayer();
+	
 	if (GetTickCount64() - shell_start >= KOOPA_SHELL_TIME && shell_start != 0 && state != KOOPA_STATE_SPIN) {
 		shell_start = 0;
 		StartReviving();
