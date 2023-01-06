@@ -642,10 +642,12 @@ void CMario::SetState(int state)
 			isJumping = true;
 		}
 		if (abs(ax) == MARIO_ACCEL_RUN_X) {
-			if (level == MARIO_LEVEL_TAIL && isTailFlying) {
+			if (level == MARIO_LEVEL_TAIL && isRunning) {
+				isTailFlying = true;
 				StartTailFlying();
 			}
-			else if (isFlying) {
+			else if (isRunning) {
+				isFlying = true;
 				StartFlying();
 			}
 		}
@@ -769,41 +771,36 @@ void CMario::HandleMarioJump() {
 
 void CMario::HandleSpeedStack() {
 	DebugOutTitle(L"SpeedStack:%i,vx=%f,state=%i", speedStack,vx,state);
-	if (GetTickCount64() - start_running > MARIO_RUNNING_STACK_TIME && vx != 0 && isReadyToRun) {
+	if (GetTickCount64() - start_running > MARIO_RUNNING_STACK_TIME && vx != 0 && isReadyToRun && (!isFlying&&!isTailFlying)) {
 		start_running = GetTickCount64();
 		speedStack++;
 		if (speedStack >= MARIO_RUNNING_STACKS) {
 			isRunning = true;
 			speedStack = MARIO_RUNNING_STACKS;
-			isFlying = true;
-			isTailFlying = true;
 		}
 	}
-	if (GetTickCount64() - start_running > MARIO_RUNNING_STACK_TIME && !isReadyToRun || GetTickCount64() - start_running > MARIO_RUNNING_STACK_TIME && vx==0)
+	if (GetTickCount64() - start_running > MARIO_RUNNING_STACK_TIME && (!isReadyToRun || vx == 0||isFlying||isTailFlying))
 	{
 		isRunning = false;
-		isFlying = false;
-		isTailFlying = false;
 		start_running = GetTickCount64();
 		speedStack--;
-		//isFlying = false;
 		if (speedStack < 0)
 		{
 			speedStack = 0;
 		}
 	}
-	if (GetTickCount64() - start_running > MARIO_RUNNING_STACK_TIME && isFlying && isTailFlying)
-	{
-		isRunning = false;
-		isFlying = false;
-		isTailFlying = false;
-		start_running = GetTickCount64();
-		speedStack--;
-		//isFlying = false;
-		if (speedStack < 0)
-		{
-			speedStack = 0;
-		}
-	}
+	//if (GetTickCount64() - start_running > MARIO_RUNNING_STACK_TIME && isFlying && isTailFlying)
+	//{
+	//	isRunning = false;
+	//	isFlying = false;
+	//	isTailFlying = false;
+	//	start_running = GetTickCount64();
+	//	speedStack--;
+	//	//isFlying = false;
+	//	if (speedStack < 0)
+	//	{
+	//		speedStack = 0;
+	//	}
+	//}
 }
 
