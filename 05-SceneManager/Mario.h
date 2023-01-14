@@ -232,6 +232,7 @@ public:
 	float ay;				// acceleration on y 
 	int speedStack = 0;
 	int marioScore = 0;
+	int marioLife = 0;
 	int coin;
 	BOOLEAN isFlying = false;
 	BOOLEAN isJumping = false;
@@ -260,6 +261,7 @@ public:
 		untouchable_start = -1;
 		isOnPlatform = false;
 		coin = 0;
+		marioLife = 4;
 	}
 	void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);
 	void Render();

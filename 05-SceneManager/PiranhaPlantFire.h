@@ -49,7 +49,6 @@ protected:
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* colliable_objects = NULL);
 	virtual void Render();
 
-	virtual int IsCollidable() { return 1; };
 	virtual int IsBlocking() { return 0; }
 	void GetDirect();
 	void StartDelay() { delay_start = GetTickCount64(); }
