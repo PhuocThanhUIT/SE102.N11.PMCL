@@ -5,18 +5,34 @@
 #include "PlayScene.h"
 #include "Game.h"
 #include "HiddenBrick.h"
-CPiranhaPlantFire::CPiranhaPlantFire(float x,float y)
+CPiranhaPlantFire::CPiranhaPlantFire(float x, float y)
 {
-	this->limitY = y - PIRANHAPLANT_RED_BBOX_HEIGHT;
+	if (tag == PIRANHAPLANT_GREEN_TYPE) {
+		this->limitY = y - PIRANHAPLANT_GREEN_BBOX_HEIGHT;
+		this->BBHeight = PIRANHAPLANT_GREEN_BBOX_HEIGHT;
+	}
+	else {
+		this->limitY = y - PIRANHAPLANT_RED_BBOX_HEIGHT;
+		this->BBHeight = PIRANHAPLANT_RED_BBOX_HEIGHT;
+	}
 	SetState(PIRANHAPLANT_STATE_DARTING);
 }
 
 void CPiranhaPlantFire::GetBoundingBox(float& left, float& top, float& right, float& bottom)
 {
-	left = x - PIRANHAPLANT_BBOX_WIDTH / 2;
-	top = y - PIRANHAPLANT_RED_BBOX_HEIGHT / 2;
-	right = left + PIRANHAPLANT_BBOX_WIDTH;
-	bottom = top + PIRANHAPLANT_RED_BBOX_HEIGHT;
+	if (tag == PIRANHAPLANT_GREEN_TYPE) {
+		left = x - PIRANHAPLANT_BBOX_WIDTH / 2;
+		top = y - PIRANHAPLANT_GREEN_BBOX_HEIGHT / 2;
+		right = left + PIRANHAPLANT_BBOX_WIDTH;
+		bottom = top + PIRANHAPLANT_GREEN_BBOX_HEIGHT;
+	}
+	else {
+		left = x - PIRANHAPLANT_BBOX_WIDTH / 2;
+		top = y - PIRANHAPLANT_RED_BBOX_HEIGHT / 2;
+		right = left + PIRANHAPLANT_BBOX_WIDTH;
+		bottom = top + PIRANHAPLANT_RED_BBOX_HEIGHT;
+	}
+	
 }
 
 
@@ -32,9 +48,9 @@ void CPiranhaPlantFire::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		vy = 0;
 		StartAim();
 	}
-	if (y >= limitY + PIRANHAPLANT_RED_BBOX_HEIGHT && vy > 0) {
+	if (y >= limitY + BBHeight && vy > 0) {
 		vy = 0;
-		y = limitY + PIRANHAPLANT_RED_BBOX_HEIGHT + 12;
+		y = limitY + BBHeight + 12;
 	}
 
 	if (GetTickCount64() - delay_stop >= PIRANHAPLANT_DELAY_STOP_TIME && delay_stop != 0)
@@ -67,7 +83,7 @@ void CPiranhaPlantFire::GetDirect() {
 	else
 		mHeight = MARIO_BIG_BBOX_HEIGHT;
 
-	if (mario->y + mHeight < limitY + PIRANHAPLANT_RED_BBOX_HEIGHT)
+	if (mario->y + mHeight < limitY + BBHeight)
 		Up = true;
 	else
 		Up = false;

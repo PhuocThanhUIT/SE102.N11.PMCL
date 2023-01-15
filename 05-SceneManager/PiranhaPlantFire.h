@@ -43,6 +43,7 @@ protected:
 	ULONGLONG aim_start = 0;
 	FireBullet* bullet = NULL;
 	float limitY = 0;
+	float BBHeight = 0;
 	bool Up = false;
 	bool Right = false;
 	virtual void GetBoundingBox(float& left, float& top, float& right, float& bottom);

@@ -29,24 +29,26 @@ void CCoin::GetBoundingBox(float& l, float& t, float& r, float& b)
 
 void CCoin::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
-	if (isDeleted)
-		return;
-	y += vy * dt;
-	x += vx * dt;
-	if (tag == COIN_TYPE_INBRICK && vy==0) {
-		this->SetState(COIN_STATE_UP);
-	}
-	if (start_y - y > COIN_UP_MAX_HEIGH)
-	{
-		this->SetState(COIN_STATE_DOWN);
-	}
-	if (start_y - y < COIN_DOWN_LIMIT && vy > 0) {
-		mario->AddScore(this->x, this->y, 100);
-		this->Delete();
-		mario->UpdateCoin();
-	}
+	if (tag == COIN_TYPE_INBRICK) {
+		if (isDeleted)
+			return;
+		y += vy * dt;
+		x += vx * dt;
+		if (tag == COIN_TYPE_INBRICK && vy == 0) {
+			this->SetState(COIN_STATE_UP);
+		}
+		if (start_y - y > COIN_UP_MAX_HEIGH)
+		{
+			this->SetState(COIN_STATE_DOWN);
+		}
+		if (start_y - y < COIN_DOWN_LIMIT && vy > 0) {
+			mario->AddScore(this->x, this->y, 100);
+			this->Delete();
+			mario->UpdateCoin();
+		}
 
-	CGameObject::Update(dt);
+		CGameObject::Update(dt);
+	}
 }
 
 void CCoin::SetState(int state)
