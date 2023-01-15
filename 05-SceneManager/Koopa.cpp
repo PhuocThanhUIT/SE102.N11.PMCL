@@ -5,10 +5,12 @@
 #include "HiddenBrick.h"
 #include "PlayScene.h"
 #include "QuestionBrick.h"
+#include "BreakBrick.h"
 
 CKoopa::CKoopa(int tag){
 	CPlayScene* currentScene = (CPlayScene*)CGame::GetInstance()->GetCurrentScene();
 	mario = currentScene->GetPlayer();
+	this->tag = tag;
 	if (tag == KOOPA_GREEN_PARA) {
 		this->SetState(KOOPA_STATE_JUMP);
 	}
@@ -62,6 +64,7 @@ void CKoopa::OnCollisionWith(LPCOLLISIONEVENT e)
 	if (dynamic_cast<CHiddenBrick*>(e->obj)) OnCollisionWithHiddenBrick(e);
 	if (dynamic_cast<CGoomba*>(e->obj)) OnCollisionWithGoomba(e);
 	if (dynamic_cast<CQuestionBrick*>(e->obj)) OnCollisionWithQuestionBrick(e);
+	if (dynamic_cast<BreakableBrick*>(e->obj)) OnCollisionWithBreakableBrick(e);
 }
 
 void CKoopa::OnCollisionWithQuestionBrick(LPCOLLISIONEVENT e) {
@@ -81,50 +84,57 @@ void CKoopa::OnCollisionWithGoomba(LPCOLLISIONEVENT e) {
 
 }
 void CKoopa::OnCollisionWithHiddenBrick(LPCOLLISIONEVENT e) {
-	if ( state == KOOPA_STATE_NORMAL&& tag==KOOPA_RED)
+	if ( state == KOOPA_STATE_NORMAL && tag == KOOPA_RED)
 	{
 		if (vx > 0 && x >= e->obj->x+4)
-			if (CalTurnableRight(e->obj))
+			if (CalTurnable(e->obj))
 			{
 				vx = -vx;
 			}
-		if (vx < 0)
-			if (CalTurnableLeft(e->obj))
+		if (vx < 0 && x <= e->obj->x - 4)
+			if (CalTurnable(e->obj))
 			{		
 				vx = -vx;
 			}
 	}
 }
-bool CKoopa::CalTurnableRight(LPGAMEOBJECT object)
+void CKoopa::OnCollisionWithBreakableBrick(LPCOLLISIONEVENT e) {
+	if (state == KOOPA_STATE_NORMAL && tag == KOOPA_RED)
+	{
+		if (vx > 0 && x >= e->obj->x + 4)
+			if (CalTurnable(e->obj))
+			{
+				vx = -vx;
+			}
+		if (vx < 0 && x <= e->obj->x - 4)
+			if (CalTurnable(e->obj))
+			{
+				vx = -vx;
+			}
+	}
+}
+bool CKoopa::CalTurnable(LPGAMEOBJECT object)
 {
 	CPlayScene* currentScene = (CPlayScene*)CGame::GetInstance()->GetCurrentScene();
 	vector<LPGAMEOBJECT> coObjects = currentScene->GetObjects();
-	for (UINT i = 0; i < coObjects.size(); i++) {
-		if (coObjects.at(i) == object)
-		{
-			if (coObjects.at(i + 1)->y != coObjects.at(i)->y) {
-				 return true; 
+	for (UINT i = 0; i < coObjects.size(); i++)
+		if (dynamic_cast<CHiddenBrick*>(coObjects[i]) || dynamic_cast<CQuestionBrick*>(coObjects[i])||dynamic_cast<BreakableBrick*>(coObjects[i]))
+			if (abs(coObjects[i]->y == object->y))
+			{
+				if (vx > 0)
+					if (coObjects[i]->x > object->x && coObjects[i]->x - 16 < object->x + 16)
+					{
+						return false;
+					}
+				if (vx < 0)
+					if (coObjects[i]->x + 16 > object->x - 16 && coObjects[i]->x < object->x)
+					{
+						return false;
+					}
 			}
-			else return false;
-		}
-	}
-	return false;
+	return true;
 }
-bool CKoopa::CalTurnableLeft(LPGAMEOBJECT object)
-{
-	CPlayScene* currentScene = (CPlayScene*)CGame::GetInstance()->GetCurrentScene();
-	vector<LPGAMEOBJECT> coObjects = currentScene->GetObjects();
-	for (UINT i = 0; i < coObjects.size(); i++) {
-		if (coObjects.at(i) == object)
-		{
-			if (coObjects.at(i-1)->y != coObjects.at(i)->y&&x<= coObjects.at(i)->x-4) {
-				return true;
-			}
-			else return false;
-		}
-	}
-	return false;
-}
+
 void CKoopa::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
 	if (isActive) {
