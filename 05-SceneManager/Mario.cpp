@@ -14,6 +14,7 @@
 #include "MushRoom.h"
 #include "Koopa.h"
 #include "PiranhaPlantFire.h"
+#include "PiranhaPlant.h"
 #include "FireBullet.h"
 #include "Leaf.h"
 #include "PlayScene.h"
@@ -90,6 +91,8 @@ void CMario::OnCollisionWith(LPCOLLISIONEVENT e)
 		OnCollisionWithFireBullet(e);
 	else if (dynamic_cast<CLeaf*>(e->obj))
 		OnCollisionWithLeaf(e);
+	else if(dynamic_cast<CPiranhaPlant*>(e->obj))
+		OnCollisionWithPiranhaFire(e);
 }
 void CMario::OnCollisionWithLeaf(LPCOLLISIONEVENT e) {
 	CLeaf* leaf = dynamic_cast<CLeaf*>(e->obj);
