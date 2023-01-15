@@ -26,6 +26,8 @@ protected:
 public:
 	BOOLEAN isActive = false;
 	int tag = 0; // define for object tag
+	float start_x;
+	float start_y;
 	float x;
 	float y;
 	int nx;

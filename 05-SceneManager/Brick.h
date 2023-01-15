@@ -20,7 +20,11 @@
 
 class CBrick : public CGameObject
 {
+	int type = 0;
+	int item = 0;
 public:
+	int totalItems = 0;
+	CBrick(float x = 0, float y = 0, int type = 0, int item = 0, int totalItems = 0);
 	virtual void Render();
 	virtual int IsBlocking() { return 1; }
 	virtual void GetBoundingBox(float& l, float& t, float& r, float& b);

@@ -10,22 +10,20 @@ void CBrick::GetBoundingBox(float& l, float& t, float& r, float& b)
 	b = t + BRICK_BBOX_HEIGHT;
 
 }
-//void CBrick::OnCollisionWith(LPCOLLISIONEVENT e)
-//{
-//	if (dynamic_cast<CKoopa*>(e->obj)) {
-//		CKoopa *koopa = dynamic_cast<CKoopa*>(e->obj);
-//		if (e->nx != 0) koopa->vx = -koopa->vx;
-//	}
-//	
-//}
-//void CBrick::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
-//{
-//
-//	CGameObject::Update(dt, coObjects);
-//	CCollision::GetInstance()->Process(this, dt, coObjects);
-//}
+
 void CBrick::Render()
 {
 	animation_set->at(BRICK_ANI_IDLE)->Render(x, y);
 	//RenderBoundingBox();
+}
+
+CBrick::CBrick(float x, float y, int type, int item, int totalItems) :CGameObject() {
+	this->start_x = x;
+	this->start_y = y;
+	this->type = type;
+	this->item = item;
+	if (totalItems == 0 && item != 0) {
+		this->totalItems = 1;
+	}
+	this->totalItems = totalItems;
 }

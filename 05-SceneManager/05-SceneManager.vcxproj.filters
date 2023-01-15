@@ -135,6 +135,9 @@
     <ClCompile Include="PiranhaPlant.cpp">
       <Filter>Map Objects\Enemies\PiranhaPlant</Filter>
     </ClCompile>
+    <ClCompile Include="BreakBrick.cpp">
+      <Filter>Map Objects\Bricks</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animations.h">
@@ -223,6 +226,9 @@
     </ClInclude>
     <ClInclude Include="PiranhaPlant.h">
       <Filter>Map Objects\Enemies\PiranhaPlant</Filter>
+    </ClInclude>
+    <ClInclude Include="BreakBrick.h">
+      <Filter>Map Objects\Bricks</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
