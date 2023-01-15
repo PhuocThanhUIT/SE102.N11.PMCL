@@ -315,7 +315,12 @@ void CPlayScene::SetCam(float cx, float cy, DWORD dt) {
 		cx = 0;
 	if (cx >= mw - sw)//Right Edge
 		cx = mw - sw;
-
+	for (int i = 0; i < objects.size(); i++)
+	{
+		if (cx < objects[i]->getX()&& objects[i]->getX() < cx + sw) {
+			objects[i]->SetActive(true);
+		}
+	}
 	//CamY
 	if (isTurnOnCamY)
 		cy -= sh / 2;

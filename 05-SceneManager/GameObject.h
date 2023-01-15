@@ -23,7 +23,8 @@ protected:
 	bool isDeleted; 
 	LPANIMATION_SET animation_set;
 
-public: 
+public:
+	BOOLEAN isActive = false;
 	int tag = 0; // define for object tag
 	float x;
 	float y;
@@ -32,6 +33,7 @@ public:
 	float vy;
 	int isBlocking = 1;
 	void SetTag(int tag) { this->tag = tag; }
+	void SetActive(bool active) { this->isActive = active; }
 	void SetPosition(float x, float y) { this->x = x, this->y = y; }
 	void SetSpeed(float vx, float vy) { this->vx = vx, this->vy = vy; }
 	void GetPosition(float &x, float &y) { x = this->x; y = this->y; }

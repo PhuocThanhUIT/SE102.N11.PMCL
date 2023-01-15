@@ -350,6 +350,7 @@ void CCollision::Process(LPGAMEOBJECT objSrc, DWORD dt, vector<LPGAMEOBJECT>* co
 					if (e->nx != 0 && ceil(mBottom) != oTop)
 						x += dx;
 					if (e->ny < 0) {
+						//y += colY->t * dy + colY->ny * BLOCK_PUSH_FACTOR;
 						mario->SetSpeed(vx, 0);
 						mario->isOnPlatform = true;
 					}

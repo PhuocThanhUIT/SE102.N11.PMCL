@@ -37,8 +37,9 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 		untouchable = 0;
 	}
 
-	isOnPlatform = false;
 
+	//isOnPlatform = false;
+	DebugOutTitle(L"isOnPlatform:%i", isOnPlatform);
 	
 
 	CCollision::GetInstance()->Process(this, dt, coObjects);
@@ -68,15 +69,12 @@ void CMario::OnCollisionWith(LPCOLLISIONEVENT e)
 	}
 	
 	if (dynamic_cast<CGoomba*>(e->obj)) {
-		DebugOut(L"MARIO COLLISON WITH GOOMBA\n");
 		OnCollisionWithGoomba(e);
 	}
 	else if (dynamic_cast<CQuestionBrick*>(e->obj)) {
-		DebugOut(L"MARIO COLLISON WITH QUESTION BRICK\n");
 		OnCollisionWithQuestionBrick(e);
 	}
 	else if (dynamic_cast<CCoin*>(e->obj)) {
-		DebugOut(L"MARIO COLLISON WITH COIN\n");
 		OnCollisionWithCoin(e);
 	}
 	else if (dynamic_cast<CPortal*>(e->obj))
@@ -84,7 +82,6 @@ void CMario::OnCollisionWith(LPCOLLISIONEVENT e)
 	else if (dynamic_cast<CMushRoom*>(e->obj))
 		OnCollisionWithMushRoom(e);
 	else if (dynamic_cast<CKoopa*>(e->obj)) {
-		DebugOut(L"MARIO COLLISON WITH KOOPA\n");
 		OnCollisionWithKoopa(e);
 	}
 	else if (dynamic_cast<CPiranhaPlantFire*>(e->obj))
@@ -207,7 +204,7 @@ void CMario::OnCollisionWithGoomba(LPCOLLISIONEVENT e)
 			{
 				if (level > MARIO_LEVEL_SMALL)
 				{
-					level = MARIO_LEVEL_SMALL;
+					level -= 1;
 					StartUntouchable();
 				}
 				else
@@ -554,7 +551,8 @@ int CMario::GetAniIdTail()
 					if (!isOnPlatform) {
 						aniId = MARIO_ANI_TAIL_JUMPINGUP_RIGHT;
 						if (isTailFlying) {
-							aniId = MARIO_ANI_TAIL_FLY_UP_RIGHT;
+							if (isTailFlyFlapping) aniId = MARIO_ANI_TAIL_FLY_FLAPPING_RIGHT;
+							else aniId = MARIO_ANI_TAIL_FLY_UP_RIGHT;
 						}
 						if (isFlapping)
 							aniId = MARIO_ANI_TAIL_FLAPPING_RIGHT;
@@ -579,7 +577,8 @@ int CMario::GetAniIdTail()
 					if (!isOnPlatform) {
 						aniId = MARIO_ANI_TAIL_JUMPINGUP_LEFT;
 						if (isTailFlying) {
-							aniId = MARIO_ANI_TAIL_FLY_UP_LEFT;
+							if (isTailFlyFlapping) aniId = MARIO_ANI_TAIL_FLY_FLAPPING_LEFT;
+							else aniId = MARIO_ANI_TAIL_FLY_UP_LEFT;
 						}
 						if (isFlapping)
 							aniId = MARIO_ANI_TAIL_FLAPPING_LEFT;
@@ -607,7 +606,6 @@ void CMario::Render()
 	animation_set->at(aniId)->Render(x, y);
 
 	
-	//DebugOutTitle(L"Coins: %d", coin);
 }
 
 void CMario::SetState(int state)
@@ -652,10 +650,12 @@ void CMario::SetState(int state)
 		if (abs(ax) == MARIO_ACCEL_RUN_X) {
 			if (level == MARIO_LEVEL_TAIL && isRunning) {
 				isTailFlying = true;
+				isOnPlatform = false;
 				StartTailFlying();
 			}
 			else if (isRunning) {
 				isFlying = true;
+				isOnPlatform = false;
 				StartFlying();
 			}
 		}
@@ -741,9 +741,19 @@ void CMario::HandleFlying() {
 	if (level != -5) {
 		if (isTailFlying||isFlying)
 		{
-			if (vy <= -MARIO_FLY_MAX) {
-				ay = 0.001f;
+			if (GetTickCount64() - tail_fly_min_start < MARIO_FLYING_TIME_MIN) {
+					ay = 0.00f;
+					isTailFlyFlapping = true;
 			}
+			else {
+				if (vy <= -MARIO_FLY_MAX) {
+					isTailFlyFlapping = false;
+					ay = 0.001f;
+				}
+			}
+		}
+		else {
+			ay = MARIO_GRAVITY;
 		}
 	}
 	if (GetTickCount64() - tail_fly_start > MARIO_FLYING_TIME && tail_fly_start != 0 && isTailFlying)
@@ -765,6 +775,7 @@ void CMario::HandleFlapping() {
 }
 void CMario::HandleMarioJump() {
 	if (isJumping) {
+		isOnPlatform = false;
 		if (abs(this->vx) == MARIO_RUNNING_SPEED) {
 			vy = -MARIO_JUMP_RUN_SPEED_Y;
 			ay = MARIO_GRAVITY; isJumping = false;
@@ -778,8 +789,7 @@ void CMario::HandleMarioJump() {
 }
 
 void CMario::HandleSpeedStack() {
-	DebugOutTitle(L"SpeedStack:%i,vx=%f,state=%i", speedStack,vx,state);
-	if (GetTickCount64() - start_running > MARIO_RUNNING_STACK_TIME && vx != 0 && isReadyToRun && (!isFlying&&!isTailFlying)) {
+	if (GetTickCount64() - start_running > MARIO_RUNNING_STACK_TIME && vx != 0 && isReadyToRun && (!isFlying&&!isTailFlying||isOnPlatform)) {
 		start_running = GetTickCount64();
 		speedStack++;
 		if (speedStack >= MARIO_RUNNING_STACKS) {

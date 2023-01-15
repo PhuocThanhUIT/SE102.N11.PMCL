@@ -200,6 +200,7 @@
 
 #define MARIO_UNTOUCHABLE_TIME 2500
 #define MARIO_FLYING_TIME		1750
+#define MARIO_FLYING_TIME_MIN		500
 #define MARIO_RUNNING_STACK_TIME	200
 
 class CMario : public CGameObject
@@ -242,8 +243,10 @@ public:
 	BOOLEAN isHolding = false;
 	BOOLEAN isReadyToHold = false;
 	BOOLEAN isTailFlying = false;
+	BOOLEAN isTailFlyFlapping = false;
 	BOOLEAN isFlapping = false;
 	ULONGLONG tail_fly_start = 0;
+	ULONGLONG tail_fly_min_start = 0;
 	ULONGLONG fly_start = 0;
 	ULONGLONG start_speed_stack = 0;
 	ULONGLONG start_running = 0;
@@ -283,6 +286,7 @@ public:
 	void HandleFlapping();
 	void HandleSpeedStack();
 	void StartTailFlying() { tail_fly_start = GetTickCount64(); }
+	void StartMinTailFlying() { tail_fly_min_start = GetTickCount64(); }
 	void StartFlying() { fly_start = GetTickCount64(); }
 	void SetLevel(int l);
 	void StartUntouchable() { untouchable = 1; untouchable_start = GetTickCount64(); }

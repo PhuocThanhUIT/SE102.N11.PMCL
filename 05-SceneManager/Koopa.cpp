@@ -67,7 +67,7 @@ void CKoopa::OnCollisionWithQuestionBrick(LPCOLLISIONEVENT e) {
 }
 void CKoopa::OnCollisionWithGoomba(LPCOLLISIONEVENT e) {
 	CGoomba* goomba = dynamic_cast<CGoomba*>(e->obj);
-	if (goomba->y-this->y<5&&state == KOOPA_STATE_SPIN && goomba->GetState() != GOOMBA_STATE_DIE_BY_KOOPA)
+	if (state == KOOPA_STATE_SPIN && goomba->GetState() != GOOMBA_STATE_DIE_BY_KOOPA)
 	{
 		mario->AddScore(goomba->x, goomba->y, 100);
 		goomba->SetState(GOOMBA_STATE_DIE_BY_KOOPA);
@@ -142,6 +142,7 @@ void CKoopa::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	if (!isBeingHeld) {
 		vy += ay * dt;
 	}
+
 	HandleBeingHeld(mario);
 
 	CGameObject::Update(dt, coObjects);

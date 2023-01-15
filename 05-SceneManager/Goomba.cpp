@@ -92,30 +92,32 @@ void CGoomba::OnCollisionWith(LPCOLLISIONEVENT e)
 
 void CGoomba::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 {
-	vy += ay * dt;
-	vx += ax * dt;
+	if (isActive) {
+		vy += ay * dt;
+		vx += ax * dt;
 
-	if ( (state==GOOMBA_STATE_DIE) && (GetTickCount64() - die_start > GOOMBA_DIE_TIMEOUT) )
-	{
-		isDeleted = true;
-		return;
-	}
-	if (y > 500) isDeleted = true;
+		if ((state == GOOMBA_STATE_DIE) && (GetTickCount64() - die_start > GOOMBA_DIE_TIMEOUT))
+		{
+			isDeleted = true;
+			return;
+		}
+		if (y > 500) isDeleted = true;
 
-	//// limit y 
-	if (vy < -GOOMBA_JUMP_SPEED && state == GOOMBA_STATE_WING_JUMPING)
-	{
-		vy = -GOOMBA_JUMP_SPEED;
-		ay = GOOMBA_GRAVITY;
-	}
-	if (vy < -GOOMBA_HIGHJUMP_SPEED && state == GOOMBA_STATE_WING_HIGHJUMPING)
-	{
-		vy = -GOOMBA_HIGHJUMP_SPEED;
-		ay = GOOMBA_GRAVITY;
-	}
+		//// limit y 
+		if (vy < -GOOMBA_JUMP_SPEED && state == GOOMBA_STATE_WING_JUMPING)
+		{
+			vy = -GOOMBA_JUMP_SPEED;
+			ay = GOOMBA_GRAVITY;
+		}
+		if (vy < -GOOMBA_HIGHJUMP_SPEED && state == GOOMBA_STATE_WING_HIGHJUMPING)
+		{
+			vy = -GOOMBA_HIGHJUMP_SPEED;
+			ay = GOOMBA_GRAVITY;
+		}
 
-	CGameObject::Update(dt, coObjects);
-	CCollision::GetInstance()->Process(this, dt, coObjects);
+		CGameObject::Update(dt, coObjects);
+		CCollision::GetInstance()->Process(this, dt, coObjects);
+	}
 }
 
 

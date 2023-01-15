@@ -20,6 +20,7 @@ void CSampleKeyHandler::OnKeyDown(int KeyCode)
 		if (mario->isTailFlying && mario->level==MARIO_LEVEL_TAIL) {
 			mario->vy = -0.065f;
 			mario->ay = -0.005f;
+			mario->StartMinTailFlying();
 		}
 		else if (mario->level == MARIO_LEVEL_TAIL && !mario->isOnPlatform)
 			mario->isFlapping = true;
