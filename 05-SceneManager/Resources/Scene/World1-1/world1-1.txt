@@ -2,8 +2,8 @@
 # type	x	y	ani_set_id	tag	tag1	tag2	
 # type: 0 = Mario , 1 = Brick, 2 = Goomba, 3 = Koopas, 4 = Hidden Brick
 # MARIO
-#0	2200	300	1
-0	80	384	1
+0	1200	384	1
+#0	80	384	1
 #0	580	384	1
 # === Brick === 
 # ---- platform brick ----
@@ -356,6 +356,11 @@
 # === Koopas === 
 # --- Red ---
 3	580	355	3	1	2	4
+# --- Green ---
+3	1340	280	30	2	2	9
+3	1385	280	30	2	2	10
+3	1430	280	30	2	2	10
+3	1470	390	30	0	3	10
 # === Goomba === 
 # --- Yellow ---
 2	200	400	2	0	3	1

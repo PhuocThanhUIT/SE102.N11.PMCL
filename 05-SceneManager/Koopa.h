@@ -7,6 +7,7 @@
 #define KOOPA_STATE_NORMAL 100
 #define KOOPA_STATE_SHELL 200
 #define KOOPA_STATE_SPIN 300
+#define KOOPA_STATE_JUMP 400
 #define KOOPA_BBOX_WIDTH 16
 #define KOOPA_BBOX_HEIGHT 26
 #define KOOPA_SHELL_BBOX_WIDTH 14
@@ -21,9 +22,13 @@
 #define KOOPA_PARA_RIGHT_ANI_ID 7
 #define KOOPA_PARA_LEFT_ANI_ID 8
 #define KOOPA_SHAKE_UP_ANI_ID 9
+#define KOOPA_JUMP_SPEED 0.5f
 #define KOOPA_MOVING_SPEED 0.05f
 #define KOOPA_SPIN_SPEED 0.1f
 #define KOOPA_GRAVITY 0.02f
+#define KOOPA_GREEN		0
+#define KOOPA_RED			1
+#define KOOPA_GREEN_PARA	2
 
 #define KOOPA_REVIVE_TIME		2000
 #define KOOPA_SHELL_TIME		5000
@@ -56,6 +61,6 @@ public:
 	bool CalTurnableLeft(LPGAMEOBJECT object);
 	bool SetIsBeingHeld(bool beingheld) { return this->isBeingHeld = beingheld; }
 	void HandleBeingHeld(LPGAMEOBJECT object);
-	CKoopa(float x, float y);
+	CKoopa(int tag);
 	virtual void SetState(int state);
 };

@@ -140,6 +140,8 @@ void CMario::OnCollisionWithKoopa(LPCOLLISIONEVENT e)
 	// jump on top >> kill Goomba and deflect a bit 
 	if (e->ny < 0)
 	{
+		if (koopa->GetState() == KOOPA_STATE_JUMP) koopa->SetState(KOOPA_STATE_NORMAL);
+		else
 			koopa->SetState(KOOPA_STATE_SHELL);
 			AddScore(koopa->x, koopa->y, 100);
 			vy = -MARIO_JUMP_DEFLECT_SPEED;
