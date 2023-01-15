@@ -17,6 +17,7 @@
 #include "SampleKeyEventHandler.h"
 #include "Hud.h"
 #include "PiranhaPlant.h"
+#include "BreakBrick.h"
 
 using namespace std;
 
@@ -174,6 +175,7 @@ void CPlayScene::_ParseObjFromFile(LPCWSTR path) {
 		case OBJECT_TYPE_COIN: obj = new CCoin(x, y); break;
 		case OBJECT_TYPE_PIRANHA_PLANT_FIRE:obj = new CPiranhaPlantFire(x, y); obj->SetTag(tag); break;
 		case OBJECT_TYPE_PIRANHA_PLANT:obj = new CPiranhaPlant(x, y); break;
+		case OBJECT_TYPE_BREAKABLEBRICK: obj = new BreakableBrick(x, y, option_tag_1, option_tag_2, option_tag_3); break;
 		
 
 		/*case OBJECT_TYPE_PORTAL:

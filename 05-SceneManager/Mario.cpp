@@ -116,7 +116,7 @@ void CMario::OnCollisionWithFireBullet(LPCOLLISIONEVENT e) {
 	}
 }
 void CMario::OnCollisionWithPiranhaFire(LPCOLLISIONEVENT e) {
-	if (untouchable == 0)
+	if (untouchable == 0 )
 	{
 		if (level > MARIO_LEVEL_SMALL)
 		{
