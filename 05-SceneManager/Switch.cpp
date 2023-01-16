@@ -1,18 +1,34 @@
 #include "Switch.h"
 
 void Switch::Render() {
+	animation_set->at(SWITCH_ANI_IDLE)->Render(x, y);
+	//RenderBoundingBox();
 }
 
 void Switch::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
-
+	if (isDeleted)
+		return;
+	CGameObject::Update(dt);
+	if (state == SWITCH_STATE_UP)
+	{
+		y += vy * dt;
+		if (start_y - y >= SWITCH_BBOX_HEIGHT)
+		{
+			vy = 0;
+			y = start_y - SWITCH_BBOX_HEIGHT - 0.1f;
+			SetState(SWITCH_STATE_IDLE);
+		}
+	}
 }
 
 void Switch::SetState(int state) {
 	CGameObject::SetState(state);
 	switch (state)
 	{
-
+	case SWITCH_STATE_UP:
+		vy = -0.05f;
+		break;
 	}
 }
 

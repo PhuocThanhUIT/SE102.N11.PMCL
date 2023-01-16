@@ -9,9 +9,11 @@
 #define SWITCH_ANI_IDLE		0
 #define SWITCH_ANI_PRESSED	1
 
+#define SWITCH_STATE_IDLE		0
+#define SWITCH_STATE_UP			1
+
 class Switch :public CGameObject
 {
-
 public:
 	virtual void Render();
 	virtual void GetBoundingBox(float& left, float& top, float& right, float& bottom);

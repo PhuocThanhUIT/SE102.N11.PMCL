@@ -4,8 +4,10 @@
 #include "PlayScene.h"
 #include "MushRoom.h"
 #include "Leaf.h"
+#include "Switch.h"
 CQuestionBrick::CQuestionBrick(float x, float y)
 {
+	this->SetState(QUESTION_BRICK_STATE_NORMAL);
 }
 
 void CQuestionBrick::GetBoundingBox(float& l, float& t, float& r, float& b)
@@ -77,6 +79,18 @@ CGameObject* CQuestionBrick::SetUpItem(int itemType) {
 		ani_set_id = LEAF_ANI_SET_ID;
 		LPANIMATION_SET ani_set = animation_sets->Get(ani_set_id);
 		obj->SetAnimationSet(ani_set);
+		break;
+	}
+	case ITEM_SWITCH_QUESTION_BRICK:
+	{
+		obj = new Switch();
+		obj->SetState(SWITCH_STATE_UP);
+		obj->SetPosition(x, y);
+		obj->start_y = y;
+		ani_set_id = SWITCH_ANI_SET_ID;
+		LPANIMATION_SET ani_set = animation_sets->Get(ani_set_id);
+		obj->SetAnimationSet(ani_set);
+		break;
 	}
 	default:
 		break;
@@ -92,7 +106,8 @@ void CQuestionBrick::Render()
 	
 	switch (state) {
 	case QUESTION_BRICK_STATE_NORMAL:
-		aniId = QUESTIONBRICK_ANI_NORMAL;
+		if (this->tag == ITEM_SWITCH_QUESTION_BRICK) aniId = 2;
+		else aniId = QUESTIONBRICK_ANI_NORMAL;
 		break;
 	case QUESTION_BRICK_STATE_AFTER_MARIO_PUSH_UP:
 		aniId = QUESTIONBRICK_ANI_HIT;

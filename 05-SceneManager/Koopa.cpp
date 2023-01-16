@@ -69,7 +69,7 @@ void CKoopa::OnCollisionWith(LPCOLLISIONEVENT e)
 
 void CKoopa::OnCollisionWithQuestionBrick(LPCOLLISIONEVENT e) {
 	CQuestionBrick* qsbrick = dynamic_cast<CQuestionBrick*>(e->obj);
-	if (qsbrick->GetState() != QUESTION_BRICK_STATE_AFTER_MARIO_PUSH_UP && state==KOOPA_STATE_SPIN) {
+	if (e->nx!=0&&qsbrick->GetState() != QUESTION_BRICK_STATE_AFTER_MARIO_PUSH_UP && state==KOOPA_STATE_SPIN) {
 		qsbrick->ShowItem(qsbrick->tag);
 		qsbrick->SetState(QUESTION_BRICK_STATE_AFTER_MARIO_PUSH_UP);
 	}
@@ -221,7 +221,10 @@ void CKoopa::SetState(int state)
 		break;
 	case KOOPA_STATE_NORMAL:
 		vx = -KOOPA_MOVING_SPEED;
-		ay = KOOPA_GRAVITY;
+		ay = 0.002f;
+		break;
+	case KOOPA_STATE_SPIN:
+		ay = 0.0005f;
 		break;
 	case KOOPA_STATE_SHELL:
 		vx = 0;
