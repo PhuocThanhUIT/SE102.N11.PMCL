@@ -99,6 +99,12 @@ void CKoopa::OnCollisionWithHiddenBrick(LPCOLLISIONEVENT e) {
 	}
 }
 void CKoopa::OnCollisionWithBreakableBrick(LPCOLLISIONEVENT e) {
+	if (state == KOOPA_STATE_SPIN) {
+		if (e->nx != 0) {
+			BreakableBrick* brk = dynamic_cast<BreakableBrick*>(e->obj);
+			brk->Break();
+		}
+	}
 	if (state == KOOPA_STATE_NORMAL && tag == KOOPA_RED)
 	{
 		if (vx > 0 && x >= e->obj->x + 4)
