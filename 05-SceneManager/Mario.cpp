@@ -19,6 +19,7 @@
 #include "Leaf.h"
 #include "PlayScene.h"
 #include "Point.h"
+#include "Switch.h"
 
 void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 {
@@ -93,6 +94,19 @@ void CMario::OnCollisionWith(LPCOLLISIONEVENT e)
 		OnCollisionWithLeaf(e);
 	else if(dynamic_cast<CPiranhaPlant*>(e->obj))
 		OnCollisionWithPiranhaFire(e);
+	else if (dynamic_cast<Switch*>(e->obj)) {
+		OnCollisionWithSwitch(e);
+	}
+}
+void CMario::OnCollisionWithSwitch(LPCOLLISIONEVENT e) {
+	Switch* sw = dynamic_cast<Switch*>(e->obj);
+	if (e->ny < 0) {
+		if (sw->GetState() != SWITCH_STATE_PRESSED) {
+			sw->SetState(SWITCH_STATE_PRESSED);
+			sw->Delete();
+			vy = -MARIO_JUMP_DEFLECT_SPEED;
+		}
+	}
 }
 void CMario::OnCollisionWithLeaf(LPCOLLISIONEVENT e) {
 	CLeaf* leaf = dynamic_cast<CLeaf*>(e->obj);

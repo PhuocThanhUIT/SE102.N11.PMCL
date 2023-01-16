@@ -1,6 +1,9 @@
 #include "Switch.h"
 
 void Switch::Render() {
+	if (state == SWITCH_STATE_PRESSED)
+		animation_set->at(SWITCH_ANI_PRESSED)->Render(x, y);
+	else
 	animation_set->at(SWITCH_ANI_IDLE)->Render(x, y);
 	//RenderBoundingBox();
 }
@@ -29,6 +32,9 @@ void Switch::SetState(int state) {
 	case SWITCH_STATE_UP:
 		vy = -0.05f;
 		break;
+	case SWITCH_STATE_PRESSED:
+		ChangeBreakBrickToCoin();
+		break;
 	}
 }
 
@@ -38,4 +44,8 @@ void Switch::GetBoundingBox(float& l, float& t, float& r, float& b)
 	t = y - SWITCH_BBOX_HEIGHT/2;
 	r = l + SWITCH_BBOX_WIDTH;
 	b = t + SWITCH_BBOX_HEIGHT;
+}
+
+void Switch::ChangeBreakBrickToCoin() {
+
 }
