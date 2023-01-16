@@ -20,11 +20,11 @@ protected:
 
 	int state;
 
-	bool isDeleted; 
 	LPANIMATION_SET animation_set;
 
 public:
 	BOOLEAN isActive = false;
+	bool isDeleted;
 	int tag = 0; // define for object tag
 	float start_x;
 	float start_y;
