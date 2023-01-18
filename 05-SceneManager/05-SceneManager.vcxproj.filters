@@ -49,6 +49,9 @@
     <Filter Include="Map Objects\Enemies\PiranhaPlant">
       <UniqueIdentifier>{bfb4d2fc-38bb-48cb-8a22-615993eb0496}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Map Objects\Others\Tail">
+      <UniqueIdentifier>{66945169-3c78-4275-b6ed-0c209b1d4762}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -143,6 +146,9 @@
     </ClCompile>
     <ClCompile Include="PieceBrick.cpp">
       <Filter>Map Objects\Bricks</Filter>
+    </ClCompile>
+    <ClCompile Include="Tail.cpp">
+      <Filter>Map Objects\Others\Tail</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -241,6 +247,9 @@
     </ClInclude>
     <ClInclude Include="PieceBrick.h">
       <Filter>Map Objects\Bricks</Filter>
+    </ClInclude>
+    <ClInclude Include="Tail.h">
+      <Filter>Map Objects\Others\Tail</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

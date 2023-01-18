@@ -31,6 +31,7 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 	HandleFlying();
 	HandleFlapping();
 	HandleSpeedStack();
+	HandleAttack();
 
 	// reset untouchable timer if untouchable time has passed
 	if ( GetTickCount64() - untouchable_start > MARIO_UNTOUCHABLE_TIME) 
@@ -41,7 +42,7 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 
 
 	//isOnPlatform = false;
-	DebugOutTitle(L"isOnPlatform:%i", isOnPlatform);
+	DebugOutTitle(L"isTailAttack:%i,attackStack:%i", isTailAttack,attackStack);
 	
 
 	CCollision::GetInstance()->Process(this, dt, coObjects);
@@ -508,7 +509,7 @@ int CMario::GetAniIdTail()
 				aniId = MARIO_ANI_TAIL_WALKING_FAST_LEFT;
 		}
 	}
-	if (state == MARIO_STATE_JUMP || state == MARIO_STATE_RELEASE_JUMP || isHolding) {
+	if (state == MARIO_STATE_JUMP || state == MARIO_STATE_RELEASE_JUMP || isHolding || isTailAttack) {
 		if (nx > 0) {
 			aniId = MARIO_ANI_TAIL_JUMPINGUP_RIGHT;
 			if (isTailFlying) {
@@ -622,6 +623,19 @@ void CMario::Render()
 		aniId = GetAniIdSmall();
 	else if (level == MARIO_LEVEL_TAIL)
 		aniId = GetAniIdTail();
+	if (isTailAttack && nx > 0) {
+		if (attackStack == 1 || attackStack == 5) CSprites::GetInstance()->Get(MARIO_SPRITE_WHACK_RIGHT_1_ID)->Draw(x, y);
+		if (attackStack == 2) CSprites::GetInstance()->Get(MARIO_SPRITE_WHACK_RIGHT_2_ID)->Draw(x, y);
+		if (attackStack == 3) CSprites::GetInstance()->Get(MARIO_SPRITE_WHACK_RIGHT_3_ID)->Draw(x, y);
+		if (attackStack == 4) CSprites::GetInstance()->Get(MARIO_SPRITE_WHACK_RIGHT_4_ID)->Draw(x, y);
+	}
+	else if (isTailAttack && nx < 0) {
+		if (attackStack == 1 || attackStack == 5) CSprites::GetInstance()->Get(MARIO_SPRITE_WHACK_LEFT_1_ID)->Draw(x, y);
+		if (attackStack == 2) CSprites::GetInstance()->Get(MARIO_SPRITE_WHACK_LEFT_2_ID)->Draw(x, y);
+		if (attackStack == 3) CSprites::GetInstance()->Get(MARIO_SPRITE_WHACK_LEFT_3_ID)->Draw(x, y);
+		if (attackStack == 4)
+			CSprites::GetInstance()->Get(MARIO_SPRITE_WHACK_LEFT_4_ID)->Draw(x, y);
+	}else
 	animation_set->at(aniId)->Render(x, y);
 
 	
@@ -853,3 +867,22 @@ void CMario::AddScore(float x, float y, int score) {
 	this->marioScore += score;
 
 }
+void CMario::StartAttack() {
+	if (vx == 0) {
+		isTailAttack = true;
+		tail_attack_start = GetTickCount64();
+	}
+}
+void CMario::HandleAttack() {
+	if (GetTickCount64() - attack_stack_start >= MARIO_ATTACK_STACK_TIME && isTailAttack) {
+		attack_stack_start = GetTickCount64();
+		attackStack++;
+	}
+	if (GetTickCount64() - tail_attack_start > MARIO_ATTACK_TIME && isTailAttack) {
+		isTailAttack = false;
+		attack_stack_start = 0;
+		tail_attack_start = 0;
+		attackStack = 0;
+	}
+}
+

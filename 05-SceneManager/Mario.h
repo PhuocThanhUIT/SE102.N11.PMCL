@@ -23,6 +23,7 @@
 #define MARIO_SIT_DIF 3
 
 #define MARIO_RUNNING_STACKS		7
+#define MARIO_ATTACK_STACKS			5
 
 #pragma region STATE
 
@@ -179,6 +180,16 @@
 #pragma endregion
 
 #define GROUND_Y 160.0f
+// whack tail
+#define MARIO_SPRITE_WHACK_LEFT_1_ID	12813
+#define MARIO_SPRITE_WHACK_LEFT_2_ID	12814
+#define MARIO_SPRITE_WHACK_LEFT_3_ID	12815
+#define MARIO_SPRITE_WHACK_LEFT_4_ID	12816
+
+#define MARIO_SPRITE_WHACK_RIGHT_1_ID	12803
+#define MARIO_SPRITE_WHACK_RIGHT_2_ID	12804
+#define MARIO_SPRITE_WHACK_RIGHT_3_ID	12805
+#define MARIO_SPRITE_WHACK_RIGHT_4_ID	12806
 
 
 
@@ -202,6 +213,9 @@
 #define MARIO_FLYING_TIME		1750
 #define MARIO_FLYING_TIME_MIN		500
 #define MARIO_RUNNING_STACK_TIME	200
+#define MARIO_ATTACK_TIME		350
+#define MARIO_ATTACK_STACK_TIME 70
+
 
 class CMario : public CGameObject
 {
@@ -233,6 +247,7 @@ public:
 	float ax;				// acceleration on x 
 	float ay;				// acceleration on y 
 	int speedStack = 0;
+	int attackStack = 0;
 	int marioScore = 0;
 	int marioLife = 0;
 	int coin;
@@ -248,6 +263,7 @@ public:
 	BOOLEAN isTailFlyFlapping = false;
 	BOOLEAN isFlapping = false;
 	ULONGLONG tail_attack_start = 0;
+	ULONGLONG attack_stack_start = 0;
 	ULONGLONG tail_fly_start = 0;
 	ULONGLONG tail_fly_min_start = 0;
 	ULONGLONG fly_start = 0;
@@ -292,7 +308,7 @@ public:
 	void StartMinTailFlying() { tail_fly_min_start = GetTickCount64(); }
 	void StartFlying() { fly_start = GetTickCount64(); }
 	void StartAttack();
-	void StopAttack();
+	void HandleAttack();
 	void SetLevel(int l);
 	void StartUntouchable() { untouchable = 1; untouchable_start = GetTickCount64(); }
 
