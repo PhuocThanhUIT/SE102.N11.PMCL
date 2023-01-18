@@ -28,6 +28,11 @@ void CSampleKeyHandler::OnKeyDown(int KeyCode)
 			mario->SetState(MARIO_STATE_JUMP);
 		}
 		break;
+	case DIK_A:
+		if (mario->level == MARIO_LEVEL_TAIL) {
+			mario->StartAttack();
+		}
+		break;
 	case DIK_1:
 		mario->SetLevel(MARIO_LEVEL_SMALL);
 		break;

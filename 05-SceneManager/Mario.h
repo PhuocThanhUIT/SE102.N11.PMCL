@@ -236,6 +236,7 @@ public:
 	int marioScore = 0;
 	int marioLife = 0;
 	int coin;
+	BOOLEAN isTailAttack = false;
 	BOOLEAN isFlying = false;
 	BOOLEAN isJumping = false;
 	BOOLEAN isRunning = false;
@@ -246,6 +247,7 @@ public:
 	BOOLEAN isTailFlying = false;
 	BOOLEAN isTailFlyFlapping = false;
 	BOOLEAN isFlapping = false;
+	ULONGLONG tail_attack_start = 0;
 	ULONGLONG tail_fly_start = 0;
 	ULONGLONG tail_fly_min_start = 0;
 	ULONGLONG fly_start = 0;
@@ -289,6 +291,8 @@ public:
 	void StartTailFlying() { tail_fly_start = GetTickCount64(); }
 	void StartMinTailFlying() { tail_fly_min_start = GetTickCount64(); }
 	void StartFlying() { fly_start = GetTickCount64(); }
+	void StartAttack();
+	void StopAttack();
 	void SetLevel(int l);
 	void StartUntouchable() { untouchable = 1; untouchable_start = GetTickCount64(); }
 
