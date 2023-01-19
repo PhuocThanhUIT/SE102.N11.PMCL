@@ -20,6 +20,7 @@
 #include "PlayScene.h"
 #include "Point.h"
 #include "Switch.h"
+#include "Tail.h"
 
 void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 {
@@ -40,7 +41,7 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 		untouchable = 0;
 	}
 
-
+	tail->Update(dt, coObjects);
 	//isOnPlatform = false;
 	DebugOutTitle(L"isTailAttack:%i,attackStack:%i", isTailAttack,attackStack);
 	

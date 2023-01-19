@@ -2,6 +2,7 @@
 #include "GameObject.h"
 #include "Animations.h"
 #include "debug.h"
+#include "Tail.h"
 
 #define MARIO_WALKING_SPEED		0.1f
 #define MARIO_RUNNING_SPEED		0.2f
@@ -251,6 +252,7 @@ public:
 	int marioScore = 0;
 	int marioLife = 0;
 	int coin;
+	CTail* tail = NULL;
 	BOOLEAN isTailAttack = false;
 	BOOLEAN isFlying = false;
 	BOOLEAN isJumping = false;
@@ -284,6 +286,7 @@ public:
 		isOnPlatform = false;
 		coin = 0;
 		marioLife = 4;
+		tail = new CTail(180, y);
 	}
 	void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);
 	void Render();
