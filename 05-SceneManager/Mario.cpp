@@ -636,8 +636,10 @@ void CMario::Render()
 		if (attackStack == 3) CSprites::GetInstance()->Get(MARIO_SPRITE_WHACK_LEFT_3_ID)->Draw(x, y);
 		if (attackStack == 4)
 			CSprites::GetInstance()->Get(MARIO_SPRITE_WHACK_LEFT_4_ID)->Draw(x, y);
-	}else
+	}
+	else
 	animation_set->at(aniId)->Render(x, y);
+	tail->Render();
 
 	
 }
@@ -869,7 +871,7 @@ void CMario::AddScore(float x, float y, int score) {
 
 }
 void CMario::StartAttack() {
-	if (vx == 0) {
+	if (vx == 0&&attackStack==0) {
 		isTailAttack = true;
 		tail_attack_start = GetTickCount64();
 	}

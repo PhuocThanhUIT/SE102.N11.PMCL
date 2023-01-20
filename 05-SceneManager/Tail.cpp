@@ -28,16 +28,16 @@ void CTail::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects) {
 		else
 		{
 			if (mario->attackStack == 1 || mario->attackStack == 5)
-				x = mario->x + MARIO_BIG_BBOX_WIDTH;
+				x = mario->x + TAIL_BBOX_WIDTH;
 			else if (mario->attackStack == 3)
-				x = mario->x - TAIL_BBOX_WIDTH;
-			else x = mario->x + MARIO_BIG_BBOX_WIDTH;
+				x = mario->x - MARIO_BIG_BBOX_WIDTH;
+			else x = mario->x + 8;
 		}
-		y = mario->y + TAIL_BBOX_WIDTH * 2 + 1;
+		y = mario->y + TAIL_BBOX_HEIGHT + 1;
 	}
 
 }
 
 void CTail::Render() {
-	//RenderBoundingBox();
+	RenderBoundingBox();
 }

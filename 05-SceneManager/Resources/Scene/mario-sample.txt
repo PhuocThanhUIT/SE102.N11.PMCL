@@ -22,4 +22,4 @@ height	240
 90	Resources\Textures\card.png	
 100	Resources\Textures\mario-left.png	
 110	Resources\Textures\mario-right.png
-#120	Resources\Textures\bbox.png	
+120	Resources\Textures\bbox.png	

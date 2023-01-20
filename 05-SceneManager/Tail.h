@@ -1,7 +1,7 @@
 #pragma once
 #include "GameObject.h"
 
-#define TAIL_BBOX_WIDTH		8
+#define TAIL_BBOX_WIDTH		12
 #define TAIL_BBOX_HEIGHT	6
 
 class CTail :public CGameObject
