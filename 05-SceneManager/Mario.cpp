@@ -784,7 +784,7 @@ void CMario::HandleFlying() {
 			else {
 				if (vy <= -MARIO_FLY_MAX) {
 					isTailFlyFlapping = false;
-					ay = 0.001f;
+					ay = 0.0005f;
 				}
 			}
 		}
