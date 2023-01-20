@@ -31,7 +31,22 @@ void CQuestionBrick::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		this->ShowItem(this->tag);
 		return;
 	}
-
+	// for tail collision
+	CPlayScene* currentScene = (CPlayScene*)CGame::GetInstance()->GetCurrentScene();
+	CMario* mario = currentScene->GetPlayer();
+	float mLeft, mTop, mRight, mBottom;
+	float oLeft, oTop, oRight, oBottom;
+	if (mario != NULL && state != QUESTION_BRICK_STATE_AFTER_MARIO_PUSH_UP) {
+		if (mario->isTailAttack && mario->level == MARIO_LEVEL_TAIL) {
+			mario->tail->GetBoundingBox(mLeft, mTop, mRight, mBottom);
+			GetBoundingBox(oLeft, oTop, oRight, oBottom);
+			if (isColliding(floor(mLeft), mTop, ceil(mRight), mBottom))
+			{
+				SetState(QUESTION_BRICK_STATE_MARIO_PUSH_UP);
+				return;
+			}
+		}
+	}
 	CGameObject::Update(dt);
 }
 void CQuestionBrick::ShowItem(int itemType) {
