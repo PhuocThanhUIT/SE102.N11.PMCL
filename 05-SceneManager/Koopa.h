@@ -8,6 +8,7 @@
 #define KOOPA_STATE_SHELL 200
 #define KOOPA_STATE_SPIN 300
 #define KOOPA_STATE_JUMP 400
+#define KOOPA_STATE_DIE 500
 #define KOOPA_BBOX_WIDTH 16
 #define KOOPA_BBOX_HEIGHT 26
 #define KOOPA_SHELL_BBOX_WIDTH 14
@@ -22,10 +23,11 @@
 #define KOOPA_PARA_RIGHT_ANI_ID 7
 #define KOOPA_PARA_LEFT_ANI_ID 8
 #define KOOPA_SHAKE_UP_ANI_ID 9
-#define KOOPA_JUMP_SPEED 0.5f
+#define KOOPA_JUMP_SPEED 0.2f
 #define KOOPA_MOVING_SPEED 0.05f
 #define KOOPA_SPIN_SPEED 0.1f
 #define KOOPA_GRAVITY 0.02f
+#define KOOPA_DIE_DEFLECT_SPEED	0.35f
 #define KOOPA_GREEN		0
 #define KOOPA_RED			1
 #define KOOPA_GREEN_PARA	2
@@ -49,7 +51,7 @@ public:
 	virtual void Render();
 	void StartReviving() { reviving_start = GetTickCount64(); }
 	void StartShell() { shell_start = GetTickCount64(); reviving_start = 0; }
-	virtual int IsCollidable() { return 1; };
+	virtual int IsCollidable() { return (state != KOOPA_STATE_DIE); };
 	virtual int IsBlocking() { return 0; }
 	virtual void OnNoCollision(DWORD dt);
 	virtual void OnCollisionWith(LPCOLLISIONEVENT e);

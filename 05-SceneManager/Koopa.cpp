@@ -164,6 +164,23 @@ void CKoopa::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			vy += ay * dt;
 		}
 
+		// for tail collision
+		CPlayScene* currentScene = (CPlayScene*)CGame::GetInstance()->GetCurrentScene();
+		CMario* mario = currentScene->GetPlayer();
+		float mLeft, mTop, mRight, mBottom;
+		float oLeft, oTop, oRight, oBottom;
+		if (mario != NULL && state != KOOPA_STATE_DIE) {
+			if (mario->isTailAttack && mario->level == MARIO_LEVEL_TAIL) {
+				mario->tail->GetBoundingBox(mLeft, mTop, mRight, mBottom);
+				GetBoundingBox(oLeft, oTop, oRight, oBottom);
+				if (isColliding(floor(mLeft), mTop, ceil(mRight), mBottom))
+				{
+					nx = mario->nx;
+					SetState(KOOPA_STATE_DIE);
+				}
+			}
+		}
+
 		HandleBeingHeld(mario);
 
 		CGameObject::Update(dt, coObjects);
@@ -203,6 +220,9 @@ int CKoopa::GetAniIdKoopa() {
 		if (vx > 0) aniId = KOOPA_SPIN_RIGHT_ANI_ID;
 		else aniId = KOOPA_SPIN_LEFT_ANI_ID;
 	}
+	if (state == KOOPA_STATE_DIE) {
+		aniId = KOOPA_DIE_ANI_ID;
+	}
 	return aniId;
 }
 void CKoopa::Render()
@@ -223,7 +243,7 @@ void CKoopa::SetState(int state)
 	{
 	case KOOPA_STATE_JUMP:
 		vx = -KOOPA_MOVING_SPEED;
-		ay = 0.002f;
+		ay = 0.0005f;
 		break;
 	case KOOPA_STATE_NORMAL:
 		vx = -KOOPA_MOVING_SPEED;
@@ -235,5 +255,9 @@ void CKoopa::SetState(int state)
 	case KOOPA_STATE_SHELL:
 		vx = 0;
 		StartShell();
+		break;
+	case KOOPA_STATE_DIE:
+		vy = -KOOPA_DIE_DEFLECT_SPEED;
+		ay = KOOPA_GRAVITY;
 	}
 }

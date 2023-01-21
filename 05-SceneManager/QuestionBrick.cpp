@@ -22,8 +22,8 @@ void CQuestionBrick::GetBoundingBox(float& l, float& t, float& r, float& b)
 
 void CQuestionBrick::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
-	y += vy * dt;
-	x += vx * dt;
+	//y += vy * dt;
+	//x += vx * dt;
 	if ((state == QUESTION_BRICK_STATE_MARIO_PUSH_UP) && (GetTickCount64() - push_up_start > PUSH_UP_TIMEOUT))
 	{
 		y+= QUESTIONBRICK_PUSH_MAX_HEIGHT;
@@ -36,14 +36,13 @@ void CQuestionBrick::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	CMario* mario = currentScene->GetPlayer();
 	float mLeft, mTop, mRight, mBottom;
 	float oLeft, oTop, oRight, oBottom;
-	if (mario != NULL && state != QUESTION_BRICK_STATE_AFTER_MARIO_PUSH_UP) {
+	if (mario != NULL && state == QUESTION_BRICK_STATE_NORMAL) {
 		if (mario->isTailAttack && mario->level == MARIO_LEVEL_TAIL) {
 			mario->tail->GetBoundingBox(mLeft, mTop, mRight, mBottom);
 			GetBoundingBox(oLeft, oTop, oRight, oBottom);
 			if (isColliding(floor(mLeft), mTop, ceil(mRight), mBottom))
 			{
 				SetState(QUESTION_BRICK_STATE_MARIO_PUSH_UP);
-				return;
 			}
 		}
 	}
