@@ -74,6 +74,24 @@ void CPiranhaPlantFire::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			vy = PIRANHAPLANT_DARTING_SPEED;
 		StartDelayStop();
 	}
+
+	// for tail collision
+	CPlayScene* currentScene = (CPlayScene*)CGame::GetInstance()->GetCurrentScene();
+	CMario* mario = currentScene->GetPlayer();
+	float mLeft, mTop, mRight, mBottom;
+	float oLeft, oTop, oRight, oBottom;
+	if (mario != NULL && state != PIRANHAPLANT_STATE_DEATH) {
+		if (mario->isTailAttack && mario->level == MARIO_LEVEL_TAIL) {
+			mario->tail->GetBoundingBox(mLeft, mTop, mRight, mBottom);
+			GetBoundingBox(oLeft, oTop, oRight, oBottom);
+			if (isColliding(floor(mLeft), mTop, ceil(mRight), mBottom))
+			{
+				SetState(PIRANHAPLANT_STATE_DEATH);
+			}
+		}
+	}
+	if (GetTickCount64() - dying_start >= PIRANHAPLANT_DIYING_TIME && dying_start != 0)
+		this->Delete();
 }
 void CPiranhaPlantFire::GetDirect() {
 	CMario* mario = ((CPlayScene*)CGame::GetInstance()->GetCurrentScene())->GetPlayer();
@@ -139,6 +157,10 @@ void CPiranhaPlantFire::SetState(int state)
 		break;
 	case PIRANHAPLANT_STATE_INACTIVE:
 		vy = 0;
+		break;
+	case PIRANHAPLANT_STATE_DEATH:
+		vy = 0;
+		StartDying();
 		break;
 	}
 

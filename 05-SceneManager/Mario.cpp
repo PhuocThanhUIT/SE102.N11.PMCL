@@ -639,7 +639,6 @@ void CMario::Render()
 	}
 	else
 	animation_set->at(aniId)->Render(x, y);
-	tail->Render();
 
 	
 }

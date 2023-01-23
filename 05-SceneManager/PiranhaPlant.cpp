@@ -23,9 +23,7 @@ void CPiranhaPlant::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects) {
 
 
 	if (GetTickCount64() - dying_start >= PIRANHAPLANT_DIYING_TIME && dying_start != 0)
-		isDeleted = true;
-	if (state == PIRANHAPLANT_STATE_DEATH)
-		return;
+		this->Delete();
 
 	if (y <= limitY && vy < 0)
 	{
@@ -50,7 +48,21 @@ void CPiranhaPlant::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects) {
 
 	//x += vx * dt;
 	y += vy * dt;
-
+	// for tail collision
+	CPlayScene* currentScene = (CPlayScene*)CGame::GetInstance()->GetCurrentScene();
+	CMario* mario = currentScene->GetPlayer();
+	float mLeft, mTop, mRight, mBottom;
+	float oLeft, oTop, oRight, oBottom;
+	if (mario != NULL && state != PIRANHAPLANT_STATE_DEATH) {
+		if (mario->isTailAttack && mario->level == MARIO_LEVEL_TAIL) {
+			mario->tail->GetBoundingBox(mLeft, mTop, mRight, mBottom);
+			GetBoundingBox(oLeft, oTop, oRight, oBottom);
+			if (isColliding(floor(mLeft), mTop, ceil(mRight), mBottom))
+			{
+				SetState(PIRANHAPLANT_STATE_DEATH);
+			}
+		}
+	}
 	
 
 }

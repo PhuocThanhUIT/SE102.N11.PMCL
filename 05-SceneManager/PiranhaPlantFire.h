@@ -54,6 +54,7 @@ protected:
 	void GetDirect();
 	void StartDelay() { delay_start = GetTickCount64(); }
 	void StartDelayStop() { delay_stop = GetTickCount64(); }
+	void StartDying() { dying_start = GetTickCount64(); }
 	void StartShooting() { shooting_start = GetTickCount64(); }
 	void StartAim() { aim_start = GetTickCount64(); }
 	void Shoot();
