@@ -42,6 +42,9 @@ void CSampleKeyHandler::OnKeyDown(int KeyCode)
 	case DIK_3:
 		mario->SetLevel(MARIO_LEVEL_TAIL);
 		break;
+	case DIK_4:
+		mario->HackPosition();
+		break;
 	case DIK_0:
 		mario->SetState(MARIO_STATE_DIE);
 		break;

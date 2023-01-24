@@ -41,8 +41,8 @@ void CPortal::GetBoundingBox(float &l, float &t, float &r, float &b)
 {
 	l = x - PORTAL_BBOX_WIDTH/2;
 	t = y - PORTAL_BBOX_HEIGHT/2;
-	r = x + PORTAL_BBOX_WIDTH/2;
-	b = y + PORTAL_BBOX_HEIGHT/2;
+	r = l + PORTAL_BBOX_WIDTH;
+	b = t + PORTAL_BBOX_HEIGHT;
 }
 
 void CPortal::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
@@ -63,10 +63,12 @@ void CPortal::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			mario->isSwitchMap = true;
 			if (scene_id == 1) {
 				// mario start up
+				mario->StartPipeUp();
 			}
 			if (scene_id == 2 && mario->isSitting)
 			{
 				// mario start down
+				mario->StartPipeDown();
 			}
 			return;
 		}

@@ -314,14 +314,24 @@ public:
 	void HandleFlying();
 	void HandleFlapping();
 	void HandleSpeedStack();
+	void HandleSwitchMap();
 	void StartTailFlying() { tail_fly_start = GetTickCount64(); }
 	void StartMinTailFlying() { tail_fly_min_start = GetTickCount64(); }
 	void StartFlying() { fly_start = GetTickCount64(); }
+	void StartPipeUp() {
+		isPipeUp = true;
+
+	}
+	void StartPipeDown() {
+		isPipeDown = true;
+	}
 	void StartAttack();
 	void HandleAttack();
 	void SetLevel(int l);
 	void StartUntouchable() { untouchable = 1; untouchable_start = GetTickCount64(); }
 
 	void GetBoundingBox(float& left, float& top, float& right, float& bottom);
+
+	void HackPosition() { this->x = 2265; this->y = 80; }
 	
 };

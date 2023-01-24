@@ -33,7 +33,7 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 	HandleFlapping();
 	HandleSpeedStack();
 	HandleAttack();
-
+	HandleSwitchMap();
 	// reset untouchable timer if untouchable time has passed
 	if ( GetTickCount64() - untouchable_start > MARIO_UNTOUCHABLE_TIME) 
 	{
@@ -771,7 +771,18 @@ void CMario::SetLevel(int l)
 	}
 	level = l;
 }
-
+void CMario::HandleSwitchMap() {
+	if (isSitting && isSwitchMap && isPipeDown)
+	{
+		// mario go down
+		DebugOut(L"mario can go down \n");
+	}
+	if (isSwitchMap && isPipeUp)
+	{
+		// mario go up
+		DebugOut(L"mario can go up \n");
+	}
+}
 void CMario::HandleFlying() {
 	if (level != -5) {
 		if (isTailFlying||isFlying)
