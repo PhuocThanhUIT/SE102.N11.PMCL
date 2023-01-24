@@ -15,6 +15,8 @@
 #define MARIO_JUMP_RUN_SPEED_Y	0.3f
 #define MARIO_SLOW_FALLING_SPEED	0.03f
 
+#define MARIO_GRAVITY_PIPE			0.00002f
+
 #define MARIO_FLY_MAX 0.3f
 
 #define MARIO_GRAVITY			0.0005f
@@ -325,12 +327,23 @@ public:
 	void StartPipeDown() {
 		isPipeDown = true;
 	}
+	void StopPipeUp() {
+		isPipeUp = false;
+	}
+	void StopPipeDown() {
+		isPipeDown = false;
+	}
 	void StartAttack();
 	void HandleAttack();
 	void SetLevel(int l);
 	void StartUntouchable() { untouchable = 1; untouchable_start = GetTickCount64(); }
 
 	void GetBoundingBox(float& left, float& top, float& right, float& bottom);
+
+
+	void StartExtraMap() {
+		SetPosition(356, 32);
+	};
 
 	void HackPosition() { this->x = 2265; this->y = 80; }
 	

@@ -775,12 +775,16 @@ void CMario::HandleSwitchMap() {
 	if (isSitting && isSwitchMap && isPipeDown)
 	{
 		// mario go down
-		DebugOut(L"mario can go down \n");
+		vx = vy = 0;
+		ay = MARIO_GRAVITY_PIPE;
+		StopPipeDown();
 	}
 	if (isSwitchMap && isPipeUp)
 	{
 		// mario go up
-		DebugOut(L"mario can go up \n");
+		vx = vy = 0;
+		ay = MARIO_GRAVITY_PIPE;
+		StopPipeUp();
 	}
 }
 void CMario::HandleFlying() {
