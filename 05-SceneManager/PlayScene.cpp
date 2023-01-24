@@ -187,6 +187,11 @@ void CPlayScene::_ParseObjFromFile(LPCWSTR path) {
 			start_y = (float)atoi(tokens[7].c_str());
 
 			obj = new CPortal(start_x, start_y, scene_id);
+			int pipeUp = atoi(tokens[8].c_str());
+			if (pipeUp == 1)
+				((CPortal*)obj)->pipeUp = true;
+			else
+				((CPortal*)obj)->pipeUp = false;
 			DebugOut(L"[INFO] CPortal was create \n");
 			break;
 		}

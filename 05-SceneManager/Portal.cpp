@@ -1,6 +1,8 @@
 #include "Portal.h"
 #include "Game.h"
 #include "Textures.h"
+#include "Mario.h"
+#include "PlayScene.h"
 
 CPortal::CPortal(float x, float y, int scene_id)
 {
@@ -41,4 +43,32 @@ void CPortal::GetBoundingBox(float &l, float &t, float &r, float &b)
 	t = y - PORTAL_BBOX_HEIGHT/2;
 	r = x + PORTAL_BBOX_WIDTH/2;
 	b = y + PORTAL_BBOX_HEIGHT/2;
+}
+
+void CPortal::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
+{
+	CMario* mario = ((CPlayScene*)CGame::GetInstance()->GetCurrentScene())->GetPlayer();
+	float mLeft, mTop, mRight, mBottom;
+	float oLeft, oTop, oRight, oBottom;
+
+	if (mario != NULL)
+	{
+		mario->GetBoundingBox(mLeft, mTop, mRight, mBottom);
+		GetBoundingBox(oLeft, oTop, oRight, oBottom);
+
+		if (isColliding(floor(mLeft), floor(mTop), ceil(mRight), ceil(mBottom))
+			&& mLeft >= oLeft && mRight <= oRight)
+		{
+			mario->portal = this;
+			mario->isSwitchMap = true;
+			if (scene_id == 1) {
+				// mario start up
+			}
+			if (scene_id == 2 && mario->isSitting)
+			{
+				// mario start down
+			}
+			return;
+		}
+	}
 }

@@ -3,6 +3,7 @@
 #include "Animations.h"
 #include "debug.h"
 #include "Tail.h"
+#include "Portal.h"
 
 #define MARIO_WALKING_SPEED		0.1f
 #define MARIO_RUNNING_SPEED		0.2f
@@ -220,7 +221,7 @@
 
 class CMario : public CGameObject
 {
-	BOOLEAN isSitting;
+	
 	float maxVx;
 	
 	
@@ -252,6 +253,7 @@ public:
 	int marioScore = 0;
 	int marioLife = 0;
 	int coin;
+	BOOLEAN isSitting;
 	CTail* tail = NULL;
 	BOOLEAN isTailAttack = false;
 	BOOLEAN isFlying = false;
@@ -272,7 +274,12 @@ public:
 	ULONGLONG start_speed_stack = 0;
 	ULONGLONG start_running = 0;
 	int level;
-	int untouchable; 
+	int untouchable;
+	// switch map
+	CPortal* portal = NULL;
+	BOOLEAN isPipeUp = false;
+	BOOLEAN isPipeDown = false;
+	BOOLEAN isSwitchMap = false;
 	CMario(float x, float y) : CGameObject(x, y)
 	{
 		isSitting = false;

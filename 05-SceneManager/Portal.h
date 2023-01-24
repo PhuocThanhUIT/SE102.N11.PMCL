@@ -26,4 +26,7 @@ public:
 	
 	int GetSceneId() { return scene_id;  }
 	int IsBlocking() { return 0; }
+
+	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);
+
 };
