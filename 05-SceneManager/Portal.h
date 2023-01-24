@@ -17,6 +17,7 @@ class CPortal : public CGameObject
 public:
 	float start_x = 0;
 	float start_y = 0;
+	bool pipeUp = false;
 	CPortal(float x, float y, int scene_id);
 	virtual void Render();
 	virtual void GetBoundingBox(float &l, float &t, float &r, float &b);
