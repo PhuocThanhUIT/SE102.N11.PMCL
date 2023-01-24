@@ -2,6 +2,9 @@
 
 #include "GameObject.h"
 
+#define PORTAL_BBOX_HEIGHT	2
+#define PORTAL_BBOX_WIDTH	26
+
 /*
 	Object that triggers scene switching
 */
@@ -12,7 +15,9 @@ class CPortal : public CGameObject
 	float width;
 	float height; 
 public:
-	CPortal(float l, float t, float r, float b, int scene_id);
+	float start_x = 0;
+	float start_y = 0;
+	CPortal(float x, float y, int scene_id);
 	virtual void Render();
 	virtual void GetBoundingBox(float &l, float &t, float &r, float &b);
 

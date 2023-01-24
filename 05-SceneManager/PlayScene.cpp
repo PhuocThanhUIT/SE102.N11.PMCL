@@ -178,14 +178,18 @@ void CPlayScene::_ParseObjFromFile(LPCWSTR path) {
 		case OBJECT_TYPE_BREAKABLEBRICK: obj = new BreakableBrick(x, y, option_tag_1, option_tag_2, option_tag_3); break;
 		
 
-		/*case OBJECT_TYPE_PORTAL:
+		case OBJECT_TYPE_PORTAL:
 		{
-			float r = (float)atof(tokens[3].c_str());
-			float b = (float)atof(tokens[4].c_str());
-			int scene_id = atoi(tokens[5].c_str());
-			obj = new CPortal(x, y, r, b, scene_id);
+			int scene_id = atoi(tokens[4].c_str());
+			int isToExtraScene = atoi(tokens[5].c_str());
+			float start_x = 0, start_y = 0;
+			start_x = (float)atoi(tokens[6].c_str());
+			start_y = (float)atoi(tokens[7].c_str());
+
+			obj = new CPortal(start_x, start_y, scene_id);
+			DebugOut(L"[INFO] CPortal was create \n");
+			break;
 		}
-		break;*/
 
 
 		default:
