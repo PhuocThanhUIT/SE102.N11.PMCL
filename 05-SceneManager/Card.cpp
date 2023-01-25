@@ -3,6 +3,7 @@
 CardItem::CardItem() {
 	vx = 0;
 	vy = 0;
+	state = CARD_STATE_RANDOM;
 }
 
 void CardItem::GetBoundingBox(float& l, float& t, float& r, float& b)
@@ -15,7 +16,16 @@ void CardItem::GetBoundingBox(float& l, float& t, float& r, float& b)
 
 void CardItem::Render() {
 
-	int ani = 1;
+	int ani = CARD_ANI_RANDOM;
+	if (state == 1) {
+		ani = CARD_ANI_MUSHROOM;
+	}
+	if (state == 2) {
+		ani = CARD_ANI_FIREFLOWER;
+	}
+	if (state == 3) {
+		ani = CARD_ANI_STAR;
+	}
 
 	animation_set->at(ani)->Render(x, y);
 }
@@ -23,4 +33,14 @@ void CardItem::Render() {
 void CardItem::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects) {
 
 	CGameObject::Update(dt);
+	if (start == 0) {
+		start = GetTickCount64();
+	}
+	if (GetTickCount64() - start > CARD_RANDOM_TIME) {
+		state++;
+		if (state > 3) {
+			state = 1;
+		}
+		start = 0;
+	}
 }
