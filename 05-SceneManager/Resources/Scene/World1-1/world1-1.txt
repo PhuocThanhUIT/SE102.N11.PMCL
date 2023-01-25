@@ -392,3 +392,6 @@
 2	870	384	2	0	3	6
 # --- Red ---
 2	955	375	2	1	2	7
+# --- SCENE PORTAL ----
+#type	x	y	ani	scene	tag start_x start_y	pipeUp
+50	2258	110	0	2	1	132	0	0	0	16

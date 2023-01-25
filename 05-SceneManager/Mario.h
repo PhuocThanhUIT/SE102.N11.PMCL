@@ -342,7 +342,7 @@ public:
 
 
 	void StartExtraMap() {
-		SetPosition(356, 32);
+		SetPosition(180, 1080066048);
 	};
 
 	void HackPosition() { this->x = 2265; this->y = 80; }

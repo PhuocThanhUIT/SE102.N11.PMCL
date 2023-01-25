@@ -43,7 +43,6 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 
 	tail->Update(dt, coObjects);
 	//isOnPlatform = false;
-	DebugOutTitle(L"isTailAttack:%i,attackStack:%i", isTailAttack,attackStack);
 	
 
 	CCollision::GetInstance()->Process(this, dt, coObjects);
@@ -256,7 +255,7 @@ void CMario::OnCollisionWithCoin(LPCOLLISIONEVENT e)
 void CMario::OnCollisionWithPortal(LPCOLLISIONEVENT e)
 {
 	CPortal* p = (CPortal*)e->obj;
-	CGame::GetInstance()->InitiateSwitchScene(p->GetSceneId());
+	//CGame::GetInstance()->InitiateSwitchScene(p->GetSceneId());
 }
 
 //
@@ -772,16 +771,20 @@ void CMario::SetLevel(int l)
 	level = l;
 }
 void CMario::HandleSwitchMap() {
+	DebugOutTitle(L"isSitting:%i,isSwitchMap:%i,isPipeDown:%i", isSitting, isSwitchMap, isPipeDown);
 	if (isSitting && isSwitchMap && isPipeDown)
 	{
 		// mario go down
+		CGame::GetInstance()->SwitchExtraScene(portal->GetSceneId(), portal->start_x, portal->start_y);
 		vx = vy = 0;
 		ay = MARIO_GRAVITY_PIPE;
 		StopPipeDown();
+		
 	}
 	if (isSwitchMap && isPipeUp)
 	{
 		// mario go up
+		CGame::GetInstance()->SwitchExtraScene(portal->GetSceneId(), portal->start_x, portal->start_y);
 		vx = vy = 0;
 		ay = MARIO_GRAVITY_PIPE;
 		StopPipeUp();
