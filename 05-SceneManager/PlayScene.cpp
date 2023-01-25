@@ -199,14 +199,16 @@ void CPlayScene::_ParseObjFromFile(LPCWSTR path) {
 
 		default:
 			DebugOut(L"[ERROR] Invalid object type: %d\n", object_type);
-			continue;
+			break;
 		}
 
 		// General object setup
-		obj->SetPosition(x, y);
-		LPANIMATION_SET ani_set = animation_sets->Get(ani_set_id);
-		obj->SetAnimationSet(ani_set);
-		objects.push_back(obj);
+		if (object_type != 999) {
+			obj->SetPosition(x, y);
+			LPANIMATION_SET ani_set = animation_sets->Get(ani_set_id);
+			obj->SetAnimationSet(ani_set);
+			objects.push_back(obj);
+		}
 	}
 	f.close();
 }
@@ -281,7 +283,7 @@ void CPlayScene::Load()
 	}
 
 	f.close();
-	hud = new HUD(); // new hud
+	//hud = new HUD(); // new hud
 
 	DebugOut(L"[INFO] Done loading scene  %s\n", sceneFilePath);
 }
@@ -310,7 +312,7 @@ void CPlayScene::Update(DWORD dt)
 	player->GetPosition(cx, cy);
 	
 	SetCam(cx, cy, dt);
-	hud->Update(dt, &coObjects); // update for hud
+	//hud->Update(dt, &coObjects); // update for hud
 	PurgeDeletedObjects();
 }
 
@@ -354,7 +356,7 @@ void CPlayScene::SetCam(float cx, float cy, DWORD dt) {
 
 	game->SetCamPos(ceil(cx), ceil(cy));
 	current_map->SetCamPos(cx, cy);
-	hud->SetPosition(ceil(cx + 130), ceil(cy + sh + 20));
+	//hud->SetPosition(ceil(cx + 130), ceil(cy + sh + 20));
 
 }
 
@@ -363,7 +365,7 @@ void CPlayScene::Render()
 	current_map->DrawMap();
 	for (int i = 0; i < objects.size(); i++)
 		objects[i]->Render();
-	hud->Render();
+	//hud->Render();
 }
 
 /*

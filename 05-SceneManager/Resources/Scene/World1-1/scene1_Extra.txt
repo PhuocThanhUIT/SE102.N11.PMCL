@@ -17,9 +17,14 @@ Resources\Tilemap\world1-1-1.txt
 6223	22003	100
 6224	22004	100
 6225	22005	100
+0	22005	100
 [ANIMATION_SETS]
 # transparent
 0	0
+# brick
+1	0
+# dont know
+6	0
 # Brick
 426	6221
 120	6222

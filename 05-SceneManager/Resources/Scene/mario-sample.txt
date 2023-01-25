@@ -1,7 +1,5 @@
 [SETTINGS]
-start	1
-width	320
-height	240
+start	2
 #id		path		type		isCameraMove
 [SCENES]
 0	Resources\Scene\World1-1\scene1.txt	1	1
@@ -15,6 +13,7 @@ height	240
 20	Resources\Textures\misc.png	
 21	Resources\Textures\misc2.png	
 30	Resources\Tilemap\world1-1_bank.png
+31	Resources\Tilemap\world1-1-1_bank.png
 40	Resources\Textures\enemies1.1.png
 45	Resources\Textures\enemies1.2.png	
 50	Resources\Textures\enemies-2.png	
