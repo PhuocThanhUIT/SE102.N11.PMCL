@@ -18,6 +18,7 @@
 class CardItem : public CGameObject
 {
 public:
+	int state = 0;
 	DWORD start = 0;
 	CardItem();
 	~CardItem();
@@ -28,4 +29,7 @@ public:
 	virtual int IsCollidable() { return 1; };
 	virtual int IsBlocking() { return 0; }
 
+	int getState() {
+		return this->state;
+	}
 };

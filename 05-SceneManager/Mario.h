@@ -258,6 +258,7 @@ public:
 	int marioScore = 0;
 	int marioLife = 0;
 	int coin;
+	int cardItemSc;
 	BOOLEAN isFinish = false;
 	BOOLEAN isSitting;
 	CTail* tail = NULL;

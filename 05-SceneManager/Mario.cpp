@@ -109,6 +109,7 @@ void CMario::OnCollisionWithPCardItem(LPCOLLISIONEVENT e) {
 	if (e->ny != 0 || e->nx != 0) {
 		card->Delete();
 		isFinish = true;
+		cardItemSc = card->getState();
 	}
 }
 void CMario::OnCollisionWithSwitch(LPCOLLISIONEVENT e) {

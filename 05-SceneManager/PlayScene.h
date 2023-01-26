@@ -8,8 +8,14 @@
 #include "Goomba.h"
 #include "Map.h"
 #include "Hud.h"
+#include "Card.h"
 
-//#include "Koopas.h"
+#define GAMEDONE1_SPRITE_ID		50070
+#define GAMEDONE1_SPRITE_ID_1	50071
+
+#define CARD_MUSHROOM		50010
+#define CARD_FIREFLOWER		50011
+#define CARD_STAR			50012
 
 
 class CPlayScene: public CScene
@@ -28,7 +34,7 @@ protected:
 	void _ParseObjFromFile(LPCWSTR path);
 	void _ParseSection_TILEMAP_DATA(string line);
 	
-	
+	LPSPRITE gamedone = nullptr;
 public: 
 	bool isTurnOnCamY = false;
 	CPlayScene(int id, LPCWSTR filePath);
