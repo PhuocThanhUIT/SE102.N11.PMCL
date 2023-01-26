@@ -793,7 +793,7 @@ void CMario::HandleFinishMap() {
 	}
 }
 void CMario::HandleSwitchMap() {
-	DebugOutTitle(L"isSitting:%i,isSwitchMap:%i,isPipeDown:%i", isSitting, isSwitchMap, isPipeDown);
+	DebugOutTitle(L"vy:%f,ay:%f,x:%f,y:%f", vy, ay, x,y);
 	if (isSitting && isSwitchMap && isPipeDown)
 	{
 		// mario go down

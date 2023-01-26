@@ -45,6 +45,9 @@ void CSampleKeyHandler::OnKeyDown(int KeyCode)
 	case DIK_4:
 		mario->HackPosition();
 		break;
+	case DIK_5:
+		mario->StartExtraMap();
+		break;
 	case DIK_0:
 		mario->SetState(MARIO_STATE_DIE);
 		break;

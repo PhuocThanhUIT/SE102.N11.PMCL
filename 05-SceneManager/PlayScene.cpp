@@ -203,7 +203,7 @@ void CPlayScene::_ParseObjFromFile(LPCWSTR path) {
 
 		default:
 			DebugOut(L"[ERROR] Invalid object type: %d\n", object_type);
-			break;
+			continue;
 		}
 
 		// General object setup
@@ -307,7 +307,7 @@ void CPlayScene::Update(DWORD dt)
 	{
 		objects[i]->Update(dt, &coObjects);
 	}
-
+	player->Update(dt, &coObjects);
 	// skip the rest if scene was already unloaded (Mario::Update might trigger PlayScene::Unload)
 	if (player == NULL) return; 
 
@@ -367,6 +367,7 @@ void CPlayScene::SetCam(float cx, float cy, DWORD dt) {
 void CPlayScene::Render()
 {
 	current_map->DrawMap();
+	player->Render();
 	for (int i = 0; i < objects.size(); i++)
 		objects[i]->Render();
 	hud->Render();

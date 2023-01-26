@@ -59,7 +59,6 @@ void CPortal::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		if (isColliding(floor(mLeft), floor(mTop), ceil(mRight), ceil(mBottom))
 			&& mLeft >= oLeft && mRight <= oRight)
 		{
-			DebugOut(L"scene:%i", scene_id);
 			mario->portal = this;
 			mario->isSwitchMap = true;
 			if (scene_id == 1) {

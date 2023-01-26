@@ -528,10 +528,12 @@ void CGame::SwitchScene()
 void CGame::SwitchExtraScene(int scene_id, float start_x, float start_y)
 {
 	DebugOut(L"[INFO] SwitchExtraScene to scene %d %d %d\n", scene_id, start_x, start_y);
-
 	bool isHaveToReload = true;
-	if (next_scene == scene_id)
+	bool isReadyToSwitch = true;
+	if (next_scene == scene_id) {
 		isHaveToReload = false;
+		isReadyToSwitch = false;
+	}
 
 	//switch scene
 	next_scene = current_scene;
@@ -540,13 +542,16 @@ void CGame::SwitchExtraScene(int scene_id, float start_x, float start_y)
 	CGame::GetInstance()->SetKeyHandler(s->GetKeyEventHandler());
 
 	//put player to extra scene
-	CMario* omario = ((CPlayScene*)scenes[next_scene])->GetPlayer();
-	omario->SetPosition(start_x, start_y);
-	((CPlayScene*)s)->SetPlayer(omario);
-
+	
+		CMario* omario = ((CPlayScene*)scenes[next_scene])->GetPlayer();
+		omario->SetPosition(start_x, start_y);
+		DebugOut(L"x:%f,y:%f", omario->x, omario->y);
+		((CPlayScene*)s)->SetPlayer(omario);
+	
 	//load extra scene
 	if (isHaveToReload)
 		s->Load();
+
 }
 
 void CGame::InitiateSwitchScene(int scene_id)
