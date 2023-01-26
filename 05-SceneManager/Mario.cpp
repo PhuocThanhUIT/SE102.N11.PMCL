@@ -21,6 +21,7 @@
 #include "Point.h"
 #include "Switch.h"
 #include "Tail.h"
+#include "Card.h"
 
 void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 {
@@ -34,6 +35,7 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 	HandleSpeedStack();
 	HandleAttack();
 	HandleSwitchMap();
+	HandleFinishMap();
 	// reset untouchable timer if untouchable time has passed
 	if ( GetTickCount64() - untouchable_start > MARIO_UNTOUCHABLE_TIME) 
 	{
@@ -97,6 +99,16 @@ void CMario::OnCollisionWith(LPCOLLISIONEVENT e)
 		OnCollisionWithPiranhaFire(e);
 	else if (dynamic_cast<Switch*>(e->obj)) {
 		OnCollisionWithSwitch(e);
+	}
+	else if (dynamic_cast<CardItem*>(e->obj)) {
+		OnCollisionWithPCardItem(e);
+	}
+}
+void CMario::OnCollisionWithPCardItem(LPCOLLISIONEVENT e) {
+	CardItem* card = dynamic_cast<CardItem*>(e->obj);
+	if (e->ny != 0 || e->nx != 0) {
+		card->Delete();
+		isFinish = true;
 	}
 }
 void CMario::OnCollisionWithSwitch(LPCOLLISIONEVENT e) {
@@ -769,6 +781,16 @@ void CMario::SetLevel(int l)
 		y -= (MARIO_BIG_BBOX_HEIGHT-MARIO_SMALL_BBOX_HEIGHT)/2;
 	}
 	level = l;
+}
+void CMario::HandleFinishMap() {
+	if (isFinish) {
+		ax = MARIO_ACCELERATION;
+		ay = MARIO_GRAVITY;
+		nx = 1;
+		vx = MARIO_WALKING_SPEED;
+		DebugOut(L"Mario collision with Card and go to right - end game \n");
+		SetState(MARIO_STATE_WALKING_RIGHT);
+	}
 }
 void CMario::HandleSwitchMap() {
 	DebugOutTitle(L"isSitting:%i,isSwitchMap:%i,isPipeDown:%i", isSitting, isSwitchMap, isPipeDown);

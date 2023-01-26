@@ -15,6 +15,8 @@
 #define MARIO_JUMP_RUN_SPEED_Y	0.3f
 #define MARIO_SLOW_FALLING_SPEED	0.03f
 
+#define MARIO_ACCELERATION			0.07f
+
 #define MARIO_GRAVITY_PIPE			0.00002f
 
 #define MARIO_FLY_MAX 0.3f
@@ -242,6 +244,7 @@ class CMario : public CGameObject
 	void OnCollisionWithFireBullet(LPCOLLISIONEVENT e);
 	void OnCollisionWithLeaf(LPCOLLISIONEVENT e);
 	void OnCollisionWithSwitch(LPCOLLISIONEVENT e);
+	void OnCollisionWithPCardItem(LPCOLLISIONEVENT e);
 	int GetAniIdBig();
 	int GetAniIdSmall();
 	int GetAniIdTail();
@@ -255,6 +258,7 @@ public:
 	int marioScore = 0;
 	int marioLife = 0;
 	int coin;
+	BOOLEAN isFinish = false;
 	BOOLEAN isSitting;
 	CTail* tail = NULL;
 	BOOLEAN isTailAttack = false;
@@ -317,6 +321,7 @@ public:
 	void HandleFlapping();
 	void HandleSpeedStack();
 	void HandleSwitchMap();
+	void HandleFinishMap();
 	void StartTailFlying() { tail_fly_start = GetTickCount64(); }
 	void StartMinTailFlying() { tail_fly_min_start = GetTickCount64(); }
 	void StartFlying() { fly_start = GetTickCount64(); }
