@@ -153,6 +153,9 @@
     <ClCompile Include="Card.cpp">
       <Filter>Map Objects\Items</Filter>
     </ClCompile>
+    <ClCompile Include="IntroScene.cpp">
+      <Filter>Scenes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animations.h">
@@ -256,6 +259,9 @@
     </ClInclude>
     <ClInclude Include="Card.h">
       <Filter>Map Objects\Items</Filter>
+    </ClInclude>
+    <ClInclude Include="IntroScene.h">
+      <Filter>Scenes</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

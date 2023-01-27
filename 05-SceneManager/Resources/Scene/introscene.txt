@@ -1,0 +1,68 @@
+# id	file_path	transparent_color_r	g	b
+[TEXTURES]
+2	Resources\Textures\title.png
+40	Resources\Textures\enemies1.1.png
+# id	left	top	right	bottom	texture_id
+[SPRITES]
+#=============BACKGROUND-Sprite===========
+#----------SCROLLING CURTAIN----------
+50000	1	0	255	182	2
+#----------GROUND----------
+50001	258	188	514	224	2
+#----------BACKGROUND----------
+50002	516	0	772	187	2
+50012	258	0	514	187	2
+50003	516	226	772	413	2
+#----------SHINNNING-3----------
+50004	194	363	236	404	2
+50005	240	363	282	404	2
+50006	287	363	329	404	2
+50007	333	363	375	404	2
+#----------BUSH----------
+50009	68	352	131	448	2
+#==========Arrow----------
+50010	30	307	37	315	2
+50011	30	323	37	331	2
+# -- Black Shell --
+41711	56	347	72	363	40
+41712	117	345	133	361	40
+# -- Star --
+41713	201	121	217	137	21
+# ani_id	sprite1_id	time1	sprite2_id	time2	...
+[ANIMATIONS]
+#============Shinning 3s=========
+800	50004	100	50005	100	50006	100	50007	100
+# ==== Ground =========
+5001	50001	100
+# ==== Background =========
+5000	50000	100
+5002	50002	100
+5012	50012	100
+5003	50003	100
+# === Arrow ===
+5010	50010	250	50011	250
+5011	50010	100
+# ==== Others ====
+# ---- Black Shell ----
+4171	41711	100
+4172	41712	100
+# ---- Star ----
+4173	41713	100
+# id	ani1	ani2	ani3
+#
+[ANIMATION_SETS]
+# Ground
+21	5001
+# Background
+50	5000	5002	5012	5003
+# Arrow
+51	5010	5011
+# Others
+41	4171	4172	
+43	4173
+[OBJECTS]
+# type	x	y	ani_set_id	extra_settings per object type	type
+#========GROUND========
+4	0	205	21
+4	300	205	21
+4	300	205	21
