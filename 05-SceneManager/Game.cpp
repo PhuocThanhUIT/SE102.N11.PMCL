@@ -569,6 +569,7 @@ void CGame::SwitchExtraScene(int scene_id, float start_x, float start_y)
 void CGame::InitiateSwitchScene(int scene_id)
 {
 	next_scene = scene_id;
+	SwitchScene(next_scene);
 }
 
 

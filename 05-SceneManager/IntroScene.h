@@ -33,6 +33,7 @@
 #define SWITCH_TIME	300
 
 #define WORLD_SCENE_ID	0
+#define PLAY_SCENE_ID	1
 
 class CIntroScene : public CScene {
 public:

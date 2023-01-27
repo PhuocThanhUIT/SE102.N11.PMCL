@@ -11,6 +11,7 @@
 #include "Goomba.h"
 #include "Koopa.h"
 #include "debug.h"
+#include "Game.h"
 
 using namespace std;
 
@@ -147,8 +148,8 @@ void CIntroScene::_ParseSection_OBJECTS(string line) {
 
 void CIntroScene::Update(DWORD dt) {
 	if (switchTimer >= SWITCH_TIME && isSwitch) {
-		DebugOut(L"SWITCH MAP");
-		CGame::GetInstance()->SwitchScene(WORLD_SCENE_ID);
+		CGame* game = CGame::GetInstance();
+		game->InitiateSwitchScene(PLAY_SCENE_ID);
 	}
 }
 
@@ -223,7 +224,7 @@ void IntroSceneKeyHandler::OnKeyDown(int KeyCode)
 	CIntroScene* intro = ((CIntroScene*)CGame::GetInstance()->GetCurrentScene());
 	switch (KeyCode)
 	{
-	case DIK_S:
+	case DIK_A:
 		intro->switchTimer = GetTickCount64();
 		intro->isSwitch = true;
 		DebugOut(L"Enter");
