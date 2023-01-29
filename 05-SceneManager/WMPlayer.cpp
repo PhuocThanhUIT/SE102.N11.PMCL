@@ -9,11 +9,13 @@
 
 CWorldPlayer::CWorldPlayer(float x, float y) : CGameObject()
 {
+	SetLevel(2);
 	SetState(MARIO_STATE_IDLE);
 	start_x = x;
 	start_y = y;
 	this->x = x;
 	this->y = y;
+	SetMove(false, false, true, false);
 }
 
 void CWorldPlayer::GetBoundingBox(float& left, float& top, float& right, float& bottom)
@@ -37,6 +39,23 @@ void CWorldPlayer::OnCollisionWith(LPCOLLISIONEVENT e)
 		vy = 0;
 		DebugOut(L"is blocking \n");
 	}
+	SetState(PLAYER_STATE_IDLE);
+	if (e->obj->tag == OBJECT_TYPE_PORTAL || e->obj->tag == OBJECT_TYPE_STOP)
+	{
+		OnCollisionWithPOT(e);
+	}
+}
+
+void CWorldPlayer::OnCollisionWithPOT(LPCOLLISIONEVENT e)
+{
+	CWorldMapObject* tmp = dynamic_cast<CWorldMapObject*>(e->obj);
+	bool cl, cr, cu, cd;
+	tmp->GetMove(cl, cu, cr, cd);
+	SetMove(cl, cu, cr, cd);
+	if (e->obj->tag == OBJECT_TYPE_PORTAL)
+		sceneId = tmp->GetSceneId();
+	else
+		sceneId = -1;
 }
 
 void CWorldPlayer::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
@@ -50,6 +69,7 @@ void CWorldPlayer::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 }
 void CWorldPlayer::Render()
 {
+	animation_set->at(level - 1)->Render(x, y);
 	RenderBoundingBox();
 }
 void CWorldPlayer::SetState(int state)

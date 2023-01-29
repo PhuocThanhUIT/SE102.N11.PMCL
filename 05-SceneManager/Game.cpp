@@ -535,7 +535,7 @@ void CGame::SwitchScene(int scene_id)
 
 	scenes[next_scene]->Unload();
 
-	//CSprites::GetInstance()->Clear();
+	CSprites::GetInstance()->Clear();
 	CAnimations::GetInstance()->Clear();
 	CAnimationSets::GetInstance()->Clear();
 

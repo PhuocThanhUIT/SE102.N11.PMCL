@@ -26,18 +26,38 @@
 
 class CWorldPlayer : public CGameObject
 {
+	int level;
 	float start_x;
 	float start_y;
 
 public:
+	bool cgLeft, cgRight, cgUp, cgDown;
+	int sceneId;
 	CWorldPlayer(float x = 0.0f, float y = 0.0f);
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* colliable_objects = NULL);
 	virtual void Render();
 	virtual void GetBoundingBox(float& left, float& top, float& right, float& bottom);
 	void SetState(int vState);
 
+	void SetLevel(int l) { level = l; };
+	void SetMove(bool cLeft, bool cUp, bool cRight, bool cDown)
+	{
+		cgLeft = cLeft;
+		cgRight = cRight;
+		cgUp = cUp;
+		cgDown = cDown;
+	};
+
+	void GoToPlayScene()
+	{
+		// go to play scene
+		int scene = 1;
+		CGame::GetInstance()->InitiateSwitchScene(scene);
+	}
+
 	virtual int IsCollidable() { return 1; };
 	virtual int IsBlocking() { return 1; }
 	virtual void OnNoCollision(DWORD dt);
 	virtual void OnCollisionWith(LPCOLLISIONEVENT e);
+	virtual void OnCollisionWithPOT(LPCOLLISIONEVENT e);
 };
