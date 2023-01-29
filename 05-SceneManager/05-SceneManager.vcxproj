@@ -177,6 +177,9 @@
     <ClCompile Include="Tail.cpp" />
     <ClCompile Include="Textures.cpp" />
     <ClCompile Include="Utils.cpp" />
+    <ClCompile Include="WMObject.cpp" />
+    <ClCompile Include="WMPlayer.cpp" />
+    <ClCompile Include="WorldScene.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animations.h" />
@@ -214,6 +217,9 @@
     <ClInclude Include="Tail.h" />
     <ClInclude Include="Textures.h" />
     <ClInclude Include="Utils.h" />
+    <ClInclude Include="WMObject.h" />
+    <ClInclude Include="WMPlayer.h" />
+    <ClInclude Include="WorldScene.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

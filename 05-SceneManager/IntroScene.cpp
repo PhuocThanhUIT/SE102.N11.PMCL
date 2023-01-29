@@ -149,7 +149,8 @@ void CIntroScene::_ParseSection_OBJECTS(string line) {
 void CIntroScene::Update(DWORD dt) {
 	if (switchTimer >= SWITCH_TIME && isSwitch) {
 		CGame* game = CGame::GetInstance();
-		game->InitiateSwitchScene(PLAY_SCENE_ID);
+		game->InitiateSwitchScene(WORLD_SCENE_ID);
+		//game->InitiateSwitchScene(PLAY_SCENE_ID);
 	}
 }
 

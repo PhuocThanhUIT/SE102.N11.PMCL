@@ -52,6 +52,9 @@
     <Filter Include="Map Objects\Others\Tail">
       <UniqueIdentifier>{66945169-3c78-4275-b6ed-0c209b1d4762}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Map Objects\WorldMap">
+      <UniqueIdentifier>{7b5eb75f-b65c-49a2-bee6-76910078e03f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -155,6 +158,15 @@
     </ClCompile>
     <ClCompile Include="IntroScene.cpp">
       <Filter>Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="WorldScene.cpp">
+      <Filter>Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="WMObject.cpp">
+      <Filter>Map Objects\WorldMap</Filter>
+    </ClCompile>
+    <ClCompile Include="WMPlayer.cpp">
+      <Filter>Map Objects\WorldMap</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -262,6 +274,15 @@
     </ClInclude>
     <ClInclude Include="IntroScene.h">
       <Filter>Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="WorldScene.h">
+      <Filter>Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="WMObject.h">
+      <Filter>Map Objects\WorldMap</Filter>
+    </ClInclude>
+    <ClInclude Include="WMPlayer.h">
+      <Filter>Map Objects\WorldMap</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

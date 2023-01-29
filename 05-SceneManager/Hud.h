@@ -49,6 +49,9 @@
 #define SPRITE_FONT_Y_ID				50047
 #define SPRITE_FONT_Z_ID				50048
 
+#define PLAYSCENE_HUD	0
+#define WORLDSCENE_HUD	1
+
 class HUD :public CGameObject {
 
 public:
