@@ -2,6 +2,8 @@
 #include "Hud.h"
 #include <string>
 #include "PlayScene.h"
+#include "WorldScene.h"
+#include "IntroScene.h"
 
 #define HUD_DIFF_P				15
 #define HUD_DIFF_ROW			4	
@@ -82,24 +84,45 @@ vector<LPSPRITE> HUD::StringToSprite(string str)
 }
 
 HUD::HUD(int typeHUD) {
+	this->typeHud = typeHUD;
 	initFonts();
 	playerSprite = CSprites::GetInstance()->Get(SPRITE_ICONMARIO_ID);
 	PAni = CAnimations::GetInstance()->Get(ANI_P_ID);
-	for (unsigned int i = 0; i < MARIO_RUNNING_STACKS - 1; i++)
-		powerMelterSprite.push_back((CSprites::GetInstance()->Get(SPRITE_FILLARROW_ID)));
+	int sceneId = CGame::GetInstance()->GetCurrentScene()->GetSceneId();
+	CPlayScene* currentScene = (CPlayScene*)CGame::GetInstance()->GetCurrentScene();
+	if (typeHUD == 1) {
+		this->marioLife = 4;
+		this->score = 0;
+		this->money = 0;
+		mariolifeSprites = StringToSprite(to_string(marioLife));
+		moneySprites = StringToSprite(to_string(money));
+		string score_str = to_string(score);
+		while (score_str.length() < HUD_SCORE_MAX) score_str = "0" + score_str;
+		scoreSprites = StringToSprite(score_str);
+		string time_str = to_string(DEFAULT_TIME);
+		while (time_str.length() < HUD_TIME_MAX) time_str = "0" + time_str;
+		remainTimeSprites = StringToSprite(time_str);
+	}
+	else {
+		LoadBackUpHud();
+		for (unsigned int i = 0; i < MARIO_RUNNING_STACKS - 1; i++)
+			powerMelterSprite.push_back((CSprites::GetInstance()->Get(SPRITE_FILLARROW_ID)));
+	}
 }
 
 void HUD::Render() {
 	CSprites::GetInstance()->Get(SPRITE_HUD_ID)->Draw(x, y);
 
-	for (int i = 1; i <= speedStack; i++) {
-		if (i == MARIO_RUNNING_STACKS) {
-			if (PAni != nullptr)
-				PAni->Render(x - HUD_DIFF_P, y - HUD_DIFF_ROW);
-		}
-		else
-		{
-			powerMelterSprite[i - 1]->Draw(x + FONT_BBOX_WIDTH * (i - 1) - HUD_DIFF_METTER, y - 4);
+	if (typeHud == 0) {
+		for (int i = 1; i <= speedStack; i++) {
+			if (i == MARIO_RUNNING_STACKS) {
+				if (PAni != nullptr)
+					PAni->Render(x - HUD_DIFF_P, y - HUD_DIFF_ROW);
+			}
+			else
+			{
+				powerMelterSprite[i - 1]->Draw(x + FONT_BBOX_WIDTH * (i - 1) - HUD_DIFF_METTER, y - 4);
+			}
 		}
 	}
 	// for coin
@@ -126,11 +149,12 @@ void HUD::Render() {
 }
 
 void HUD::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects) {
-	AddSpeedStack();
-	AddCoin();
-	AddLife();
-	AddScore();
-
+	if (typeHud == 0) {
+		AddSpeedStack();
+		AddCoin();
+		AddLife();
+		AddScore();
+	}
 	// for mario life
 	mariolifeSprites = StringToSprite(to_string(marioLife));
 
@@ -169,4 +193,12 @@ void HUD::AddLife() {
 void HUD::AddScore() {
 	if (mario != NULL)
 		this->score = mario->marioScore;
+}
+
+void HUD::LoadBackUpHud() {
+	if (mario != NULL) {
+		this->marioLife = mario->marioLife;
+		this->score = mario->marioScore;
+		this->money = mario->coin;
+	}
 }

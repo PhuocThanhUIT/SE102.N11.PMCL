@@ -17,7 +17,7 @@ class CWorldScene : public CScene
 {
 protected:
 	CMap* current_map = NULL;
-	HUD* hud = NULL;
+	HUD* hud;
 	vector<LPGAMEOBJECT> objects;
 	CWorldPlayer* player = NULL;
 

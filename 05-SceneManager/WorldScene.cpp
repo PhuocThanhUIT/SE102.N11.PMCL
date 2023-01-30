@@ -17,6 +17,7 @@ using namespace std;
 CWorldScene::CWorldScene(int id, LPCWSTR filePath) :
 	CScene(id, filePath)
 {
+	hud = NULL;
 	key_handler = new CWorldSceneKeyHandler(this);
 }
 

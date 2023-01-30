@@ -34,6 +34,7 @@ public:
 	float vx;
 	float vy;
 	int isBlocking = 1;
+	int typeHud;
 	void SetTag(int tag) { this->tag = tag; }
 	void SetActive(bool active) { this->isActive = active; }
 	void SetPosition(float x, float y) { this->x = x, this->y = y; }

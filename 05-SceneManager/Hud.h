@@ -64,7 +64,6 @@ public:
 	vector<LPSPRITE> mariolifeSprites;
 	vector<LPSPRITE> scoreSprites;
 	vector<LPSPRITE> powerMelterSprite;
-
 	int speedStack = 0;
 	int money = 0;
 	int time = 0;
@@ -73,7 +72,7 @@ public:
 	int score = 0;
 	LPANIMATION PAni = NULL;
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects = NULL);
-	HUD(int type_hud = 0);
+	HUD(int typeHud);
 	virtual void Render();
 	virtual void GetBoundingBox(float& left, float& top, float& right, float& bottom) {};
 	void AddSpeedStack();
@@ -81,6 +80,10 @@ public:
 	void AddLife();
 	void AddScore();
 	void initFonts();
+	int GetTypeHub() {
+		return this->typeHud;
+	}
+	void LoadBackUpHud();
 	LPSPRITE mappingFont(char c);
 	vector<LPSPRITE> StringToSprite(string str);
 };
