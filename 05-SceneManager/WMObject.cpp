@@ -14,10 +14,7 @@ void CWorldMapObject::Render()
 	animation_set->at(0)->Render(x, y);
 	RenderBoundingBox();
 }
-void CWorldMapObject::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
-{
-	CGameObject::Update(dt);
-}
+
 void CWorldMapObject::GetBoundingBox(float& left, float& top, float& right, float& bottom)
 {
 	if (tag != OBJECT_TYPE_BUSH)

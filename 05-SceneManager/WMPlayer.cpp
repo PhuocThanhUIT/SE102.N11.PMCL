@@ -28,8 +28,9 @@ void CWorldPlayer::GetBoundingBox(float& left, float& top, float& right, float& 
 
 void CWorldPlayer::OnNoCollision(DWORD dt)
 {
-	x += vx * dt;
-	y += vy * dt;
+	//x += vx * dt;
+	//y += vy * dt;
+	
 };
 
 void CWorldPlayer::OnCollisionWith(LPCOLLISIONEVENT e)
@@ -77,6 +78,8 @@ void CWorldPlayer::SetState(int state)
 	switch (state)
 	{
 	case PLAYER_STATE_IDLE:
+		start_x = x;
+		start_y = y;
 		vx = vy = 0;
 		break;
 	case PLAYER_STATE_RIGHT:

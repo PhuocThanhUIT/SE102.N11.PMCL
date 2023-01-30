@@ -270,16 +270,8 @@ void CWorldScene::Update(DWORD dt)
 	vector<LPGAMEOBJECT> coObjects;
 	for (size_t i = 1; i < objects.size(); i++)
 	{
-		if (!objects[i]->IsDeleted())
-			coObjects.push_back(objects[i]);
-		else
-		{
-			LPGAMEOBJECT tmp = objects[i];
-			objects.erase(objects.begin() + i);
-			delete tmp;
-			i--;
-		}
 
+			coObjects.push_back(objects[i]);
 	}
 
 	for (size_t i = 0; i < objects.size(); i++)
