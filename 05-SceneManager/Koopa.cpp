@@ -6,6 +6,8 @@
 #include "PlayScene.h"
 #include "QuestionBrick.h"
 #include "BreakBrick.h"
+#include "PiranhaPlantFire.h"
+
 
 CKoopa::CKoopa(int tag){
 	CPlayScene* currentScene = (CPlayScene*)CGame::GetInstance()->GetCurrentScene();
@@ -65,8 +67,14 @@ void CKoopa::OnCollisionWith(LPCOLLISIONEVENT e)
 	if (dynamic_cast<CGoomba*>(e->obj)) OnCollisionWithGoomba(e);
 	if (dynamic_cast<CQuestionBrick*>(e->obj)) OnCollisionWithQuestionBrick(e);
 	if (dynamic_cast<BreakableBrick*>(e->obj)) OnCollisionWithBreakableBrick(e);
+	if (dynamic_cast<CPiranhaPlantFire*>(e->obj)) OnCollisionWithPiranhaPlamtFire(e);
 }
-
+void CKoopa::OnCollisionWithPiranhaPlamtFire(LPCOLLISIONEVENT e) {
+	CPiranhaPlantFire* plant = dynamic_cast<CPiranhaPlantFire*>(e->obj);
+	if (state == KOOPA_STATE_SPIN) {
+		plant->SetState(PIRANHAPLANT_STATE_DEATH);
+	}
+}
 void CKoopa::OnCollisionWithQuestionBrick(LPCOLLISIONEVENT e) {
 	CQuestionBrick* qsbrick = dynamic_cast<CQuestionBrick*>(e->obj);
 	if (e->nx!=0&&qsbrick->GetState() != QUESTION_BRICK_STATE_AFTER_MARIO_PUSH_UP && state==KOOPA_STATE_SPIN) {

@@ -59,6 +59,7 @@ public:
 	void OnCollisionWithGoomba(LPCOLLISIONEVENT e);
 	void OnCollisionWithQuestionBrick(LPCOLLISIONEVENT e);
 	void OnCollisionWithBreakableBrick(LPCOLLISIONEVENT e);
+	void OnCollisionWithPiranhaPlamtFire(LPCOLLISIONEVENT e);
 	int GetAniIdKoopa();
 	bool CalTurnable(LPGAMEOBJECT object);
 	bool SetIsBeingHeld(bool beingheld) { return this->isBeingHeld = beingheld; }
