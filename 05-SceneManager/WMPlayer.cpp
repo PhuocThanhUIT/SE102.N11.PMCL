@@ -28,8 +28,8 @@ void CWorldPlayer::GetBoundingBox(float& left, float& top, float& right, float& 
 
 void CWorldPlayer::OnNoCollision(DWORD dt)
 {
-	//x += vx * dt;
-	//y += vy * dt;
+	x += vx * dt;
+	y += vy * dt;
 	
 };
 
@@ -40,9 +40,10 @@ void CWorldPlayer::OnCollisionWith(LPCOLLISIONEVENT e)
 		vy = 0;
 		DebugOut(L"is blocking \n");
 	}
-	SetState(PLAYER_STATE_IDLE);
+	
 	if (e->obj->tag == OBJECT_TYPE_PORTAL || e->obj->tag == OBJECT_TYPE_STOP)
 	{
+		SetState(PLAYER_STATE_IDLE);
 		OnCollisionWithPOT(e);
 	}
 }
@@ -63,15 +64,15 @@ void CWorldPlayer::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
 	// Calculate dx, dy 
 	CGameObject::Update(dt);
-	x += vx * dt;
-	y += vy * dt;
+	//x += vx * dt;
+	//y += vy * dt;
 	CCollision::GetInstance()->Process(this, dt, coObjects);
 
 }
 void CWorldPlayer::Render()
 {
 	animation_set->at(level - 1)->Render(x, y);
-	RenderBoundingBox();
+	//RenderBoundingBox();
 }
 void CWorldPlayer::SetState(int state)
 {

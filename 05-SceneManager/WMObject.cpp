@@ -1,5 +1,5 @@
 #include "WMObject.h"
-
+#include "debug.h"
 CWorldMapObject::CWorldMapObject(int sceneId)
 {
 	vx = vy = 0;
@@ -12,9 +12,20 @@ void CWorldMapObject::Render()
 		animation_set->at(1)->Render(x, y);
 	else
 	animation_set->at(0)->Render(x, y);
-	RenderBoundingBox();
+	//RenderBoundingBox();
 }
+void CWorldMapObject::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
+{
+	x += vx * dt;
+	if (tag == OBJECT_TYPE_HAMMER && x >= HAMMER_LIMIT_RIGHT && vx>0) {
+		vx = -vx;
+	}
+	if (tag == OBJECT_TYPE_HAMMER && x <= HAMMET_LIMIT_LEFT && vx<0) {
+		vx = -vx;
+	}
 
+	CGameObject::Update(dt);
+}
 void CWorldMapObject::GetBoundingBox(float& left, float& top, float& right, float& bottom)
 {
 	if (tag != OBJECT_TYPE_BUSH)
