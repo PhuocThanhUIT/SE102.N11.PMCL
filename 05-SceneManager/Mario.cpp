@@ -46,7 +46,7 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 	tail->Update(dt, coObjects);
 	//isOnPlatform = false;
 	
-
+	DebugOutTitle(L"state:%i", state);
 	CCollision::GetInstance()->Process(this, dt, coObjects);
 }
 int CMario::GetMarioDirection() {
@@ -325,10 +325,18 @@ int CMario::GetAniIdSmall()
 		else
 			if (vx == 0)
 			{	
-				if (nx > 0)
+				if (nx > 0) {
 					aniId = MARIO_ANI_SMALL_IDLE_RIGHT;
-				else
+					if (!isOnPlatform) {
+						aniId = MARIO_ANI_SMALL_JUMPINGUP_RIGHT;
+					}
+				}
+				else {
 					aniId = MARIO_ANI_SMALL_IDLE_LEFT;
+					if (!isOnPlatform) {
+						aniId = MARIO_ANI_SMALL_JUMPINGUP_LEFT;
+					}
+				}	
 			}
 			else if (vx > 0)
 			{
@@ -428,11 +436,17 @@ int CMario::GetAniIdBig()
 					if (isHolding) {
 						aniId = MARIO_ANI_BIG_HOLD_IDLE_RIGHT;
 					}
+					if (!isOnPlatform) {
+						aniId = MARIO_ANI_BIG_JUMPINGUP_RIGHT;
+					}
 				}
 				else {
 					aniId = MARIO_ANI_BIG_IDLE_LEFT;
 					if (isHolding) {
 						aniId = MARIO_ANI_BIG_HOLD_IDLE_LEFT;
+					}
+					if (!isOnPlatform) {
+						aniId = MARIO_ANI_BIG_JUMPINGUP_RIGHT;
 					}
 				}
 			}
@@ -561,9 +575,15 @@ int CMario::GetAniIdTail()
 			{
 				if (nx > 0) {
 					aniId = MARIO_ANI_TAIL_IDLE_RIGHT;
+					if (!isOnPlatform) {
+						aniId = MARIO_ANI_TAIL_JUMPINGUP_RIGHT;
+					}
 				}
 				else {
 					aniId = MARIO_ANI_TAIL_IDLE_LEFT;
+					if (!isOnPlatform) {
+						aniId = MARIO_ANI_TAIL_JUMPINGUP_RIGHT;
+					}
 				}
 			}
 			else if (vx > 0)
@@ -794,7 +814,6 @@ void CMario::HandleFinishMap() {
 	}
 }
 void CMario::HandleSwitchMap() {
-	DebugOutTitle(L"vy:%f,ay:%f,x:%f,y:%f", vy, ay, x,y);
 	if (isSitting && isSwitchMap && isPipeDown)
 	{
 		// mario go down
