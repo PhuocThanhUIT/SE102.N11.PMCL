@@ -111,6 +111,7 @@ void CKoopa::OnCollisionWithBreakableBrick(LPCOLLISIONEVENT e) {
 		if (e->nx != 0) {
 			BreakableBrick* brk = dynamic_cast<BreakableBrick*>(e->obj);
 			brk->Break();
+			mario->AddScore(brk->x, brk->y, 100);
 		}
 	}
 	if (state == KOOPA_STATE_NORMAL && tag == KOOPA_RED)
@@ -183,8 +184,9 @@ void CKoopa::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 				GetBoundingBox(oLeft, oTop, oRight, oBottom);
 				if (isColliding(floor(mLeft), mTop, ceil(mRight), mBottom))
 				{
-					nx = mario->nx;
+					vx = -mario->nx*vx;
 					SetState(KOOPA_STATE_DIE);
+					mario->AddScore(x, y, 100);
 				}
 			}
 		}

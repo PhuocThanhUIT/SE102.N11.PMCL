@@ -26,6 +26,7 @@ void BreakableBrick::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects) {
 			if (isColliding(floor(mLeft), mTop, ceil(mRight), mBottom))
 			{
 				this->Break();
+				mario->AddScore(x, y, 100);
 			}
 		}
 	}

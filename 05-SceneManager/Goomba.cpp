@@ -128,9 +128,9 @@ void CGoomba::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 				GetBoundingBox(oLeft, oTop, oRight, oBottom);
 				if (isColliding(floor(mLeft), mTop, ceil(mRight), mBottom))
 				{
-					nx = mario->nx;
-					DebugOut(L"goomba red turn level by mario tail \n");
+					vx = -mario->nx*vx;
 					SetState(GOOMBA_STATE_DIE_BY_KOOPA);
+					mario->AddScore(x, y, 100);
 				}
 			}
 		}

@@ -60,6 +60,7 @@ void CPiranhaPlant::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects) {
 			if (isColliding(floor(mLeft), mTop, ceil(mRight), mBottom))
 			{
 				SetState(PIRANHAPLANT_STATE_DEATH);
+				mario->AddScore(x, y, 100);
 			}
 		}
 	}
