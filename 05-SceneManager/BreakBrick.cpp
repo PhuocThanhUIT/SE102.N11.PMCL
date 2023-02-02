@@ -3,6 +3,7 @@
 #include "Coin.h"
 #include "PlayScene.h"
 #include "PieceBrick.h"
+#include "Mario.h"
 
 void BreakableBrick::Render()
 {
@@ -12,7 +13,23 @@ void BreakableBrick::Render()
 }
 
 void BreakableBrick::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects) {
-	//
+	if (isDeleted)
+		return;
+	CPlayScene* currentScene = (CPlayScene*)CGame::GetInstance()->GetCurrentScene();
+	CMario* mario = currentScene->GetPlayer();
+	float mLeft, mTop, mRight, mBottom;
+	float oLeft, oTop, oRight, oBottom;
+	if (mario != NULL && state != GOOMBA_STATE_DIE && state != GOOMBA_STATE_DIE_BY_KOOPA) {
+		if (mario->isTailAttack && mario->level == MARIO_LEVEL_TAIL) {
+			mario->tail->GetBoundingBox(mLeft, mTop, mRight, mBottom);
+			GetBoundingBox(oLeft, oTop, oRight, oBottom);
+			if (isColliding(floor(mLeft), mTop, ceil(mRight), mBottom))
+			{
+				this->Break();
+			}
+		}
+	}
+	CGameObject::Update(dt);
 }
 
 void BreakableBrick::Break() {
