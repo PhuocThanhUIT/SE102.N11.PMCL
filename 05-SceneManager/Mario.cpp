@@ -191,7 +191,7 @@ void CMario::OnCollisionWithKoopa(LPCOLLISIONEVENT e)
 			}	
 		}
 		else {
-			if (untouchable == 0)
+			if (untouchable == 0 && koopa->GetState()!=KOOPA_STATE_DIE)
 			{
 					if (level > MARIO_LEVEL_SMALL)
 					{
@@ -536,7 +536,7 @@ int CMario::GetAniIdTail()
 				aniId = MARIO_ANI_TAIL_WALKING_FAST_LEFT;
 		}
 	}
-	if (state == MARIO_STATE_JUMP || state == MARIO_STATE_RELEASE_JUMP || isHolding || isTailAttack) {
+	if (state == MARIO_STATE_JUMP || state == MARIO_STATE_RELEASE_JUMP || isHolding || isTailAttack || isFlapping) {
 		if (nx > 0) {
 			aniId = MARIO_ANI_TAIL_JUMPINGUP_RIGHT;
 			if (isTailFlying) {
