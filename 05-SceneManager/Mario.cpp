@@ -446,7 +446,7 @@ int CMario::GetAniIdBig()
 						aniId = MARIO_ANI_BIG_HOLD_IDLE_LEFT;
 					}
 					if (!isOnPlatform) {
-						aniId = MARIO_ANI_BIG_JUMPINGUP_RIGHT;
+						aniId = MARIO_ANI_BIG_JUMPINGUP_LEFT;
 					}
 				}
 			}
@@ -582,7 +582,7 @@ int CMario::GetAniIdTail()
 				else {
 					aniId = MARIO_ANI_TAIL_IDLE_LEFT;
 					if (!isOnPlatform) {
-						aniId = MARIO_ANI_TAIL_JUMPINGUP_RIGHT;
+						aniId = MARIO_ANI_TAIL_JUMPINGUP_LEFT;
 					}
 				}
 			}
