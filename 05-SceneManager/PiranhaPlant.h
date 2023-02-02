@@ -3,7 +3,7 @@
 #include "Utils.h"
 #include "debug.h"
 
-#define PIRANHAPLANT_BBOX_WIDTH					20
+#define PIRANHA_BBOX_WIDTH					20
 #define PIRANHAPLANT_BBOX_HEIGHT				24
 
 #define PIRANHAPLANT_BBOX_HEIGHT_ANI			28
@@ -11,7 +11,8 @@
 #define PIRANHAPLANT_STATE_IDLE					0
 
 #define PIRANHAPLANT_ANI_IDLE					0
-#define PIRANHAPLANT_ANI_DEATH					1
+
+#define PIRANHA_ANI_DEATH					1
 
 #define PIRANHAPLANT_DARTING_SPEED				0.03f
 

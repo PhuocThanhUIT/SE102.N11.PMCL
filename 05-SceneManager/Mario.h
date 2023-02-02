@@ -300,6 +300,7 @@ public:
 		isOnPlatform = false;
 		coin = 0;
 		marioLife = 4;
+		cardItemSc = 0;
 		tail = new CTail(180, y);
 	}
 	void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);

@@ -5,9 +5,9 @@
 void CPiranhaPlant::GetBoundingBox(float& left, float& top,
 	float& right, float& bottom)
 {
-	left = x - PIRANHAPLANT_BBOX_WIDTH/2;
+	left = x - PIRANHA_BBOX_WIDTH/2;
 	top = y - PIRANHAPLANT_BBOX_HEIGHT/2;
-	right = left + PIRANHAPLANT_BBOX_WIDTH;
+	right = left + PIRANHA_BBOX_WIDTH;
 	bottom = top + PIRANHAPLANT_BBOX_HEIGHT;
 }
 
@@ -70,7 +70,7 @@ void CPiranhaPlant::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects) {
 
 void CPiranhaPlant::Render()
 {
-	int ani = PIRANHAPLANT_ANI_DEATH;
+	int ani = PIRANHA_ANI_DEATH;
 	if (state != PIRANHAPLANT_STATE_DEATH && dying_start == 0)
 		ani = PIRANHAPLANT_ANI_IDLE;
 	animation_set->at(ani)->Render(x, y);

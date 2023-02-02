@@ -31,12 +31,6 @@ CPlayScene::CPlayScene(int id, LPCWSTR filePath):
 }
 
 
-#define SCENE_SECTION_UNKNOWN -1
-#define SCENE_SECTION_ANIMATIONS 1
-#define SCENE_SECTION_OBJECTS	2
-#define SCENE_SECTION_SPRITES 3
-#define SCENE_SECTION_ANIMATION_SETS 4
-#define SCENE_SECTION_TILEMAP_DATA	5
 
 
 
@@ -82,7 +76,7 @@ void CPlayScene::_ParseSection_ANIMATIONS(string line)
 	LPANIMATION ani = new CAnimation();
 
 	int ani_id = atoi(tokens[0].c_str());
-	for (int i = 1; i < tokens.size(); i += 2)	// why i+=2 ?  sprite_id | frame_time  
+	for (unsigned int i = 1; i < unsigned(tokens.size()); i += 2)	// why i+=2 ?  sprite_id | frame_time  
 	{
 		int sprite_id = atoi(tokens[i].c_str());
 		int frame_time = atoi(tokens[i+1].c_str());
@@ -307,7 +301,7 @@ void CPlayScene::Update(DWORD dt)
 		coObjects.push_back(objects[i]);
 	}
 
-	for (int i = 1; i < objects.size(); i++)
+	for (unsigned int i = 1; i < unsigned(objects.size()); i++)
 	{
 		objects[i]->Update(dt, &coObjects);
 	}
@@ -338,7 +332,7 @@ void CPlayScene::SetCam(float cx, float cy, DWORD dt) {
 		cx = 0;
 	if (cx >= mw - sw)//Right Edge
 		cx = mw - sw;
-	for (int i = 0; i < objects.size(); i++)
+	for (unsigned int i = 0; i < unsigned(objects.size()); i++)
 	{
 		if (cx < objects[i]->getX()&& objects[i]->getX() < cx + sw) {
 			objects[i]->SetActive(true);
@@ -372,7 +366,7 @@ void CPlayScene::Render()
 {
 	current_map->DrawMap();
 	player->Render();
-	for (int i = 0; i < objects.size(); i++)
+	for (unsigned int i = 0; i < unsigned(objects.size()); i++)
 		objects[i]->Render();
 	hud->Render();
 
@@ -414,7 +408,7 @@ void CPlayScene::Clear()
 */
 void CPlayScene::Unload()
 {
-	for (int i = 0; i < objects.size(); i++)
+	for (unsigned int i = 0; i < unsigned(objects.size()); i++)
 		delete objects[i];
 
 	objects.clear();

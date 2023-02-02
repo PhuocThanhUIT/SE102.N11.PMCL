@@ -6,8 +6,6 @@
 
 class CTail :public CGameObject
 {
-	float ax;
-	float ay;
 public:
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects = NULL);
 	virtual void Render();

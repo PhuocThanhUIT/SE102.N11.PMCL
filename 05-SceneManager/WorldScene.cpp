@@ -119,16 +119,16 @@ void CWorldScene::_ParseSection_OBJECTS(string line)
 	if (tokens.size() < 3) return; // skip invalid lines - an object set must have at least id, x, y
 	int tag = 0, option_tag_1 = 0, option_tag_2 = 0;
 	int object_type = atoi(tokens[0].c_str());
-	float x = atof(tokens[1].c_str());
-	float y = atof(tokens[2].c_str());
+	float x = (float)atof(tokens[1].c_str());
+	float y = (float)atof(tokens[2].c_str());
 
 	int ani_set_id = atoi(tokens[3].c_str());
 	if (tokens.size() >= 5)
-		tag = atof(tokens[4].c_str());
+		tag = atoi(tokens[4].c_str());
 	if (tokens.size() >= 6)
-		option_tag_1 = atof(tokens[5].c_str());
+		option_tag_1 = atoi(tokens[5].c_str());
 	if (tokens.size() >= 7)
-		option_tag_2 = atof(tokens[6].c_str());
+		option_tag_2 = atoi(tokens[6].c_str());
 
 
 	CAnimationSets* animation_sets = CAnimationSets::GetInstance();

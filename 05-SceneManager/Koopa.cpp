@@ -239,8 +239,6 @@ void CKoopa::Render()
 {
 	if (isDeleted) return;
 	int aniId = GetAniIdKoopa();
-	switch (tag) {
-	}
 	animation_set->at(aniId)->Render(x, y);
 	
 	//RenderBoundingBox();
