@@ -46,7 +46,7 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 	tail->Update(dt, coObjects);
 	//isOnPlatform = false;
 	
-	DebugOutTitle(L"state:%i", state);
+	DebugOutTitle(L"isSitting:%i,isReadySwitch:%i", isSitting,isReadySwitchMap);
 	CCollision::GetInstance()->Process(this, dt, coObjects);
 }
 int CMario::GetMarioDirection() {
@@ -827,15 +827,16 @@ void CMario::HandleSwitchMap() {
 		vx = vy = 0;
 		ay = MARIO_GRAVITY_PIPE;
 		StopPipeDown();
-		
+		isReadySwitchMap = false;
 	}
-	if (isSwitchMap && isPipeUp)
+	if (isSwitchMap && isPipeUp && !isOnPlatform)
 	{
 		// mario go up
 		CGame::GetInstance()->SwitchExtraScene(portal->GetSceneId(), portal->start_x, portal->start_y);
 		vx = vy = 0;
 		ay = MARIO_GRAVITY_PIPE;
 		StopPipeUp();
+		isReadySwitchMap = false;
 	}
 }
 void CMario::HandleFlying() {
