@@ -108,7 +108,6 @@ void CMario::OnCollisionWith(LPCOLLISIONEVENT e)
 void CMario::OnCollisionWithHiddenBrick(LPCOLLISIONEVENT e) {
 	CHiddenBrick* hdbrick = dynamic_cast<CHiddenBrick*>(e->obj);
 	if (e->ny < 0 ) {
-		vy = 0;
 		hdbrick->SetIsBlocking(1);
 	}
 }
