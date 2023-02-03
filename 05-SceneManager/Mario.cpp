@@ -162,7 +162,12 @@ void CMario::OnCollisionWithMushRoom(LPCOLLISIONEVENT e) {
 	CMushRoom* mushroom = dynamic_cast<CMushRoom*>(e->obj);
 	AddScore(mushroom->x, mushroom->y, 1000);
 	mushroom->SetState(MUSHROOM_STATE_DELETE);
-	this->SetLevel(MARIO_LEVEL_BIG);
+	if (mushroom->tag != MUSHROOM_GREEN) {
+		this->SetLevel(MARIO_LEVEL_BIG);
+	}
+	else {
+		marioLife += 1;
+	}
 }
 void CMario::OnCollisionWithKoopa(LPCOLLISIONEVENT e)
 {
