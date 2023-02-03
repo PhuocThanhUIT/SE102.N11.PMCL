@@ -96,6 +96,7 @@ void CPiranhaPlant::SetState(int _state)
 		break;
 	case PIRANHAPLANT_STATE_DEATH:
 		vy = 0;
+		StartDying();
 		break;
 	}
 }
