@@ -200,8 +200,8 @@ void CKoopa::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 void CKoopa::HandleBeingHeld(LPGAMEOBJECT object) {
 	CMario* mario = dynamic_cast<CMario*>(object);
 	if (mario->isHolding && this->isBeingHeld) {
-		if(mario->nx>0) x = mario->x + MARIO_SMALL_BBOX_WIDTH*mario->nx -3.0f;
-		else  x = mario->x + MARIO_SMALL_BBOX_WIDTH*mario->nx;
+		if (mario->nx > 0) x = mario->x + MARIO_BIG_BBOX_WIDTH * mario->nx - 3.0f;
+		else  x = mario->x + MARIO_BIG_BBOX_WIDTH * mario->nx;
 		y = mario->y - 2.0f;
 	}
 	else if(!mario->isHolding && this->isBeingHeld) {

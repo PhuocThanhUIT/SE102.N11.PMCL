@@ -44,9 +44,7 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 	}
 
 	tail->Update(dt, coObjects);
-	//isOnPlatform = false;
 	
-	DebugOutTitle(L"isSitting:%i,isReadySwitch:%i", isSitting,isReadySwitchMap);
 	CCollision::GetInstance()->Process(this, dt, coObjects);
 }
 int CMario::GetMarioDirection() {
@@ -102,6 +100,16 @@ void CMario::OnCollisionWith(LPCOLLISIONEVENT e)
 	}
 	else if (dynamic_cast<CardItem*>(e->obj)) {
 		OnCollisionWithPCardItem(e);
+	}
+	else if (dynamic_cast<CHiddenBrick*>(e->obj)) {
+		OnCollisionWithHiddenBrick(e);
+	}
+}
+void CMario::OnCollisionWithHiddenBrick(LPCOLLISIONEVENT e) {
+	CHiddenBrick* hdbrick = dynamic_cast<CHiddenBrick*>(e->obj);
+	if (e->ny < 0 ) {
+		vy = 0;
+		hdbrick->SetIsBlocking(1);
 	}
 }
 void CMario::OnCollisionWithPCardItem(LPCOLLISIONEVENT e) {
@@ -410,17 +418,17 @@ int CMario::GetAniIdBig()
 				aniId = MARIO_ANI_BIG_WALKING_FAST_LEFT;
 		}
 	}
-	if (state == MARIO_STATE_JUMP || state == MARIO_STATE_RELEASE_JUMP) {
+	if (state == MARIO_STATE_JUMP || state == MARIO_STATE_RELEASE_JUMP || isHolding) {
 		if (nx > 0) {
 			aniId = MARIO_ANI_BIG_JUMPINGUP_RIGHT;
 			if (isHolding) {
-				aniId = MARIO_ANI_BIG_HOLD_JUMPINGUP_RIGHT;
+				aniId = MARIO_ANI_BIG_HOLD_RUNNING_RIGHT;
 			}
 		}
 		if (nx < 0) {
 			aniId = MARIO_ANI_BIG_JUMPINGUP_LEFT;
 			if (isHolding) {
-				aniId = MARIO_ANI_BIG_HOLD_JUMPINGUP_LEFT;
+				aniId = MARIO_ANI_BIG_HOLD_RUNNING_LEFT;
 			}
 		}
 	}
@@ -541,7 +549,7 @@ int CMario::GetAniIdTail()
 				aniId = MARIO_ANI_TAIL_WALKING_FAST_LEFT;
 		}
 	}
-	if (state == MARIO_STATE_JUMP || state == MARIO_STATE_RELEASE_JUMP || isHolding || isTailAttack || isFlapping) {
+	if (state == MARIO_STATE_JUMP || state == MARIO_STATE_RELEASE_JUMP || isHolding || isTailFlying || isFlapping||isTailFlyFlapping) {
 		if (nx > 0) {
 			aniId = MARIO_ANI_TAIL_JUMPINGUP_RIGHT;
 			if (isTailFlying) {
@@ -550,6 +558,7 @@ int CMario::GetAniIdTail()
 			if (isFlapping) {
 				aniId = MARIO_ANI_TAIL_FLAPPING_RIGHT;
 			}
+			else if (isTailFlyFlapping) aniId = MARIO_ANI_TAIL_FLY_FLAPPING_RIGHT;
 			else if (isHolding) {
 				aniId = MARIO_ANI_TAIL_HOLD_RUNNING_RIGHT;
 			}
@@ -561,6 +570,7 @@ int CMario::GetAniIdTail()
 			}
 			if (isFlapping)
 				aniId = MARIO_ANI_TAIL_FLAPPING_LEFT;
+			else if (isTailFlyFlapping) aniId = MARIO_ANI_TAIL_FLY_FLAPPING_LEFT;
 			else if (isHolding) {
 				aniId = MARIO_ANI_TAIL_HOLD_RUNNING_LEFT;
 			}
@@ -827,7 +837,6 @@ void CMario::HandleSwitchMap() {
 		vx = vy = 0;
 		ay = MARIO_GRAVITY_PIPE;
 		StopPipeDown();
-		isReadySwitchMap = false;
 	}
 	if (isSwitchMap && isPipeUp && !isOnPlatform)
 	{
@@ -836,7 +845,6 @@ void CMario::HandleSwitchMap() {
 		vx = vy = 0;
 		ay = MARIO_GRAVITY_PIPE;
 		StopPipeUp();
-		isReadySwitchMap = false;
 	}
 }
 void CMario::HandleFlying() {
@@ -856,6 +864,7 @@ void CMario::HandleFlying() {
 		}
 		else {
 			ay = MARIO_GRAVITY;
+			isTailFlyFlapping = false;
 		}
 	}
 	if (GetTickCount64() - tail_fly_start > MARIO_FLYING_TIME && tail_fly_start != 0 && isTailFlying)
