@@ -91,11 +91,23 @@ CGameObject* CQuestionBrick::SetUpItem(int itemType) {
 	}
 	case ITEM_LEAF_QUESTION_BRICK:
 	{
-		obj = new CLeaf(x,y - LEAF_BBOX_HEIGHT);
-		obj->SetState(LEAF_STATE_UP);
-		ani_set_id = LEAF_ANI_SET_ID;
-		LPANIMATION_SET ani_set = animation_sets->Get(ani_set_id);
-		obj->SetAnimationSet(ani_set);
+		if (mario->level == MARIO_LEVEL_BIG) {
+			obj = new CLeaf(x, y - LEAF_BBOX_HEIGHT);
+			obj->SetState(LEAF_STATE_UP);
+			ani_set_id = LEAF_ANI_SET_ID;
+			LPANIMATION_SET ani_set = animation_sets->Get(ani_set_id);
+			obj->SetAnimationSet(ani_set);
+		}
+		else {
+			obj = new CMushRoom(x, y);
+			if (mario->level != MARIO_LEVEL_SMALL) {
+				obj->SetTag(MUSHROOM_GREEN);
+			}
+			ani_set_id = MUSHROOM_ANI_SET_ID;
+			obj->SetState(MUSHROOM_STATE_IDLE);
+			LPANIMATION_SET ani_set = animation_sets->Get(ani_set_id);
+			obj->SetAnimationSet(ani_set);
+		}
 		break;
 	}
 	case ITEM_SWITCH_QUESTION_BRICK:
