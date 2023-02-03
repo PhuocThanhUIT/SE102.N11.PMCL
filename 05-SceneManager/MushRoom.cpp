@@ -56,7 +56,10 @@ void CMushRoom::Render()
 {
 	if (isDeleted) return;
 	int aniId = 0;
-	animation_set->at(0)->Render(x, y);
+	if (this->tag == MUSHROOM_GREEN) {
+		aniId = 1;
+	}
+	animation_set->at(aniId)->Render(x, y);
 	//RenderBoundingBox();
 }
 

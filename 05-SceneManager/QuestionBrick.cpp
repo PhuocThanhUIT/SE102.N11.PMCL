@@ -80,6 +80,9 @@ CGameObject* CQuestionBrick::SetUpItem(int itemType) {
 	case ITEM_MUSHROOM_QUESTION_BRICK:
 	{
 		obj = new CMushRoom(x,y);
+		if (mario->level != MARIO_LEVEL_SMALL) {
+			obj->SetTag(MUSHROOM_GREEN);
+		}
 		ani_set_id = MUSHROOM_ANI_SET_ID;
 		obj->SetState(MUSHROOM_STATE_IDLE);
 		LPANIMATION_SET ani_set = animation_sets->Get(ani_set_id);
