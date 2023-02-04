@@ -62,7 +62,9 @@ void CMario::OnCollisionWith(LPCOLLISIONEVENT e)
 		if (e->ny != 0 && e->obj->IsBlocking())
 		{
 			vy = 0;
-			if (e->ny < 0) isOnPlatform = true;
+			if (e->ny < 0) { 
+				isOnPlatform = true;
+			}
 		}
 		else
 			if (e->nx != 0 && e->obj->IsBlocking())
@@ -121,13 +123,13 @@ void CMario::OnCollisionWithPCardItem(LPCOLLISIONEVENT e) {
 }
 void CMario::OnCollisionWithSwitch(LPCOLLISIONEVENT e) {
 	Switch* sw = dynamic_cast<Switch*>(e->obj);
-	if (e->ny < 0) {
+	//if (e->ny < 0) {
 		if (sw->GetState() != SWITCH_STATE_PRESSED) {
 			sw->SetState(SWITCH_STATE_PRESSED);
 			sw->Delete();
 			vy = -MARIO_JUMP_DEFLECT_SPEED;
 		}
-	}
+	//}
 }
 void CMario::OnCollisionWithLeaf(LPCOLLISIONEVENT e) {
 	CLeaf* leaf = dynamic_cast<CLeaf*>(e->obj);
@@ -824,7 +826,7 @@ void CMario::HandleFinishMap() {
 		ay = MARIO_GRAVITY;
 		nx = 1;
 		vx = MARIO_WALKING_SPEED;
-		DebugOut(L"Mario collision with Card and go to right - end game \n");
+		//DebugOut(L"Mario collision with Card and go to right - end game \n");
 		SetState(MARIO_STATE_WALKING_RIGHT);
 	}
 }
@@ -899,7 +901,7 @@ void CMario::HandleMarioJump() {
 }
 
 void CMario::HandleSpeedStack() {
-	if (GetTickCount64() - start_running > MARIO_RUNNING_STACK_TIME && vx != 0 && isReadyToRun && (!isFlying&&!isTailFlying||isOnPlatform)) {
+	if (GetTickCount64() - start_running > MARIO_RUNNING_STACK_TIME && vx != 0 && isReadyToRun && (!isFlying&&!isTailFlying&&isOnPlatform)) {
 		start_running = GetTickCount64();
 		speedStack++;
 		if (speedStack >= MARIO_RUNNING_STACKS) {

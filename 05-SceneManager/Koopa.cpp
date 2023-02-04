@@ -81,6 +81,18 @@ void CKoopa::OnCollisionWithQuestionBrick(LPCOLLISIONEVENT e) {
 		qsbrick->ShowItem(qsbrick->tag);
 		qsbrick->SetState(QUESTION_BRICK_STATE_AFTER_MARIO_PUSH_UP);
 	}
+	if (state == KOOPA_STATE_NORMAL && tag == KOOPA_RED && e->ny < 0) {
+		if (vx > 0 && x >= e->obj->x + 4)
+			if (CalTurnable(e->obj))
+			{
+				vx = -vx;
+			}
+		if (vx < 0 && x <= e->obj->x - 4)
+			if (CalTurnable(e->obj))
+			{
+				vx = -vx;
+			}
+	}
 }
 void CKoopa::OnCollisionWithGoomba(LPCOLLISIONEVENT e) {
 	CGoomba* goomba = dynamic_cast<CGoomba*>(e->obj);
@@ -92,7 +104,7 @@ void CKoopa::OnCollisionWithGoomba(LPCOLLISIONEVENT e) {
 
 }
 void CKoopa::OnCollisionWithHiddenBrick(LPCOLLISIONEVENT e) {
-	if ( state == KOOPA_STATE_NORMAL && tag == KOOPA_RED)
+	if ( state == KOOPA_STATE_NORMAL && tag == KOOPA_RED && e->ny<0)
 	{
 		if (vx > 0 && x >= e->obj->x+4)
 			if (CalTurnable(e->obj))
@@ -114,7 +126,7 @@ void CKoopa::OnCollisionWithBreakableBrick(LPCOLLISIONEVENT e) {
 			mario->AddScore(brk->x, brk->y, 100);
 		}
 	}
-	if (state == KOOPA_STATE_NORMAL && tag == KOOPA_RED)
+	if (state == KOOPA_STATE_NORMAL && tag == KOOPA_RED && e->ny<0)
 	{
 		if (vx > 0 && x >= e->obj->x + 4)
 			if (CalTurnable(e->obj))

@@ -328,10 +328,12 @@ void CWorldSceneKeyHandler::OnKeyDown(int KeyCode)
 			if (player->cgDown)
 				player->SetState(PLAYER_STATE_DOWN);
 			break;
-		case DIK_A:
+		case DIK_S:
 		{
-			DebugOut(L"mario go to play scene \n");
-			player->GoToPlayScene();
+			if (player->readySwitchScene) {
+				DebugOut(L"mario go to play scene \n");
+				player->GoToPlayScene();
+			}
 		}
 
 		break;

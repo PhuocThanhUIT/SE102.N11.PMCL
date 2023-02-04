@@ -33,6 +33,7 @@ class CWorldPlayer : public CGameObject
 public:
 	bool cgLeft, cgRight, cgUp, cgDown;
 	int sceneId;
+	BOOLEAN readySwitchScene = false;
 	CWorldPlayer(float x = 0.0f, float y = 0.0f);
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* colliable_objects = NULL);
 	virtual void Render();

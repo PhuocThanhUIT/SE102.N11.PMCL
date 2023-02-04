@@ -200,7 +200,7 @@ void CPlayScene::_ParseObjFromFile(LPCWSTR path) {
 
 
 		default:
-			DebugOut(L"[ERROR] Invalid object type: %d\n", object_type);
+			//DebugOut(L"[ERROR] Invalid object type: %d\n", object_type);
 			continue;
 		}
 
@@ -334,7 +334,7 @@ void CPlayScene::SetCam(float cx, float cy, DWORD dt) {
 		cx = mw - sw;
 	for (unsigned int i = 0; i < unsigned(objects.size()); i++)
 	{
-		if (cx < objects[i]->getX()&& objects[i]->getX() < cx + sw) {
+		if (cx < objects[i]->getX()&& objects[i]->getX() < cx + sw+100) {
 			objects[i]->SetActive(true);
 		}
 	}
@@ -374,7 +374,7 @@ void CPlayScene::Render()
 	if (mario->isFinish) {
 		CSprites::GetInstance()->Get(GAMEDONE1_SPRITE_ID)->Draw(2688, 270);
 		CSprites::GetInstance()->Get(GAMEDONE1_SPRITE_ID_1)->Draw(2688, 300);
-		DebugOut(L"mario->cardItemSc: %d \n", mario->cardItemSc);
+		//DebugOut(L"mario->cardItemSc: %d \n", mario->cardItemSc);
 		if (mario->cardItemSc == 1) {
 			CSprites::GetInstance()->Get(CARD_MUSHROOM)->Draw(2750, 300);
 		}

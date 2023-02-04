@@ -55,9 +55,9 @@ void CWorldPlayer::OnCollisionWithPOT(LPCOLLISIONEVENT e)
 	tmp->GetMove(cl, cu, cr, cd);
 	SetMove(cl, cu, cr, cd);
 	if (e->obj->tag == OBJECT_TYPE_PORTAL)
-		sceneId = tmp->GetSceneId();
+		readySwitchScene = true;
 	else
-		sceneId = -1;
+		readySwitchScene = false;
 }
 
 void CWorldPlayer::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)

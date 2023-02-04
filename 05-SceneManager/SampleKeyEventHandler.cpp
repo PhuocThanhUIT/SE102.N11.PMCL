@@ -19,7 +19,7 @@ void CSampleKeyHandler::OnKeyDown(int KeyCode)
 	case DIK_S:
 		if (mario->isTailFlying && mario->level==MARIO_LEVEL_TAIL && mario->y>30) {
 			mario->vy = -0.035f;
-			mario->ay = -0.005f;
+			mario->ay = -0.003f;
 			mario->StartMinTailFlying();
 		}
 		else if (mario->level == MARIO_LEVEL_TAIL && !mario->isOnPlatform)

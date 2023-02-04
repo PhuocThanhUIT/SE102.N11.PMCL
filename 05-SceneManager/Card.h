@@ -19,7 +19,7 @@ class CardItem : public CGameObject
 {
 public:
 	int state = 0;
-	DWORD start = 0;
+	ULONGLONG start = 0;
 	CardItem();
 	~CardItem();
 	virtual void Render();
