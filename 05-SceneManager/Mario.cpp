@@ -42,6 +42,7 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 		untouchable_start = 0;
 		untouchable = 0;
 	}
+	DebugOutTitle(L"vy:%f,ay:%f",vy,ay);
 
 	tail->Update(dt, coObjects);
 	
@@ -851,14 +852,15 @@ void CMario::HandleSwitchMap() {
 void CMario::HandleFlying() {
 	if (level != -5) {
 		if (isTailFlying||isFlying)
-		{
+		{	
 			if (GetTickCount64() - tail_fly_min_start < MARIO_FLYING_TIME_MIN) {
-					ay = 0.00f;
-					isTailFlyFlapping = true;
+				isTailFlyFlapping = true;
+				if (vy <= -MARIO_FLY_MAX) {
+					ay = 0.0005f;
+				}
 			}
 			else {
 				if (vy <= -MARIO_FLY_MAX) {
-					isTailFlyFlapping = false;
 					ay = 0.0005f;
 				}
 			}
@@ -871,11 +873,15 @@ void CMario::HandleFlying() {
 	if (GetTickCount64() - tail_fly_start > MARIO_FLYING_TIME && tail_fly_start != 0 && isTailFlying)
 	{
 		tail_fly_start = 0;
+		speedStack = 0;
+		isRunning = false;
 		isTailFlying = false;
 	}
 	if (GetTickCount64() - fly_start > MARIO_FLYING_TIME && fly_start != 0 && isFlying)
 	{
 		fly_start = 0;
+		speedStack = 0;
+		isRunning = false;
 		isFlying = false;
 	}
 }
@@ -909,7 +915,7 @@ void CMario::HandleSpeedStack() {
 			speedStack = MARIO_RUNNING_STACKS;
 		}
 	}
-	if (GetTickCount64() - start_running > MARIO_RUNNING_STACK_TIME && (!isReadyToRun || vx == 0||isFlying||isTailFlying))
+	if (GetTickCount64() - start_running > MARIO_RUNNING_STACK_TIME && (vx == 0))
 	{
 		isRunning = false;
 		start_running = GetTickCount64();

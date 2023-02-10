@@ -18,13 +18,16 @@ void CSampleKeyHandler::OnKeyDown(int KeyCode)
 		break;
 	case DIK_S:
 		if (mario->isTailFlying && mario->level==MARIO_LEVEL_TAIL && mario->y>30) {
-			mario->vy = -0.035f;
-			mario->ay = -0.003f;
+			if (mario->isOnPlatform) {
+				mario->vy = -0.035f;
+			}
+			mario->ay = -0.0005f;
 			mario->StartMinTailFlying();
 		}
 		else if (mario->level == MARIO_LEVEL_TAIL && !mario->isOnPlatform)
 			mario->isFlapping = true;
 		else {
+			if(mario->isOnPlatform)
 			mario->SetState(MARIO_STATE_JUMP);
 		}
 		break;
